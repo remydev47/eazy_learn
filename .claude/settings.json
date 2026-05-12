@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git ls-tree *)",
+      "Bash(git status *)",
+      "Bash(git rm *)",
+      "Bash(node -e \"const l=require\\('./node_modules/.package-lock.json'||'./package-lock.json'\\); console.log\\('ok'\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('next:', d['version']\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('react:', d['version']\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('lucide-react:', d['version']\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('recharts:', d['version']\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('@base-ui/react:', d['version']\\)\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('package-lock.json'\\)\\); print\\('lockfileVersion:', d.get\\('lockfileVersion'\\)\\); print\\('npm version hint:', d.get\\('packages',{}\\).get\\('',{}\\).get\\('name',''\\)\\)\")",
+      "Bash(python3 -c ' *)"
+    ],
+    "additionalDirectories": [
+      "/Users/brianrimi/Documents/deploy/EazytechLMS/frontend/.git",
+      "/Users/brianrimi/Documents/deploy/EazytechLMS/frontend"
+    ]
+  }
+}
