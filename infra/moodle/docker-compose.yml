@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ezay-moodle-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-moodle}
+      POSTGRES_USER: ${POSTGRES_USER:-moodle}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-moodle_dev_pw}
+    volumes:
+      - moodle_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-moodle} -d ${POSTGRES_DB:-moodle}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - moodlenet
+
+  moodle:
+    # Bitnami removed `bitnami/moodle` from Docker Hub in Aug 2025 — they now require a
+    # paid Secure Images subscription. `bitnamilegacy/moodle:latest` is the free archive
+    # of their last-published image (Moodle 5.0.1 as of writing).
+    image: bitnamilegacy/moodle:latest
+    container_name: ezay-moodle-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${MOODLE_HTTP_PORT:-8080}:8080"
+      - "${MOODLE_HTTPS_PORT:-8443}:8443"
+    environment:
+      MOODLE_DATABASE_TYPE: pgsql
+      MOODLE_DATABASE_HOST: postgres
+      MOODLE_DATABASE_PORT_NUMBER: 5432
+      MOODLE_DATABASE_NAME: ${POSTGRES_DB:-moodle}
+      MOODLE_DATABASE_USER: ${POSTGRES_USER:-moodle}
+      MOODLE_DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-moodle_dev_pw}
+      MOODLE_USERNAME: ${MOODLE_ADMIN_USER:-admin}
+      MOODLE_PASSWORD: ${MOODLE_ADMIN_PASSWORD:-EzayAdmin123!}
+      MOODLE_EMAIL: ${MOODLE_ADMIN_EMAIL:-admin@ezaytech.local}
+      MOODLE_SITE_NAME: ${MOODLE_SITE_NAME:-Ezay Tech LMS}
+      MOODLE_HOST: ${MOODLE_HOST:-localhost}
+      MOODLE_SKIP_BOOTSTRAP: "no"
+      BITNAMI_DEBUG: "true"
+      ALLOW_EMPTY_PASSWORD: "no"
+    volumes:
+      - moodle_data:/bitnami/moodle
+      - moodle_files:/bitnami/moodledata
+    networks:
+      - moodlenet
+
+volumes:
+  moodle_db:
+  moodle_data:
+  moodle_files:
+
+networks:
+  moodlenet:
+    driver: bridge

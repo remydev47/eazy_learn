@@ -1,14 +1,21 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { courses, getCourseBySlug } from "@/lib/courses";
+import { getCatalog, getCatalogCourseBySlug } from "@/lib/moodle/catalog";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import CourseCard from "@/components/CourseCard";
 
-export function generateStaticParams() {
-  return courses.map((c) => ({ slug: c.slug }));
+export async function generateStaticParams() {
+  // Pre-render slugs that exist at build time. New courses added in Moodle
+  // after deploy will still render on-demand thanks to dynamic params.
+  try {
+    const catalog = await getCatalog();
+    return catalog.map((c) => ({ slug: c.slug }));
+  } catch {
+    return [];
+  }
 }
 
 interface Props {
@@ -17,7 +24,7 @@ interface Props {
 
 export default async function CourseDetailPage({ params }: Props) {
   const { slug } = await params;
-  const course = getCourseBySlug(slug);
+  const course = await getCatalogCourseBySlug(slug);
 
   if (!course) notFound();
 
@@ -26,13 +33,14 @@ export default async function CourseDetailPage({ params }: Props) {
     ? `${moodleUrl}/course/view.php?id=${course.moodleId}`
     : `${moodleUrl}/login/signup.php`;
 
-  const related = courses
+  // "Continue your learning journey" — pick two other courses from the same
+  // category. Cheap because getCatalog is cached.
+  const catalog = await getCatalog();
+  const related = catalog
     .filter((c) => c.id !== course.id && c.category === course.category)
     .slice(0, 2);
 
-  const promoCards = [
-    ...related,
-  ];
+  const promoCards = [...related];
 
   const courseIncludes = [
     { icon: "video", label: `${course.duration} on-demand video` },
