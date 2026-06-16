@@ -134,7 +134,7 @@ export default function InstructorCoursesPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/">
-            <span className="text-xl font-bold text-[#FF510E]">EazyTech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
             Academic Portal
@@ -150,7 +150,7 @@ export default function InstructorCoursesPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -174,7 +174,7 @@ export default function InstructorCoursesPage() {
 
         {/* Top bar */}
         <div className="bg-white border-b border-slate-100 px-6 flex items-center justify-between h-14 shrink-0">
-          <Link href="/dashboard/instructor" className="text-base font-bold text-[#FF510E]">
+          <Link href="/dashboard/instructor" className="text-base font-bold text-[#1A6EF5]">
             EazyTech
           </Link>
           <div className="flex items-center gap-3">
@@ -183,7 +183,7 @@ export default function InstructorCoursesPage() {
               <input
                 type="text"
                 placeholder="Search courses..."
-                className="pl-8 pr-3 h-8 text-sm bg-slate-50 border border-slate-200 rounded-lg w-48 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50"
+                className="pl-8 pr-3 h-8 text-sm bg-slate-50 border border-slate-200 rounded-lg w-48 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50"
               />
             </div>
             <button className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
@@ -209,7 +209,7 @@ export default function InstructorCoursesPage() {
                 Manage your academic content and student engagement.
               </p>
             </div>
-            <button className="inline-flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
+            <button className="inline-flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
               <Plus className="w-4 h-4" />
               Create New Course
             </button>
@@ -224,7 +224,7 @@ export default function InstructorCoursesPage() {
                   onClick={() => setActiveTab(tab)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                     activeTab === tab
-                      ? "bg-[#FF510E] text-white"
+                      ? "bg-[#1A6EF5] text-white"
                       : "text-slate-500 hover:text-slate-800 hover:bg-slate-100"
                   }`}
                 >
@@ -322,7 +322,7 @@ export default function InstructorCoursesPage() {
                               ${course.revenue?.toLocaleString()}.00
                             </span>
                           </div>
-                          <button className="flex items-center gap-1 text-sm font-semibold text-[#FF510E] hover:underline">
+                          <button className="flex items-center gap-1 text-sm font-semibold text-[#1A6EF5] hover:underline">
                             Manage Content
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
@@ -333,7 +333,7 @@ export default function InstructorCoursesPage() {
                             <Pencil className="w-3.5 h-3.5" />
                             <span className="text-sm">Work in progress</span>
                           </div>
-                          <button className="flex items-center gap-1 text-sm font-semibold text-[#FF510E] hover:underline">
+                          <button className="flex items-center gap-1 text-sm font-semibold text-[#1A6EF5] hover:underline">
                             Edit Draft
                             <ArrowRight className="w-3.5 h-3.5" />
                           </button>
@@ -368,7 +368,7 @@ export default function InstructorCoursesPage() {
             {/* Instructor Rating card — 1 col */}
             <div className="bg-slate-700 rounded-2xl p-6 flex flex-col">
               <div className="mb-4">
-                <Star className="w-7 h-7 text-[#FF510E] fill-[#FF510E]" />
+                <Star className="w-7 h-7 text-[#1A6EF5] fill-[#1A6EF5]" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Instructor Rating</h3>
               <p className="text-sm text-slate-400 leading-relaxed flex-1">
@@ -381,7 +381,7 @@ export default function InstructorCoursesPage() {
                 </div>
                 <div className="h-1.5 bg-slate-600 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-[#FF510E] rounded-full"
+                    className="h-full bg-[#1A6EF5] rounded-full"
                     style={{ width: "98%" }}
                   />
                 </div>

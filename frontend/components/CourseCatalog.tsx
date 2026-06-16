@@ -19,7 +19,7 @@ export default function CourseCatalog() {
     <section className="py-20 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <p className="text-xs font-semibold tracking-widest text-[#FF510E] uppercase mb-2">
+          <p className="text-xs font-semibold tracking-widest text-[#1A6EF5] uppercase mb-2">
             Full Catalog
           </p>
           <h2 className="text-3xl font-bold text-slate-900 mb-3">Explore Every Discipline</h2>

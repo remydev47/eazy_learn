@@ -60,12 +60,12 @@ export default function CurriculumAccordion({ curriculum }: Props) {
                   <div
                     key={li}
                     className={`flex items-center justify-between px-5 py-3.5 ${
-                      lesson.current ? "bg-[#FF510E]/5 border-l-2 border-[#FF510E]" : ""
+                      lesson.current ? "bg-[#1A6EF5]/5 border-l-2 border-[#1A6EF5]" : ""
                     }`}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       {lesson.type === "video" ? (
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${lesson.current ? "bg-[#FF510E]" : "bg-slate-100"}`}>
+                        <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 ${lesson.current ? "bg-[#1A6EF5]" : "bg-slate-100"}`}>
                           <svg className={`w-3 h-3 ml-0.5 ${lesson.current ? "text-white" : "text-slate-500"}`} fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z" />
                           </svg>
@@ -77,11 +77,11 @@ export default function CurriculumAccordion({ curriculum }: Props) {
                           </svg>
                         </div>
                       )}
-                      <span className={`text-xs leading-snug truncate ${lesson.current ? "text-[#FF510E] font-semibold" : "text-slate-700"}`}>
+                      <span className={`text-xs leading-snug truncate ${lesson.current ? "text-[#1A6EF5] font-semibold" : "text-slate-700"}`}>
                         {lesson.title}
                       </span>
                     </div>
-                    <span className={`text-xs shrink-0 ml-4 ${lesson.current ? "text-[#FF510E] font-semibold" : "text-slate-400"}`}>
+                    <span className={`text-xs shrink-0 ml-4 ${lesson.current ? "text-[#1A6EF5] font-semibold" : "text-slate-400"}`}>
                       {lesson.duration}
                     </span>
                   </div>

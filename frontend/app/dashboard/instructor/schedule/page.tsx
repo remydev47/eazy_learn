@@ -19,7 +19,7 @@ const nav = [
 ];
 
 const events = [
-  { day: "Mon", date: "Oct 28", time: "10:00 AM", title: "Live Q&A — UI/UX Fundamentals",      students: 84,  type: "Live Session", color: "bg-[#FF510E]" },
+  { day: "Mon", date: "Oct 28", time: "10:00 AM", title: "Live Q&A — UI/UX Fundamentals",      students: 84,  type: "Live Session", color: "bg-[#1A6EF5]" },
   { day: "Tue", date: "Oct 29", time: "11:59 PM", title: "Assignment deadline — Unit 4",        students: 248, type: "Deadline",     color: "bg-rose-500"  },
   { day: "Wed", date: "Oct 30", time: "2:00 PM",  title: "Office Hours — Career Development",   students: 12,  type: "Office Hours", color: "bg-emerald-500" },
   { day: "Thu", date: "Oct 31", time: "3:00 PM",  title: "Video upload — Module 7 recording",   students: 0,   type: "Task",         color: "bg-slate-400" },
@@ -36,7 +36,7 @@ export default function InstructorSchedulePage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
@@ -46,7 +46,7 @@ export default function InstructorSchedulePage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -75,7 +75,7 @@ export default function InstructorSchedulePage() {
           </div>
           <div className="flex items-center gap-2">
             <button className="px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">← Prev</button>
-            <button className="px-4 py-2 text-sm bg-[#FF510E] text-white rounded-lg hover:bg-orange-600 transition-colors">This week</button>
+            <button className="px-4 py-2 text-sm bg-[#1A6EF5] text-white rounded-lg hover:bg-blue-600 transition-colors">This week</button>
             <button className="px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">Next →</button>
             <button className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-900 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors ml-2">
               <Plus className="w-3.5 h-3.5" />Add Event
@@ -104,8 +104,8 @@ export default function InstructorSchedulePage() {
                     return (
                       <div key={d} className="border-r border-slate-50 last:border-0 h-12 relative">
                         {hasEvent && (
-                          <div className="absolute inset-1 rounded-md bg-[#FF510E]/10 border border-[#FF510E]/30 flex items-center px-1.5">
-                            <span className="text-[10px] font-semibold text-[#FF510E] truncate">Session</span>
+                          <div className="absolute inset-1 rounded-md bg-[#1A6EF5]/10 border border-[#1A6EF5]/30 flex items-center px-1.5">
+                            <span className="text-[10px] font-semibold text-[#1A6EF5] truncate">Session</span>
                           </div>
                         )}
                       </div>

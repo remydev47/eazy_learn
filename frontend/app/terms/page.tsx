@@ -85,7 +85,7 @@ export default function TermsPage() {
             <p className="text-sm font-semibold text-slate-900 mb-1">Legal enquiries</p>
             <p className="text-sm text-slate-600">
               For legal questions, contact us at{" "}
-              <a href="mailto:support@eazytech.com" className="text-[#FF510E] hover:underline font-medium">
+              <a href="mailto:support@eazytech.com" className="text-[#1A6EF5] hover:underline font-medium">
                 support@eazytech.com
               </a>
               . We respond to all legal enquiries within 5 business days.

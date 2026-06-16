@@ -19,7 +19,7 @@ const nav = [
 ];
 
 const upcoming = [
-  { day: "Mon", date: "Oct 28", time: "10:00 AM", title: "Live Q&A — UI/UX Fundamentals", type: "Live Session", color: "bg-[#FF510E]" },
+  { day: "Mon", date: "Oct 28", time: "10:00 AM", title: "Live Q&A — UI/UX Fundamentals", type: "Live Session", color: "bg-[#1A6EF5]" },
   { day: "Tue", date: "Oct 29", time: "11:59 PM", title: "Assignment: User Research Report", type: "Deadline", color: "bg-rose-500" },
   { day: "Wed", date: "Oct 30", time: "2:00 PM",  title: "Peer Review — Data Visualisation", type: "Peer Review", color: "bg-blue-500" },
   { day: "Thu", date: "Oct 31", time: "11:59 PM", title: "Quiz: Machine Learning Basics", type: "Quiz", color: "bg-amber-500" },
@@ -35,7 +35,7 @@ export default function StudentSchedulePage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/">
-            <span className="text-xl font-bold text-[#FF510E]">EazyTech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
@@ -45,7 +45,7 @@ export default function StudentSchedulePage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -67,7 +67,7 @@ export default function StudentSchedulePage() {
           </div>
           <div className="flex items-center gap-2">
             <button className="px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">← Prev</button>
-            <button className="px-4 py-2 text-sm bg-[#FF510E] text-white rounded-lg hover:bg-orange-600 transition-colors">This week</button>
+            <button className="px-4 py-2 text-sm bg-[#1A6EF5] text-white rounded-lg hover:bg-blue-600 transition-colors">This week</button>
             <button className="px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">Next →</button>
           </div>
         </div>
@@ -95,8 +95,8 @@ export default function StudentSchedulePage() {
                     return (
                       <div key={d} className="border-r border-slate-50 last:border-0 h-12 relative">
                         {hasEvent && (
-                          <div className="absolute inset-1 rounded-md bg-[#FF510E]/10 border border-[#FF510E]/30 flex items-center px-1.5">
-                            <span className="text-[10px] font-semibold text-[#FF510E] truncate">Session</span>
+                          <div className="absolute inset-1 rounded-md bg-[#1A6EF5]/10 border border-[#1A6EF5]/30 flex items-center px-1.5">
+                            <span className="text-[10px] font-semibold text-[#1A6EF5] truncate">Session</span>
                           </div>
                         )}
                       </div>

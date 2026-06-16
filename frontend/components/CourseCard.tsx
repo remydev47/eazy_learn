@@ -4,7 +4,7 @@ import type { CourseData } from "@/lib/courses";
 const levelColors: Record<string, string> = {
   Beginner: "bg-emerald-500",
   Intermediate: "bg-blue-500",
-  Advanced: "bg-[#FF510E]",
+  Advanced: "bg-[#1A6EF5]",
 };
 
 interface Props {
@@ -61,7 +61,7 @@ export default function CourseCard({ course, moodleUrl = "#", variant = "grid" }
           <span className="text-base font-bold text-slate-900">${course.price}.00</span>
           <a
             href={courseUrl}
-            className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-[#FF510E] transition-colors"
+            className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-[#1A6EF5] transition-colors"
           >
             {variant === "listing" ? "Enroll Now" : "View Course"}
           </a>

@@ -123,8 +123,8 @@ export default async function InstructorDashboardPage() {
       value: totalStudents.toLocaleString(),
       badge: `${taughtCourses.length} course${taughtCourses.length === 1 ? "" : "s"}`,
       icon: Users,
-      iconBg: "bg-orange-100",
-      iconColor: "text-[#FF510E]",
+      iconBg: "bg-blue-100",
+      iconColor: "text-[#1A6EF5]",
     },
     {
       label: "AVERAGE RATING",
@@ -149,8 +149,8 @@ export default async function InstructorDashboardPage() {
   const recentActivity = [
     {
       icon: UserCheck,
-      iconBg: "bg-[#FF510E]/10",
-      iconColor: "text-[#FF510E]",
+      iconBg: "bg-[#1A6EF5]/10",
+      iconColor: "text-[#1A6EF5]",
       text: (
         <>
           <span className="font-semibold">New student</span> enrolled in your course
@@ -181,7 +181,7 @@ export default async function InstructorDashboardPage() {
         <div className="px-5 py-5 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
         </div>
 
@@ -194,7 +194,7 @@ export default async function InstructorDashboardPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -248,7 +248,7 @@ export default async function InstructorDashboardPage() {
                 <button className="p-2 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
                   <Bell className="w-4 h-4 text-slate-600" />
                 </button>
-                <Button className="bg-[#FF510E] hover:bg-orange-600 text-white font-semibold gap-2">
+                <Button className="bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold gap-2">
                   <Plus className="w-4 h-4" />
                   Create Course
                 </Button>
@@ -292,7 +292,7 @@ export default async function InstructorDashboardPage() {
                   </div>
                   <select
                     defaultValue="Last 30 Days"
-                    className="text-sm border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30"
+                    className="text-sm border border-slate-200 rounded-lg px-3 py-1.5 text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30"
                   >
                     {periods.map((p) => (
                       <option key={p}>{p}</option>
@@ -304,7 +304,7 @@ export default async function InstructorDashboardPage() {
                 </div>
                 <div className="flex gap-5 mt-3">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-3 h-3 rounded-sm bg-[#FF510E]" />
+                    <div className="w-3 h-3 rounded-sm bg-[#1A6EF5]" />
                     <span className="text-xs text-slate-500">Watch time</span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -335,7 +335,7 @@ export default async function InstructorDashboardPage() {
                     );
                   })}
                 </div>
-                <button className="mt-5 text-sm text-[#FF510E] font-medium hover:underline">
+                <button className="mt-5 text-sm text-[#1A6EF5] font-medium hover:underline">
                   View all activity
                 </button>
               </div>
@@ -347,7 +347,7 @@ export default async function InstructorDashboardPage() {
                 <h2 className="text-lg font-bold text-slate-900">Your Courses</h2>
                 <Link
                   href="/dashboard/instructor/courses"
-                  className="text-sm text-[#FF510E] font-medium hover:underline"
+                  className="text-sm text-[#1A6EF5] font-medium hover:underline"
                 >
                   Manage all courses →
                 </Link>
@@ -395,7 +395,7 @@ export default async function InstructorDashboardPage() {
                       </div>
                       <div className="w-32 shrink-0">
                         <p className="text-xs text-slate-500 mb-1.5">Avg. Completion</p>
-                        <Progress value={course.completion} className="h-1.5 [&>div]:bg-[#FF510E]" />
+                        <Progress value={course.completion} className="h-1.5 [&>div]:bg-[#1A6EF5]" />
                       </div>
                       <div className="flex gap-1 shrink-0">
                         <a

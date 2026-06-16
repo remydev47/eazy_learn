@@ -34,7 +34,7 @@ const allUsers = [
   { id: 5, initials: "TM", color: "bg-emerald-600", name: "Tanya Mikhailov",   email: "tmikh@eazytech.com",    role: "ADMIN"      as Role, joined: "Jan 02, 2024", status: "Active"  as Status, courses: 0,  lastSeen: "Just now" },
   { id: 6, initials: "DW", color: "bg-teal-500",    name: "David Wei",         email: "dwei@gmail.com",        role: "STUDENT"    as Role, joined: "Sep 08, 2024", status: "Active"  as Status, courses: 7,  lastSeen: "3h ago" },
   { id: 7, initials: "FN", color: "bg-indigo-500",  name: "Fatima Ndiaye",     email: "f.ndiaye@univ.fr",      role: "INSTRUCTOR" as Role, joined: "Aug 14, 2024", status: "Active"  as Status, courses: 4,  lastSeen: "1h ago" },
-  { id: 8, initials: "PO", color: "bg-orange-500",  name: "Pavel Ostrovsky",   email: "p.ostrov@ru.edu",       role: "STUDENT"    as Role, joined: "Oct 22, 2024", status: "Pending" as Status, courses: 0,  lastSeen: "2d ago" },
+  { id: 8, initials: "PO", color: "bg-blue-500",  name: "Pavel Ostrovsky",   email: "p.ostrov@ru.edu",       role: "STUDENT"    as Role, joined: "Oct 22, 2024", status: "Pending" as Status, courses: 0,  lastSeen: "2d ago" },
 ];
 
 const securityLogs = [
@@ -122,7 +122,7 @@ export default function AdminUsersPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -137,7 +137,7 @@ export default function AdminUsersPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -209,7 +209,7 @@ export default function AdminUsersPage() {
                 <p className={`text-2xl font-bold mb-1 ${card.light ? "text-white" : "text-slate-900"}`}>
                   {card.value}
                 </p>
-                <p className={`text-xs ${card.light ? "text-[#FF510E]" : "text-slate-400"}`}>{card.delta}</p>
+                <p className={`text-xs ${card.light ? "text-[#1A6EF5]" : "text-slate-400"}`}>{card.delta}</p>
               </div>
             ))}
           </div>
@@ -225,7 +225,7 @@ export default function AdminUsersPage() {
                     onClick={() => { setRole(r); setPage(1); }}
                     className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                       roleFilter === r
-                        ? "bg-[#FF510E] text-white"
+                        ? "bg-[#1A6EF5] text-white"
                         : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
                     }`}
                   >
@@ -244,7 +244,7 @@ export default function AdminUsersPage() {
                   <Download className="w-3.5 h-3.5" />
                   Export
                 </button>
-                <button className="flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors">
+                <button className="flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors">
                   <Plus className="w-3.5 h-3.5" />
                   Add User
                 </button>
@@ -258,7 +258,7 @@ export default function AdminUsersPage() {
                   type="checkbox"
                   checked={allChecked}
                   onChange={toggleAll}
-                  className="w-4 h-4 rounded border-slate-300 accent-[#FF510E]"
+                  className="w-4 h-4 rounded border-slate-300 accent-[#1A6EF5]"
                 />
               </div>
               {["User", "Role", "Status", "Joined", ""].map((h) => (
@@ -271,7 +271,7 @@ export default function AdminUsersPage() {
               <div
                 key={user.id}
                 className={`grid grid-cols-[40px_2fr_1fr_1fr_1fr_80px] gap-4 px-6 py-4 border-b border-slate-50 items-center transition-colors ${
-                  selected.includes(user.id) ? "bg-orange-50/40" : "hover:bg-slate-50/60"
+                  selected.includes(user.id) ? "bg-blue-50/40" : "hover:bg-slate-50/60"
                 }`}
               >
                 <div className="flex items-center">
@@ -279,7 +279,7 @@ export default function AdminUsersPage() {
                     type="checkbox"
                     checked={selected.includes(user.id)}
                     onChange={() => toggle(user.id)}
-                    className="w-4 h-4 rounded border-slate-300 accent-[#FF510E]"
+                    className="w-4 h-4 rounded border-slate-300 accent-[#1A6EF5]"
                   />
                 </div>
                 {/* User info */}
@@ -308,7 +308,7 @@ export default function AdminUsersPage() {
                 </div>
                 {/* Actions */}
                 <div className="flex items-center gap-1 justify-end">
-                  <button className="text-xs font-medium text-[#FF510E] hover:underline px-2 py-1">Edit</button>
+                  <button className="text-xs font-medium text-[#1A6EF5] hover:underline px-2 py-1">Edit</button>
                   <button className="text-xs font-medium text-slate-400 hover:text-slate-600 px-2 py-1">View</button>
                 </div>
               </div>
@@ -335,7 +335,7 @@ export default function AdminUsersPage() {
                     key={p}
                     onClick={() => setPage(p)}
                     className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
-                      page === p ? "bg-[#FF510E] text-white" : "border border-slate-200 text-slate-600 hover:bg-slate-50"
+                      page === p ? "bg-[#1A6EF5] text-white" : "border border-slate-200 text-slate-600 hover:bg-slate-50"
                     }`}
                   >
                     {p}
@@ -357,11 +357,11 @@ export default function AdminUsersPage() {
             {/* Advanced User Insights */}
             <div className="col-span-1 bg-white rounded-2xl border border-slate-200 p-6">
               <div className="flex items-center gap-2 mb-4">
-                <Activity className="w-4 h-4 text-[#FF510E]" />
+                <Activity className="w-4 h-4 text-[#1A6EF5]" />
                 <h3 className="text-base font-bold text-slate-900">User Insights</h3>
               </div>
               {[
-                { label: "Completion Rate",    value: 68, color: "[&>div]:bg-[#FF510E]" },
+                { label: "Completion Rate",    value: 68, color: "[&>div]:bg-[#1A6EF5]" },
                 { label: "Avg. Session Time",  value: 82, color: "[&>div]:bg-blue-500" },
                 { label: "Retention (30d)",    value: 74, color: "[&>div]:bg-emerald-500" },
                 { label: "Mobile Users",       value: 56, color: "[&>div]:bg-violet-500" },
@@ -379,7 +379,7 @@ export default function AdminUsersPage() {
             {/* Security Log */}
             <div className="col-span-1 bg-white rounded-2xl border border-slate-200 p-6">
               <div className="flex items-center gap-2 mb-4">
-                <Shield className="w-4 h-4 text-[#FF510E]" />
+                <Shield className="w-4 h-4 text-[#1A6EF5]" />
                 <h3 className="text-base font-bold text-slate-900">Security Log</h3>
               </div>
               <div className="space-y-3">
@@ -400,14 +400,14 @@ export default function AdminUsersPage() {
             {/* Export Status */}
             <div className="col-span-1 bg-slate-800 rounded-2xl p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
-                <Download className="w-4 h-4 text-[#FF510E]" />
+                <Download className="w-4 h-4 text-[#1A6EF5]" />
                 <h3 className="text-base font-bold text-white">Export Data</h3>
               </div>
               <p className="text-sm text-slate-400 leading-relaxed flex-1">
                 Export the full user directory as CSV or XLSX for offline analysis.
               </p>
               <div className="mt-6 space-y-2">
-                <button className="w-full bg-[#FF510E] hover:bg-orange-600 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
+                <button className="w-full bg-[#1A6EF5] hover:bg-blue-600 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">
                   Export as CSV
                 </button>
                 <button className="w-full bg-slate-700 hover:bg-slate-600 text-white text-sm font-semibold py-2.5 rounded-lg transition-colors">

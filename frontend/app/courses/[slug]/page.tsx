@@ -61,7 +61,7 @@ export default async function CourseDetailPage({ params }: Props) {
               {/* Left */}
               <div>
                 {/* Badge */}
-                <div className="inline-flex items-center gap-2 bg-[#FF510E]/20 text-[#FF510E] text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
+                <div className="inline-flex items-center gap-2 bg-[#1A6EF5]/20 text-[#1A6EF5] text-xs font-semibold px-3 py-1.5 rounded-full mb-5">
                   <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                   </svg>
@@ -123,7 +123,7 @@ export default async function CourseDetailPage({ params }: Props) {
               {/* Course Overview */}
               <section>
                 <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3">
-                  <span className="w-1 h-6 bg-[#FF510E] rounded-full inline-block"></span>
+                  <span className="w-1 h-6 bg-[#1A6EF5] rounded-full inline-block"></span>
                   Course Overview
                 </h2>
                 <p className="text-sm text-slate-600 leading-relaxed">{course.overview}</p>
@@ -135,7 +135,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 <div className="grid sm:grid-cols-2 gap-3">
                   {course.whatYouLearn.map((item) => (
                     <div key={item} className="flex items-start gap-2.5">
-                      <svg className="w-4 h-4 text-[#FF510E] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-4 h-4 text-[#1A6EF5] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                       </svg>
                       <span className="text-xs text-slate-700 leading-relaxed">{item}</span>
@@ -147,7 +147,7 @@ export default async function CourseDetailPage({ params }: Props) {
               {/* Course Curriculum */}
               <section>
                 <h2 className="text-xl font-bold text-slate-900 mb-5 flex items-center gap-3">
-                  <span className="w-1 h-6 bg-[#FF510E] rounded-full inline-block"></span>
+                  <span className="w-1 h-6 bg-[#1A6EF5] rounded-full inline-block"></span>
                   Course Curriculum
                 </h2>
                 <CurriculumAccordion curriculum={course.curriculum} />
@@ -164,17 +164,17 @@ export default async function CourseDetailPage({ params }: Props) {
                   </div>
                   <div>
                     <h3 className="font-bold text-slate-900">{course.instructor.name}</h3>
-                    <p className="text-xs font-semibold text-[#FF510E] uppercase tracking-wide mb-3">
+                    <p className="text-xs font-semibold text-[#1A6EF5] uppercase tracking-wide mb-3">
                       {course.instructor.title}
                     </p>
                     <p className="text-sm text-slate-600 leading-relaxed">{course.instructor.bio}</p>
                     <div className="flex gap-3 mt-4">
-                      <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 hover:border-[#FF510E] hover:text-[#FF510E] transition-colors">
+                      <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 hover:border-[#1A6EF5] hover:text-[#1A6EF5] transition-colors">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                         </svg>
                       </button>
-                      <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 hover:border-[#FF510E] hover:text-[#FF510E] transition-colors">
+                      <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 hover:border-[#1A6EF5] hover:text-[#1A6EF5] transition-colors">
                         <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                         </svg>
@@ -199,7 +199,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                   <a
                     href={enrollUrl}
-                    className="block w-full bg-[#FF510E] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-orange-600 transition-colors mb-3"
+                    className="block w-full bg-[#1A6EF5] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-blue-600 transition-colors mb-3"
                   >
                     Enroll Now
                   </a>
@@ -231,7 +231,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-slate-800">Corporate Training?</p>
-                    <Link href="/enterprise" className="text-xs text-[#FF510E] font-medium hover:underline">
+                    <Link href="/enterprise" className="text-xs text-[#1A6EF5] font-medium hover:underline">
                       Get EazyTech for your team
                     </Link>
                   </div>
@@ -266,7 +266,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 ))}
 
                 {/* EazyTech Pro promo card */}
-                <div className="bg-[#FF510E] rounded-xl p-7 flex flex-col justify-between text-white">
+                <div className="bg-[#1A6EF5] rounded-xl p-7 flex flex-col justify-between text-white">
                   <div>
                     <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mb-5">
                       <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">

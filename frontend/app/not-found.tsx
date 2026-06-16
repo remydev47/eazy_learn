@@ -25,7 +25,7 @@ export default function NotFound() {
               404
             </p>
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="bg-[#FF510E] text-white text-sm font-bold px-5 py-2 rounded-full shadow-lg">
+              <div className="bg-[#1A6EF5] text-white text-sm font-bold px-5 py-2 rounded-full shadow-lg">
                 Page not found
               </div>
             </div>
@@ -44,7 +44,7 @@ export default function NotFound() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="border border-slate-200 hover:border-[#FF510E]/40 hover:bg-orange-50/50 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:text-[#FF510E] transition-colors"
+                className="border border-slate-200 hover:border-[#1A6EF5]/40 hover:bg-blue-50/50 rounded-xl px-4 py-3 text-sm font-medium text-slate-700 hover:text-[#1A6EF5] transition-colors"
               >
                 {link.label}
               </Link>
@@ -53,7 +53,7 @@ export default function NotFound() {
 
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors"
+            className="inline-flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold px-8 py-3.5 rounded-xl transition-colors"
           >
             ← Back to home
           </Link>

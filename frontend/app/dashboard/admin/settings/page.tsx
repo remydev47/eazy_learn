@@ -65,7 +65,7 @@ export default function AdminSettingsPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -80,7 +80,7 @@ export default function AdminSettingsPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -140,7 +140,7 @@ export default function AdminSettingsPage() {
                 onClick={() => setActiveTab(id)}
                 className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   activeTab === id
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
                 }`}
               >
@@ -171,7 +171,7 @@ export default function AdminSettingsPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">Default Language</label>
-                    <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20">
+                    <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20">
                       <option>English (US)</option>
                       <option>French</option>
                       <option>Spanish</option>
@@ -179,7 +179,7 @@ export default function AdminSettingsPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">Timezone</label>
-                    <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20">
+                    <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20">
                       <option>UTC+0 — London</option>
                       <option>UTC-5 — New York</option>
                       <option>UTC+1 — Paris</option>
@@ -187,7 +187,7 @@ export default function AdminSettingsPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">Currency</label>
-                    <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20">
+                    <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20">
                       <option>USD — US Dollar</option>
                       <option>EUR — Euro</option>
                       <option>GBP — British Pound</option>
@@ -294,7 +294,7 @@ export default function AdminSettingsPage() {
               <div className="grid grid-cols-2 gap-5">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">Provider</label>
-                  <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20">
+                  <select className="w-full h-10 border border-slate-200 rounded-lg px-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20">
                     <option>Resend</option>
                     <option>SendGrid</option>
                     <option>SMTP</option>
@@ -331,7 +331,7 @@ export default function AdminSettingsPage() {
                     </div>
                     <button
                       onClick={() => setTwoFA(!twoFA)}
-                      className={`relative w-12 h-6 rounded-full transition-colors ${twoFA ? "bg-[#FF510E]" : "bg-slate-200"}`}
+                      className={`relative w-12 h-6 rounded-full transition-colors ${twoFA ? "bg-[#1A6EF5]" : "bg-slate-200"}`}
                     >
                       <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${twoFA ? "translate-x-7" : "translate-x-1"}`} />
                     </button>
@@ -344,7 +344,7 @@ export default function AdminSettingsPage() {
                     </div>
                     <button
                       onClick={() => setEmailVerify(!emailVerify)}
-                      className={`relative w-12 h-6 rounded-full transition-colors ${emailVerify ? "bg-[#FF510E]" : "bg-slate-200"}`}
+                      className={`relative w-12 h-6 rounded-full transition-colors ${emailVerify ? "bg-[#1A6EF5]" : "bg-slate-200"}`}
                     >
                       <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${emailVerify ? "translate-x-7" : "translate-x-1"}`} />
                     </button>
@@ -388,7 +388,7 @@ export default function AdminSettingsPage() {
                         className={`text-xs font-semibold px-4 py-1.5 rounded-lg transition-colors ${
                           plugin.connected
                             ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
-                            : "bg-[#FF510E] text-white hover:bg-orange-600"
+                            : "bg-[#1A6EF5] text-white hover:bg-blue-600"
                         }`}
                       >
                         {plugin.connected ? "Connected" : "Connect"}
@@ -413,7 +413,7 @@ export default function AdminSettingsPage() {
                 <div className="text-right">
                   <p className="text-2xl font-bold text-white">$48.20</p>
                   <p className="text-xs text-slate-400">estimated this month</p>
-                  <button className="mt-2 text-xs font-semibold text-[#FF510E] hover:underline">Manage Instance →</button>
+                  <button className="mt-2 text-xs font-semibold text-[#1A6EF5] hover:underline">Manage Instance →</button>
                 </div>
               </div>
             </div>
@@ -427,7 +427,7 @@ export default function AdminSettingsPage() {
               className={`inline-flex items-center gap-2 font-semibold text-sm px-6 py-2.5 rounded-lg transition-all ${
                 saved
                   ? "bg-emerald-500 text-white"
-                  : "bg-[#FF510E] hover:bg-orange-600 text-white"
+                  : "bg-[#1A6EF5] hover:bg-blue-600 text-white"
               }`}
             >
               {saved ? (

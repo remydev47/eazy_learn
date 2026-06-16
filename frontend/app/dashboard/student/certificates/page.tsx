@@ -23,7 +23,7 @@ const certs = [
     grade: "Distinction",
     completed: "Sep 14, 2024",
     credential: "EZT-2024-78321",
-    color: "from-[#FF510E] to-orange-700",
+    color: "from-[#1A6EF5] to-blue-700",
   },
   {
     id: 2,
@@ -53,7 +53,7 @@ export default function StudentCertificatesPage() {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
-          <Link href="/"><span className="text-xl font-bold text-[#FF510E]">EazyTech</span></Link>
+          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span></Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
         <nav className="flex-1 py-4 px-3 space-y-0.5">
@@ -62,7 +62,7 @@ export default function StudentCertificatesPage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -115,12 +115,12 @@ export default function StudentCertificatesPage() {
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-slate-900 truncate">{course.title}</p>
                   <div className="flex items-center gap-3 mt-2">
-                    <Progress value={course.progress} className="flex-1 h-2 [&>div]:bg-[#FF510E]" />
+                    <Progress value={course.progress} className="flex-1 h-2 [&>div]:bg-[#1A6EF5]" />
                     <span className="text-xs font-semibold text-slate-600 shrink-0">{course.progress}%</span>
                   </div>
                 </div>
                 <Link href="/dashboard/student/courses"
-                  className="text-sm font-semibold text-[#FF510E] hover:underline shrink-0">
+                  className="text-sm font-semibold text-[#1A6EF5] hover:underline shrink-0">
                   Continue →
                 </Link>
               </div>

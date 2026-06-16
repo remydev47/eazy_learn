@@ -37,7 +37,7 @@ export default function StudentSettingsPage() {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
-          <Link href="/"><span className="text-xl font-bold text-[#FF510E]">EazyTech</span></Link>
+          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span></Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
         <nav className="flex-1 py-4 px-3 space-y-0.5">
@@ -46,7 +46,7 @@ export default function StudentSettingsPage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -72,7 +72,7 @@ export default function StudentSettingsPage() {
             {(["Profile", "Notifications", "Security"] as Tab[]).map((t) => (
               <button key={t} onClick={() => setTab(t)}
                 className={`px-5 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  tab === t ? "bg-[#FF510E] text-white" : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+                  tab === t ? "bg-[#1A6EF5] text-white" : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
                 }`}
               >
                 {t}
@@ -85,20 +85,20 @@ export default function StudentSettingsPage() {
               <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-5">
                 <h3 className="font-bold text-slate-900">Profile Information</h3>
                 <div className="flex items-center gap-4 pb-4 border-b border-slate-100">
-                  <div className="w-16 h-16 rounded-full bg-[#FF510E] flex items-center justify-center">
+                  <div className="w-16 h-16 rounded-full bg-[#1A6EF5] flex items-center justify-center">
                     <span className="text-white text-xl font-bold">JS</span>
                   </div>
-                  <button className="text-sm font-semibold text-[#FF510E] hover:underline">Change photo</button>
+                  <button className="text-sm font-semibold text-[#1A6EF5] hover:underline">Change photo</button>
                 </div>
                 {[["First name", "Jane"], ["Last name", "Student"], ["Email address", "jane@example.com"], ["Bio", ""]].map(([label, val]) => (
                   <div key={label}>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
                     {label === "Bio" ? (
                       <textarea rows={3} defaultValue={val} placeholder="Tell instructors about yourself…"
-                        className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 resize-none" />
+                        className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 resize-none" />
                     ) : (
                       <input type={label.includes("Email") ? "email" : "text"} defaultValue={val}
-                        className="w-full h-10 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20" />
+                        className="w-full h-10 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20" />
                     )}
                   </div>
                 ))}
@@ -119,7 +119,7 @@ export default function StudentSettingsPage() {
                       <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
                     </div>
                     <button onClick={() => item.set(!item.value)}
-                      className={`relative w-12 h-6 rounded-full transition-colors ${item.value ? "bg-[#FF510E]" : "bg-slate-200"}`}>
+                      className={`relative w-12 h-6 rounded-full transition-colors ${item.value ? "bg-[#1A6EF5]" : "bg-slate-200"}`}>
                       <div className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${item.value ? "translate-x-7" : "translate-x-1"}`} />
                     </button>
                   </div>
@@ -134,7 +134,7 @@ export default function StudentSettingsPage() {
                   <div key={label}>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
                     <input type={type} placeholder="••••••••"
-                      className="w-full h-10 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20" />
+                      className="w-full h-10 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20" />
                   </div>
                 ))}
               </div>
@@ -143,7 +143,7 @@ export default function StudentSettingsPage() {
             <div className="mt-6 flex justify-end">
               <button onClick={save}
                 className={`inline-flex items-center gap-2 font-semibold text-sm px-6 py-2.5 rounded-lg transition-all ${
-                  saved ? "bg-emerald-500 text-white" : "bg-[#FF510E] hover:bg-orange-600 text-white"
+                  saved ? "bg-emerald-500 text-white" : "bg-[#1A6EF5] hover:bg-blue-600 text-white"
                 }`}
               >
                 {saved ? <><Check className="w-4 h-4" />Saved!</> : <><Save className="w-4 h-4" />Save changes</>}

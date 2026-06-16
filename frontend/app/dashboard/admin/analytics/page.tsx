@@ -46,11 +46,11 @@ const userGrowthData = [
 const BAR_COLORS = [
   "#FBCFBF","#F9B49A","#F79A76","#F47F52",
   "#F2652E","#D4541F","#B84515","#9F3B0F",
-  "#FF510E","#E04209",
+  "#1A6EF5","#E04209",
 ];
 
 const pieData = [
-  { name: "Technology",  value: 38, fill: "#FF510E" },
+  { name: "Technology",  value: 38, fill: "#1A6EF5" },
   { name: "Data Science",value: 24, fill: "#F47F52" },
   { name: "Design",      value: 18, fill: "#CBD5E1" },
   { name: "Business",    value: 13, fill: "#94a3b8" },
@@ -90,7 +90,7 @@ export default function AdminAnalyticsPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -157,7 +157,7 @@ export default function AdminAnalyticsPage() {
           <div className="grid grid-cols-4 gap-5 mb-8">
             {[
               { label: "Total Users",       value: "84,201",   icon: Users,       color: "text-blue-600"    },
-              { label: "Total Revenue",     value: "$1.48M",   icon: TrendingUp,  color: "text-[#FF510E]"   },
+              { label: "Total Revenue",     value: "$1.48M",   icon: TrendingUp,  color: "text-[#1A6EF5]"   },
               { label: "Avg Rating",        value: "4.82",     icon: Star,        color: "text-amber-500"   },
               { label: "Global Reach",      value: "62 countries", icon: Globe,   color: "text-emerald-600" },
             ].map((card) => {
@@ -317,7 +317,7 @@ export default function AdminAnalyticsPage() {
                     </div>
                     <div className="bg-slate-700 rounded-xl p-4">
                       <p className="text-xs text-slate-400 mb-1">Monthly Earnings</p>
-                      <p className="text-2xl font-bold text-[#FF510E]">${inst.earnings.toLocaleString()}</p>
+                      <p className="text-2xl font-bold text-[#1A6EF5]">${inst.earnings.toLocaleString()}</p>
                     </div>
                   </div>
                   <div className="flex gap-1 mt-4 justify-center">
@@ -325,7 +325,7 @@ export default function AdminAnalyticsPage() {
                       <div
                         key={j}
                         className={`h-1.5 rounded-full transition-all ${
-                          j === instructorIndex ? "w-6 bg-[#FF510E]" : "w-1.5 bg-slate-600"
+                          j === instructorIndex ? "w-6 bg-[#1A6EF5]" : "w-1.5 bg-slate-600"
                         }`}
                       />
                     ))}

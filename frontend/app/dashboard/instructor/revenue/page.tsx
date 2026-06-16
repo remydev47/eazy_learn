@@ -45,7 +45,7 @@ export default function InstructorRevenuePage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
@@ -55,7 +55,7 @@ export default function InstructorRevenuePage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -82,7 +82,7 @@ export default function InstructorRevenuePage() {
             <h1 className="text-xl font-bold text-slate-900">Revenue</h1>
             <p className="text-xs text-slate-500 mt-0.5">Your earnings and payout history</p>
           </div>
-          <button className="flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+          <button className="flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
             <Download className="w-3.5 h-3.5" />
             Export
           </button>
@@ -93,7 +93,7 @@ export default function InstructorRevenuePage() {
           <div className="grid grid-cols-4 gap-4 mb-8">
             {[
               { label: "Total Earnings",   value: "$55,350",  delta: "All time",            color: "text-slate-900"   },
-              { label: "This Month",       value: "$14,290",  delta: "+11% vs last month",  color: "text-[#FF510E]"   },
+              { label: "This Month",       value: "$14,290",  delta: "+11% vs last month",  color: "text-[#1A6EF5]"   },
               { label: "Pending Payout",   value: "$14,290",  delta: "Disbursed ~Nov 5",    color: "text-amber-600"   },
               { label: "Platform Fee",     value: "30%",      delta: "70% goes to you",     color: "text-slate-500"   },
             ].map((c) => (
@@ -126,7 +126,7 @@ export default function InstructorRevenuePage() {
                       <span className="text-slate-700 font-medium truncate pr-3">{c.title}</span>
                       <span className="text-slate-500 shrink-0">${(c.revenue / 1000).toFixed(1)}k</span>
                     </div>
-                    <Progress value={c.pct} className="h-2 [&>div]:bg-[#FF510E]" />
+                    <Progress value={c.pct} className="h-2 [&>div]:bg-[#1A6EF5]" />
                   </div>
                 ))}
               </div>

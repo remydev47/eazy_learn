@@ -14,8 +14,8 @@ const values = [
   {
     title: "Accessible Education",
     body: "We believe quality learning should never be gated by geography or income. Our free tier, flexible pricing, and regional scholarships reflect that commitment.",
-    bg: "bg-orange-50",
-    accent: "bg-[#FF510E]",
+    bg: "bg-blue-50",
+    accent: "bg-[#1A6EF5]",
   },
   {
     title: "Practitioner-Led Teaching",
@@ -32,7 +32,7 @@ const values = [
 ];
 
 const team = [
-  { name: "Amara Osei",        role: "Co-Founder & CEO",       initials: "AO", color: "bg-[#FF510E]"   },
+  { name: "Amara Osei",        role: "Co-Founder & CEO",       initials: "AO", color: "bg-[#1A6EF5]"   },
   { name: "Dr. Lena Fischer",  role: "Head of Curriculum",     initials: "LF", color: "bg-blue-600"    },
   { name: "Marcus Webb",       role: "CTO",                    initials: "MW", color: "bg-slate-800"   },
   { name: "Priya Nair",        role: "Head of Partnerships",   initials: "PN", color: "bg-violet-600"  },
@@ -48,7 +48,7 @@ export default function AboutPage() {
       {/* Hero */}
       <section className="bg-slate-900 py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-[#FF510E]/10 text-[#FF510E] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
+          <span className="inline-block bg-[#1A6EF5]/10 text-[#1A6EF5] text-sm font-semibold px-4 py-1.5 rounded-full mb-6">
             Our Story
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold text-white leading-tight max-w-3xl mx-auto mb-6">
@@ -66,7 +66,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-slate-100">
             {stats.map((stat) => (
               <div key={stat.label} className="py-10 px-8 text-center">
-                <p className="text-4xl font-bold text-[#FF510E] mb-1">{stat.value}</p>
+                <p className="text-4xl font-bold text-[#1A6EF5] mb-1">{stat.value}</p>
                 <p className="text-sm text-slate-500 font-medium">{stat.label}</p>
               </div>
             ))}
@@ -79,7 +79,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="text-xs font-bold text-[#FF510E] uppercase tracking-widest">Our Mission</span>
+              <span className="text-xs font-bold text-[#1A6EF5] uppercase tracking-widest">Our Mission</span>
               <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-3 mb-6 leading-snug">
                 Closing the gap between learning and doing
               </h2>
@@ -91,7 +91,7 @@ export default function AboutPage() {
               </p>
               <Link
                 href="/courses"
-                className="inline-flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
               >
                 Explore our courses
               </Link>
@@ -113,7 +113,7 @@ export default function AboutPage() {
       <section className="py-24 bg-slate-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-[#FF510E] uppercase tracking-widest">What drives us</span>
+            <span className="text-xs font-bold text-[#1A6EF5] uppercase tracking-widest">What drives us</span>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-3">Our core values</h2>
           </div>
           <div className="grid sm:grid-cols-3 gap-6">
@@ -132,7 +132,7 @@ export default function AboutPage() {
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <span className="text-xs font-bold text-[#FF510E] uppercase tracking-widest">The people</span>
+            <span className="text-xs font-bold text-[#1A6EF5] uppercase tracking-widest">The people</span>
             <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-3">Meet the team</h2>
             <p className="text-slate-500 mt-3 max-w-xl mx-auto">
               A distributed team of educators, engineers, and designers united by a passion for learning that works.
@@ -153,18 +153,18 @@ export default function AboutPage() {
       </section>
 
       {/* CTA banner */}
-      <section className="py-20 bg-[#FF510E]">
+      <section className="py-20 bg-[#1A6EF5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
             Ready to start learning?
           </h2>
-          <p className="text-orange-100 mb-8 max-w-xl mx-auto">
+          <p className="text-blue-100 mb-8 max-w-xl mx-auto">
             Join over 84,000 learners who are already building the skills that matter.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/courses"
-              className="inline-flex items-center justify-center gap-2 bg-white text-[#FF510E] font-bold px-8 py-3.5 rounded-xl hover:bg-orange-50 transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-white text-[#1A6EF5] font-bold px-8 py-3.5 rounded-xl hover:bg-blue-50 transition-colors"
             >
               Browse Courses
             </Link>

@@ -89,10 +89,10 @@ export default function PricingPage() {
         {/* ── Header ── */}
         <section className="relative overflow-hidden py-20 text-center">
           {/* Subtle gradient blob top-right */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-orange-50 to-transparent rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-blue-50 to-transparent rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 
           <div className="relative max-w-3xl mx-auto px-4 sm:px-6">
-            <p className="text-xs font-semibold tracking-widest text-[#FF510E] uppercase mb-4">
+            <p className="text-xs font-semibold tracking-widest text-[#1A6EF5] uppercase mb-4">
               Invest in Your Future
             </p>
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -109,7 +109,7 @@ export default function PricingPage() {
               </span>
               <button
                 onClick={() => setYearly(!yearly)}
-                className={`relative w-12 h-6 rounded-full transition-colors ${yearly ? "bg-[#FF510E]" : "bg-slate-300"}`}
+                className={`relative w-12 h-6 rounded-full transition-colors ${yearly ? "bg-[#1A6EF5]" : "bg-slate-300"}`}
                 aria-label="Toggle billing period"
               >
                 <span
@@ -136,7 +136,7 @@ export default function PricingPage() {
                 {/* Most popular badge sits above the card */}
                 {plan.popular && (
                   <div className="flex justify-center mb-0 -mb-px z-10 relative">
-                    <span className="bg-[#FF510E] text-white text-xs font-bold px-5 py-1.5 rounded-full">
+                    <span className="bg-[#1A6EF5] text-white text-xs font-bold px-5 py-1.5 rounded-full">
                       MOST POPULAR
                     </span>
                   </div>
@@ -145,7 +145,7 @@ export default function PricingPage() {
                 <div
                   className={`flex flex-col flex-1 bg-white rounded-2xl p-7 border-2 transition-shadow ${
                     plan.popular
-                      ? "border-[#FF510E] shadow-xl shadow-orange-100"
+                      ? "border-[#1A6EF5] shadow-xl shadow-blue-100"
                       : "border-slate-200 hover:shadow-md"
                   }`}
                 >
@@ -183,7 +183,7 @@ export default function PricingPage() {
                     href={plan.ctaHref}
                     className={`block w-full text-sm font-semibold text-center py-3 rounded-xl mb-7 transition-colors ${
                       plan.popular
-                        ? "bg-[#FF510E] text-white hover:bg-orange-600"
+                        ? "bg-[#1A6EF5] text-white hover:bg-blue-600"
                         : plan.name === "Enterprise"
                         ? "bg-slate-900 text-white hover:bg-slate-700"
                         : "border-2 border-slate-300 text-slate-700 hover:bg-slate-50"
@@ -197,7 +197,7 @@ export default function PricingPage() {
                     {plan.features.map((f) => (
                       <li key={f} className="flex items-center gap-2.5 text-sm text-slate-700">
                         <svg
-                          className="w-4 h-4 text-[#FF510E] shrink-0"
+                          className="w-4 h-4 text-[#1A6EF5] shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"

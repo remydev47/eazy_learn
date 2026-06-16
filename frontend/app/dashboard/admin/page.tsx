@@ -119,7 +119,7 @@ export default function AdminConsolePage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -135,7 +135,7 @@ export default function AdminConsolePage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -238,7 +238,7 @@ export default function AdminConsolePage() {
                         onClick={() => setRevenueView(v)}
                         className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                           revenueView === v
-                            ? "bg-[#FF510E] text-white"
+                            ? "bg-[#1A6EF5] text-white"
                             : "border border-slate-200 text-slate-600 hover:bg-slate-50"
                         }`}
                       >
@@ -255,8 +255,8 @@ export default function AdminConsolePage() {
                 {/* Active Users */}
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 flex-1">
                   <div className="flex items-start justify-between mb-3">
-                    <div className="w-10 h-10 bg-[#FF510E]/10 rounded-xl flex items-center justify-center">
-                      <Users className="w-5 h-5 text-[#FF510E]" />
+                    <div className="w-10 h-10 bg-[#1A6EF5]/10 rounded-xl flex items-center justify-center">
+                      <Users className="w-5 h-5 text-[#1A6EF5]" />
                     </div>
                     <span className="text-sm font-semibold text-emerald-600">+4k</span>
                   </div>
@@ -288,7 +288,7 @@ export default function AdminConsolePage() {
                 <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-base font-bold text-slate-900">Pending Approvals</h2>
-                    <span className="bg-[#FF510E] text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                    <span className="bg-[#1A6EF5] text-white text-xs font-bold px-2.5 py-1 rounded-full">
                       12 New
                     </span>
                   </div>
@@ -311,7 +311,7 @@ export default function AdminConsolePage() {
                           <p className="text-xs text-slate-500">by {item.instructor}</p>
                         </div>
                         <div className="flex gap-2 shrink-0">
-                          <button className="text-xs font-semibold text-[#FF510E] hover:underline">
+                          <button className="text-xs font-semibold text-[#1A6EF5] hover:underline">
                             APPROVE
                           </button>
                           <button className="text-xs font-semibold text-slate-400 hover:text-slate-600 hover:underline">
@@ -327,7 +327,7 @@ export default function AdminConsolePage() {
                 </div>
 
                 {/* Quarterly Report card */}
-                <div className="bg-gradient-to-br from-[#FF510E] to-orange-600 rounded-2xl p-6 text-white">
+                <div className="bg-gradient-to-br from-[#1A6EF5] to-blue-600 rounded-2xl p-6 text-white">
                   <h2 className="text-lg font-bold mb-2">
                     EazyTech Quarterly<br />Report is Ready
                   </h2>
@@ -337,7 +337,7 @@ export default function AdminConsolePage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="bg-white text-[#FF510E] border-0 hover:bg-white/90 font-semibold gap-2"
+                    className="bg-white text-[#1A6EF5] border-0 hover:bg-white/90 font-semibold gap-2"
                   >
                     <Download className="w-4 h-4" />
                     Download PDF
@@ -360,7 +360,7 @@ export default function AdminConsolePage() {
                     </Button>
                     <Button
                       size="sm"
-                      className="bg-[#FF510E] hover:bg-orange-600 text-white text-xs gap-1.5 h-8"
+                      className="bg-[#1A6EF5] hover:bg-blue-600 text-white text-xs gap-1.5 h-8"
                     >
                       <Plus className="w-3 h-3" />
                       Add User

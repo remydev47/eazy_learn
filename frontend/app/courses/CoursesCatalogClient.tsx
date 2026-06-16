@@ -13,7 +13,7 @@ const LEVELS: ("All Levels" | Level)[] = ["All Levels", "Beginner", "Intermediat
 const levelColors: Record<string, string> = {
   Beginner: "bg-emerald-500",
   Intermediate: "bg-blue-500",
-  Advanced: "bg-[#FF510E]",
+  Advanced: "bg-[#1A6EF5]",
 };
 
 const PAGE_SIZE = 6;
@@ -91,7 +91,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setPage(1); }}
                 placeholder="Search courses, instructors, or topics..."
-                className="w-full bg-white border border-slate-200 rounded-lg pl-11 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 focus:border-[#FF510E]"
+                className="w-full bg-white border border-slate-200 rounded-lg pl-11 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 focus:border-[#1A6EF5]"
               />
             </div>
             <div className="flex items-center bg-white border border-slate-200 rounded-lg overflow-hidden shrink-0">
@@ -121,7 +121,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
             <select
               value={category}
               onChange={(e) => { setCategory(e.target.value); setPage(1); }}
-              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 cursor-pointer"
+              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 cursor-pointer"
             >
               {categories.map((c) => <option key={c}>{c}</option>)}
             </select>
@@ -129,7 +129,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
             <select
               value={priceRange}
               onChange={(e) => { setPriceRange(e.target.value); setPage(1); }}
-              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 cursor-pointer"
+              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 cursor-pointer"
             >
               {PRICE_RANGES.map((p) => <option key={p}>{p}</option>)}
             </select>
@@ -137,7 +137,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
             <select
               value={level}
               onChange={(e) => { setLevel(e.target.value as typeof level); setPage(1); }}
-              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 cursor-pointer"
+              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 cursor-pointer"
             >
               {LEVELS.map((l) => <option key={l}>{l}</option>)}
             </select>
@@ -158,7 +158,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
               <p className="font-medium text-slate-500">No courses match your filters.</p>
               <button
                 onClick={() => { setQuery(""); setCategory("All Categories"); setPriceRange("Any Price"); setLevel("All Levels"); setPage(1); }}
-                className="mt-3 text-sm text-[#FF510E] font-medium hover:underline"
+                className="mt-3 text-sm text-[#1A6EF5] font-medium hover:underline"
               >
                 Clear all filters
               </button>
@@ -194,7 +194,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-base font-bold text-slate-900">${course.price}.00</span>
-                      <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#FF510E] transition-colors">
+                      <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
                         Enroll Now
                       </span>
                     </div>
@@ -240,7 +240,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="text-sm font-bold text-slate-900">${course.price}.00</span>
-                        <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#FF510E] transition-colors">
+                        <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
                           Enroll Now
                         </span>
                       </div>
@@ -269,7 +269,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                   onClick={() => setPage(n)}
                   className={`w-9 h-9 flex items-center justify-center rounded-lg text-sm font-medium transition-colors ${
                     n === page
-                      ? "bg-[#FF510E] text-white"
+                      ? "bg-[#1A6EF5] text-white"
                       : "border border-slate-200 text-slate-600 hover:bg-slate-100"
                   }`}
                 >
@@ -289,8 +289,8 @@ export default function CoursesCatalogClient({ courses }: Props) {
           )}
 
           {/* Newsletter CTA */}
-          <div className="mt-16 bg-[#1a0a00] rounded-2xl px-8 py-14 text-center">
-            <p className="text-[#FF510E] text-sm font-semibold mb-3">Stay in the loop</p>
+          <div className="mt-16 bg-[#0a1020] rounded-2xl px-8 py-14 text-center">
+            <p className="text-[#1A6EF5] text-sm font-semibold mb-3">Stay in the loop</p>
             <h2 className="text-3xl font-bold text-white mb-3">Stay ahead of the curve</h2>
             <p className="text-slate-400 text-sm mb-8 max-w-md mx-auto">
               Subscribe for early access to new courses, curated resources, and exclusive offers.
@@ -299,11 +299,11 @@ export default function CoursesCatalogClient({ courses }: Props) {
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 bg-white text-slate-900 text-sm px-5 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF510E]/50"
+                className="flex-1 bg-white text-slate-900 text-sm px-5 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/50"
               />
               <button
                 type="submit"
-                className="bg-[#FF510E] text-white font-semibold text-sm px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors shrink-0"
+                className="bg-[#1A6EF5] text-white font-semibold text-sm px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors shrink-0"
               >
                 Subscribe Now
               </button>

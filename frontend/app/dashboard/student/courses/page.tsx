@@ -140,7 +140,7 @@ export default function MyCoursesPage() {
         {/* Brand */}
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/">
-            <span className="text-xl font-bold text-[#FF510E]">EazyTech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
             Academic Portal
@@ -157,7 +157,7 @@ export default function MyCoursesPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -188,7 +188,7 @@ export default function MyCoursesPage() {
         {/* Upgrade promo */}
         <div className="mx-3 mb-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
           <p className="text-xs text-slate-600 mb-2.5 font-medium">Need more space?</p>
-          <button className="w-full bg-[#FF510E] hover:bg-orange-600 text-white text-xs font-semibold py-2 rounded-lg transition-colors">
+          <button className="w-full bg-[#1A6EF5] hover:bg-blue-600 text-white text-xs font-semibold py-2 rounded-lg transition-colors">
             Upgrade Plan
           </button>
         </div>
@@ -206,7 +206,7 @@ export default function MyCoursesPage() {
                 href={tab.href}
                 className={`text-sm font-medium h-full flex items-center border-b-2 transition-colors ${
                   tab.active
-                    ? "text-[#FF510E] border-[#FF510E]"
+                    ? "text-[#1A6EF5] border-[#1A6EF5]"
                     : "text-slate-500 border-transparent hover:text-slate-800"
                 }`}
               >
@@ -221,7 +221,7 @@ export default function MyCoursesPage() {
               <input
                 type="text"
                 placeholder="Search courses..."
-                className="pl-8 pr-3 h-8 text-sm bg-slate-50 border border-slate-200 rounded-lg w-44 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50"
+                className="pl-8 pr-3 h-8 text-sm bg-slate-50 border border-slate-200 rounded-lg w-44 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50"
               />
             </div>
             <button className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
@@ -230,7 +230,7 @@ export default function MyCoursesPage() {
             <button className="p-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 transition-colors">
               <HelpCircle className="w-4 h-4 text-slate-500" />
             </button>
-            <div className="w-8 h-8 rounded-full bg-[#FF510E] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-[#1A6EF5] flex items-center justify-center">
               <span className="text-white text-xs font-bold">AL</span>
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function MyCoursesPage() {
               <h1 className="text-3xl font-bold text-slate-900">My Courses</h1>
               <p className="text-slate-500 text-sm mt-1.5">
                 You are currently enrolled in{" "}
-                <span className="font-semibold text-[#FF510E]">12 active courses</span>{" "}
+                <span className="font-semibold text-[#1A6EF5]">12 active courses</span>{" "}
                 across 4 disciplines.
               </p>
             </div>
@@ -287,7 +287,7 @@ export default function MyCoursesPage() {
                   placeholder="By name or ID"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className="w-full pl-8 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50"
+                  className="w-full pl-8 pr-3 py-2 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50"
                 />
               </div>
             </div>
@@ -301,7 +301,7 @@ export default function MyCoursesPage() {
                 <select
                   value={discipline}
                   onChange={(e) => setDiscipline(e.target.value)}
-                  className="w-full appearance-none px-3 py-2 pr-8 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50"
+                  className="w-full appearance-none px-3 py-2 pr-8 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50"
                 >
                   {DISCIPLINES.map((d) => <option key={d}>{d}</option>)}
                 </select>
@@ -318,7 +318,7 @@ export default function MyCoursesPage() {
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="w-full appearance-none px-3 py-2 pr-8 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50"
+                  className="w-full appearance-none px-3 py-2 pr-8 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50"
                 >
                   {STATUSES.map((s) => <option key={s}>{s}</option>)}
                 </select>
@@ -335,7 +335,7 @@ export default function MyCoursesPage() {
                 <select
                   value={instructor}
                   onChange={(e) => setInstructor(e.target.value)}
-                  className="w-full appearance-none px-3 py-2 pr-8 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50"
+                  className="w-full appearance-none px-3 py-2 pr-8 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50"
                 >
                   {INSTRUCTORS.map((i) => <option key={i}>{i}</option>)}
                 </select>
@@ -361,7 +361,7 @@ export default function MyCoursesPage() {
                       className="object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                    <span className="absolute top-3 left-3 bg-[#FF510E] text-white text-[10px] font-bold px-2.5 py-1 rounded tracking-widest uppercase">
+                    <span className="absolute top-3 left-3 bg-[#1A6EF5] text-white text-[10px] font-bold px-2.5 py-1 rounded tracking-widest uppercase">
                       {course.category}
                     </span>
                     {course.progress === 100 && (
@@ -391,11 +391,11 @@ export default function MyCoursesPage() {
                     <div className="mb-4">
                       <div className="flex justify-between text-xs mb-1.5">
                         <span className="text-slate-500 font-medium">Course Progress</span>
-                        <span className="font-bold text-[#FF510E]">{course.progress}%</span>
+                        <span className="font-bold text-[#1A6EF5]">{course.progress}%</span>
                       </div>
                       <Progress
                         value={course.progress}
-                        className="h-1.5 bg-slate-100 [&>div]:bg-[#FF510E]"
+                        className="h-1.5 bg-slate-100 [&>div]:bg-[#1A6EF5]"
                       />
                     </div>
 
@@ -414,10 +414,10 @@ export default function MyCoursesPage() {
               {/* Explore Catalog card */}
               <Link
                 href="/courses"
-                className="bg-white rounded-2xl border-2 border-dashed border-[#FF510E]/25 hover:border-[#FF510E]/60 transition-colors flex flex-col items-center justify-center p-8 text-center min-h-[300px] group"
+                className="bg-white rounded-2xl border-2 border-dashed border-[#1A6EF5]/25 hover:border-[#1A6EF5]/60 transition-colors flex flex-col items-center justify-center p-8 text-center min-h-[300px] group"
               >
-                <div className="w-14 h-14 bg-[#FF510E]/10 group-hover:bg-[#FF510E]/20 rounded-full flex items-center justify-center mb-4 transition-colors">
-                  <Plus className="w-7 h-7 text-[#FF510E]" />
+                <div className="w-14 h-14 bg-[#1A6EF5]/10 group-hover:bg-[#1A6EF5]/20 rounded-full flex items-center justify-center mb-4 transition-colors">
+                  <Plus className="w-7 h-7 text-[#1A6EF5]" />
                 </div>
                 <h3 className="font-bold text-slate-900 text-lg mb-2">Explore Catalog</h3>
                 <p className="text-sm text-slate-500 leading-relaxed max-w-[180px]">
@@ -437,7 +437,7 @@ export default function MyCoursesPage() {
                     <Image src={course.image} alt={course.title} fill className="object-cover" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <span className="text-[10px] font-bold text-[#FF510E] uppercase tracking-wider">
+                    <span className="text-[10px] font-bold text-[#1A6EF5] uppercase tracking-wider">
                       {course.category}
                     </span>
                     <p className="font-semibold text-slate-900 mt-0.5 truncate">{course.title}</p>
@@ -446,9 +446,9 @@ export default function MyCoursesPage() {
                   <div className="w-36 shrink-0">
                     <div className="flex justify-between text-xs mb-1">
                       <span className="text-slate-500">Progress</span>
-                      <span className="font-bold text-[#FF510E]">{course.progress}%</span>
+                      <span className="font-bold text-[#1A6EF5]">{course.progress}%</span>
                     </div>
-                    <Progress value={course.progress} className="h-1.5 bg-slate-100 [&>div]:bg-[#FF510E]" />
+                    <Progress value={course.progress} className="h-1.5 bg-slate-100 [&>div]:bg-[#1A6EF5]" />
                   </div>
                   <a
                     href={`${moodleUrl}/course/view.php?id=${course.moodleId}`}
@@ -468,7 +468,7 @@ export default function MyCoursesPage() {
               <p className="text-slate-400 text-lg font-medium">No courses match your filters.</p>
               <button
                 onClick={() => { setSearch(""); setDiscipline("All Disciplines"); setStatus("All Status"); setInstructor("All Instructors"); }}
-                className="mt-3 text-sm text-[#FF510E] hover:underline font-medium"
+                className="mt-3 text-sm text-[#1A6EF5] hover:underline font-medium"
               >
                 Clear all filters
               </button>

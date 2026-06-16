@@ -21,10 +21,10 @@ const dashboards = [
     description: "The learner experience — enrolled courses, progress tracking, assignments, certificates, and messaging.",
     href: "/dashboard/student",
     icon: GraduationCap,
-    color: "bg-[#FF510E]",
-    textColor: "text-[#FF510E]",
-    borderColor: "border-orange-200",
-    bgLight: "bg-orange-50",
+    color: "bg-[#1A6EF5]",
+    textColor: "text-[#1A6EF5]",
+    borderColor: "border-blue-200",
+    bgLight: "bg-blue-50",
     pages: [
       { label: "Dashboard overview",   href: "/dashboard/student",              icon: LayoutDashboard },
       { label: "My Courses",           href: "/dashboard/student/courses",      icon: BookMarked },
@@ -83,7 +83,7 @@ export default function DemoPage() {
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
             <span className="ml-2 text-xs font-semibold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full">
               Preview Mode
             </span>

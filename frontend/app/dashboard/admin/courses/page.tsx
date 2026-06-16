@@ -176,7 +176,7 @@ export default function AdminCoursesPage() {
   const paginated  = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const statCards = [
-    { label: "Total Courses",    value: "1,284", delta: "+48 this month",  color: "text-[#FF510E]" },
+    { label: "Total Courses",    value: "1,284", delta: "+48 this month",  color: "text-[#1A6EF5]" },
     { label: "Published",        value: "1,092", delta: "85% of total",    color: "text-emerald-600" },
     { label: "Total Enrollments",value: "48.2k", delta: "+1.2k this week", color: "text-blue-600" },
     { label: "Avg Rating",       value: "4.82",  delta: "↑ 0.04 vs last month", color: "text-amber-600" },
@@ -190,7 +190,7 @@ export default function AdminCoursesPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -205,7 +205,7 @@ export default function AdminCoursesPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -283,7 +283,7 @@ export default function AdminCoursesPage() {
                     onClick={() => { setCategory(cat); setPage(1); }}
                     className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                       category === cat
-                        ? "bg-[#FF510E] text-white"
+                        ? "bg-[#1A6EF5] text-white"
                         : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
                     }`}
                   >
@@ -349,7 +349,7 @@ export default function AdminCoursesPage() {
                   <span className="text-sm font-semibold text-slate-900">{course.enrolled.toLocaleString()}</span>
                   {course.completion > 0 && (
                     <div className="mt-1">
-                      <Progress value={course.completion} className="h-1 [&>div]:bg-[#FF510E]" />
+                      <Progress value={course.completion} className="h-1 [&>div]:bg-[#1A6EF5]" />
                     </div>
                   )}
                 </div>
@@ -389,7 +389,7 @@ export default function AdminCoursesPage() {
                     key={p}
                     onClick={() => setPage(p)}
                     className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors ${
-                      page === p ? "bg-[#FF510E] text-white" : "border border-slate-200 text-slate-600 hover:bg-slate-50"
+                      page === p ? "bg-[#1A6EF5] text-white" : "border border-slate-200 text-slate-600 hover:bg-slate-50"
                     }`}
                   >
                     {p}
@@ -409,7 +409,7 @@ export default function AdminCoursesPage() {
       </div>
 
       {/* FAB */}
-      <button className="fixed bottom-8 right-8 w-14 h-14 bg-[#FF510E] hover:bg-orange-600 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-20">
+      <button className="fixed bottom-8 right-8 w-14 h-14 bg-[#1A6EF5] hover:bg-blue-600 text-white rounded-full shadow-lg flex items-center justify-center transition-colors z-20">
         <Plus className="w-6 h-6" />
       </button>
     </div>

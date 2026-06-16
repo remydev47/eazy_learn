@@ -54,7 +54,7 @@ export default function ContactPage() {
       {/* Page header */}
       <section className="bg-slate-900 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="inline-block bg-[#FF510E]/10 text-[#FF510E] text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
+          <span className="inline-block bg-[#1A6EF5]/10 text-[#1A6EF5] text-sm font-semibold px-4 py-1.5 rounded-full mb-5">
             Get in touch
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">How can we help?</h1>
@@ -76,8 +76,8 @@ export default function ContactPage() {
                 const Icon = item.icon;
                 const inner = (
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center shrink-0">
-                      <Icon className="w-4.5 h-4.5 text-[#FF510E]" />
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center shrink-0">
+                      <Icon className="w-4.5 h-4.5 text-[#1A6EF5]" />
                     </div>
                     <div>
                       <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">{item.label}</p>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                 </p>
                 <a
                   href="#"
-                  className="text-sm font-semibold text-[#FF510E] hover:underline"
+                  className="text-sm font-semibold text-[#1A6EF5] hover:underline"
                 >
                   Visit Help Centre →
                 </a>
@@ -122,7 +122,7 @@ export default function ContactPage() {
                   </p>
                   <button
                     onClick={() => { setForm({ name: "", email: "", topic: "", message: "" }); setStatus("idle"); }}
-                    className="mt-8 text-sm font-semibold text-[#FF510E] hover:underline"
+                    className="mt-8 text-sm font-semibold text-[#1A6EF5] hover:underline"
                   >
                     Send another message
                   </button>
@@ -138,7 +138,7 @@ export default function ContactPage() {
                         value={form.name}
                         onChange={set("name")}
                         placeholder="Jane Smith"
-                        className="w-full h-11 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50 transition"
+                        className="w-full h-11 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50 transition"
                       />
                     </div>
                     <div>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                         value={form.email}
                         onChange={set("email")}
                         placeholder="jane@example.com"
-                        className="w-full h-11 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50 transition"
+                        className="w-full h-11 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50 transition"
                       />
                     </div>
                   </div>
@@ -159,7 +159,7 @@ export default function ContactPage() {
                       required
                       value={form.topic}
                       onChange={set("topic")}
-                      className="w-full h-11 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50 transition appearance-none bg-white"
+                      className="w-full h-11 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50 transition appearance-none bg-white"
                     >
                       <option value="">Select a topic…</option>
                       {topics.map((t) => <option key={t}>{t}</option>)}
@@ -173,7 +173,7 @@ export default function ContactPage() {
                       value={form.message}
                       onChange={set("message")}
                       placeholder="Tell us what you need…"
-                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20 focus:border-[#FF510E]/50 transition resize-none"
+                      className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20 focus:border-[#1A6EF5]/50 transition resize-none"
                     />
                   </div>
                   {status === "error" && (
@@ -184,7 +184,7 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={status === "loading"}
-                    className="w-full h-12 bg-[#FF510E] hover:bg-orange-600 disabled:opacity-60 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-colors"
+                    className="w-full h-12 bg-[#1A6EF5] hover:bg-blue-600 disabled:opacity-60 text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-colors"
                   >
                     {status === "loading" ? (
                       <span className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />

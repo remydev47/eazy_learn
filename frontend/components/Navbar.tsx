@@ -25,7 +25,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center shrink-0">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -49,7 +49,7 @@ export default function Navbar() {
             </a>
             <a
               href={signupHref}
-              className="text-sm bg-[#FF510E] text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-orange-600 transition-colors"
+              className="text-sm bg-[#1A6EF5] text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-blue-600 transition-colors"
             >
               Get Started
             </a>
@@ -88,7 +88,7 @@ export default function Navbar() {
               </a>
               <a
                 href={signupHref}
-                className="text-sm bg-[#FF510E] text-white font-semibold px-4 py-2 rounded-lg"
+                className="text-sm bg-[#1A6EF5] text-white font-semibold px-4 py-2 rounded-lg"
               >
                 Get Started
               </a>

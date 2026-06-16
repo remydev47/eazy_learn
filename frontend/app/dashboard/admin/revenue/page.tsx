@@ -77,7 +77,7 @@ export default function AdminRevenuePage() {
   );
 
   const statCards = [
-    { label: "Total Revenue",    value: "$1,482,904", delta: "+12.5% vs last month", color: "text-[#FF510E]", bg: "" },
+    { label: "Total Revenue",    value: "$1,482,904", delta: "+12.5% vs last month", color: "text-[#1A6EF5]", bg: "" },
     { label: "This Month",       value: "$198,000",   delta: "+8.3% vs Sep",         color: "text-slate-900", bg: "" },
     { label: "Pending Payouts",  value: "$21,350",    delta: "5 instructors",         color: "text-amber-600", bg: "" },
     { label: "Platform Cut (30%)", value: "$59,400",  delta: "Oct 2024",             color: "text-emerald-600", bg: "" },
@@ -91,7 +91,7 @@ export default function AdminRevenuePage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -106,7 +106,7 @@ export default function AdminRevenuePage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -153,7 +153,7 @@ export default function AdminRevenuePage() {
               <Bell className="w-4 h-4 text-slate-600" />
               <span className="absolute top-1 right-1 w-2 h-2 bg-rose-500 rounded-full" />
             </button>
-            <button className="flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+            <button className="flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
               <Download className="w-3.5 h-3.5" />
               Export
             </button>
@@ -203,7 +203,7 @@ export default function AdminRevenuePage() {
                       <span className="font-medium text-slate-700">{cat.label}</span>
                       <span className="text-slate-500">${(cat.revenue / 1000).toFixed(0)}k</span>
                     </div>
-                    <Progress value={cat.pct} className="h-2 [&>div]:bg-[#FF510E]" />
+                    <Progress value={cat.pct} className="h-2 [&>div]:bg-[#1A6EF5]" />
                   </div>
                 ))}
               </div>
@@ -244,7 +244,7 @@ export default function AdminRevenuePage() {
                 </Badge>
                 <div className="flex items-center gap-2">
                   {payout.status !== "Processed" && (
-                    <button className="text-xs font-semibold text-[#FF510E] hover:underline">Pay Now</button>
+                    <button className="text-xs font-semibold text-[#1A6EF5] hover:underline">Pay Now</button>
                   )}
                   <button className="text-xs font-medium text-slate-400 hover:text-slate-600">View</button>
                 </div>
@@ -263,7 +263,7 @@ export default function AdminRevenuePage() {
                     onClick={() => { setTxFilter(f); setPage(1); }}
                     className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                       txFilter === f
-                        ? "bg-[#FF510E] text-white"
+                        ? "bg-[#1A6EF5] text-white"
                         : "text-slate-500 hover:bg-slate-100"
                     }`}
                   >
@@ -298,7 +298,7 @@ export default function AdminRevenuePage() {
                 <button disabled className="p-1.5 rounded-lg border border-slate-200 opacity-40">
                   <ChevronLeft className="w-4 h-4 text-slate-600" />
                 </button>
-                <button className="w-8 h-8 rounded-lg text-sm font-medium bg-[#FF510E] text-white">1</button>
+                <button className="w-8 h-8 rounded-lg text-sm font-medium bg-[#1A6EF5] text-white">1</button>
                 <button disabled className="p-1.5 rounded-lg border border-slate-200 opacity-40">
                   <ChevronRight className="w-4 h-4 text-slate-600" />
                 </button>

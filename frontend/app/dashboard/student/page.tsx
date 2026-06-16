@@ -95,7 +95,7 @@ export default async function StudentDashboardPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/">
-            <span className="text-xl font-bold text-[#FF510E]">EazyTech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
             Academic Portal
@@ -111,7 +111,7 @@ export default async function StudentDashboardPage() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   item.active
-                    ? "bg-[#FF510E] text-white"
+                    ? "bg-[#1A6EF5] text-white"
                     : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
@@ -128,7 +128,7 @@ export default async function StudentDashboardPage() {
           </p>
           <div className="space-y-2">
             {deadlines.map((d) => (
-              <div key={d.title} className="border-l-2 border-[#FF510E] pl-3 py-1">
+              <div key={d.title} className="border-l-2 border-[#1A6EF5] pl-3 py-1">
                 <p className="text-xs font-medium text-slate-800 leading-snug">{d.title}</p>
                 <p className={`text-xs mt-0.5 ${d.urgent ? "text-rose-500" : "text-slate-400"}`}>
                   {d.due}
@@ -191,14 +191,14 @@ export default async function StudentDashboardPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-transparent" />
               <div className="relative z-10 px-8 py-10 max-w-xl">
-                <span className="text-xs font-semibold tracking-widest text-[#FF510E] uppercase">
+                <span className="text-xs font-semibold tracking-widest text-[#1A6EF5] uppercase">
                   Continue Learning
                 </span>
                 <h2 className="text-2xl font-bold text-white mt-2 mb-1">{inProgress.title}</h2>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex-1 h-1.5 bg-white/25 rounded-full overflow-hidden max-w-xs">
                     <div
-                      className="h-full bg-[#FF510E] rounded-full"
+                      className="h-full bg-[#1A6EF5] rounded-full"
                       style={{ width: `${inProgress.progress}%` }}
                     />
                   </div>
@@ -206,7 +206,7 @@ export default async function StudentDashboardPage() {
                 </div>
                 <a
                   href={`${moodleUrl}/course/view.php?id=${inProgress.id}`}
-                  className="inline-flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors"
                 >
                   <PlayCircle className="w-4 h-4" />
                   {inProgress.progress === 0 ? "Start course" : "Resume"}
@@ -221,7 +221,7 @@ export default async function StudentDashboardPage() {
               <h2 className="text-xl font-bold text-slate-900">My Enrolled Courses</h2>
               <Link
                 href="/dashboard/student/courses"
-                className="text-sm text-[#FF510E] font-medium hover:underline"
+                className="text-sm text-[#1A6EF5] font-medium hover:underline"
               >
                 View All →
               </Link>
@@ -233,7 +233,7 @@ export default async function StudentDashboardPage() {
                 <p className="text-slate-600 font-medium">You&apos;re not enrolled in any courses yet.</p>
                 <Link
                   href="/courses"
-                  className="inline-block mt-4 bg-[#FF510E] hover:bg-orange-600 text-white font-semibold text-sm px-4 py-2 rounded-lg"
+                  className="inline-block mt-4 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold text-sm px-4 py-2 rounded-lg"
                 >
                   Browse courses
                 </Link>
@@ -267,13 +267,13 @@ export default async function StudentDashboardPage() {
                             </div>
                           ))}
                         </div>
-                        <span className="text-sm font-semibold text-[#FF510E]">
+                        <span className="text-sm font-semibold text-[#1A6EF5]">
                           {course.progress}% Complete
                         </span>
                       </div>
                       <Progress
                         value={course.progress}
-                        className="mt-3 h-1.5 [&>div]:bg-[#FF510E]"
+                        className="mt-3 h-1.5 [&>div]:bg-[#1A6EF5]"
                       />
                     </div>
                   </div>

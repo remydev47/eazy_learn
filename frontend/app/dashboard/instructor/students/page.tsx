@@ -54,7 +54,7 @@ export default function InstructorStudentsPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
@@ -64,7 +64,7 @@ export default function InstructorStudentsPage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -94,7 +94,7 @@ export default function InstructorStudentsPage() {
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400" />
             <input type="text" placeholder="Search students…" value={search} onChange={(e) => setSearch(e.target.value)}
-              className="pl-9 pr-4 h-9 text-sm border border-slate-200 rounded-lg w-52 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/20" />
+              className="pl-9 pr-4 h-9 text-sm border border-slate-200 rounded-lg w-52 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/20" />
           </div>
         </div>
 
@@ -103,7 +103,7 @@ export default function InstructorStudentsPage() {
           <div className="grid grid-cols-4 gap-4 mb-8">
             {[
               { label: "Total Students",  value: students.length,                                             color: "text-slate-900"   },
-              { label: "Avg Progress",    value: `${Math.round(students.reduce((s,u)=>s+u.progress,0)/students.length)}%`, color: "text-[#FF510E]" },
+              { label: "Avg Progress",    value: `${Math.round(students.reduce((s,u)=>s+u.progress,0)/students.length)}%`, color: "text-[#1A6EF5]" },
               { label: "Completed",       value: students.filter((s) => s.progress === 100).length,            color: "text-emerald-600" },
               { label: "At Risk (<40%)",  value: students.filter((s) => s.progress < 40).length,               color: "text-rose-600"    },
             ].map((c) => (
@@ -136,10 +136,10 @@ export default function InstructorStudentsPage() {
                   <div className="flex justify-between text-xs mb-1">
                     <span className="text-slate-600">{s.progress}%</span>
                   </div>
-                  <Progress value={s.progress} className="h-1.5 [&>div]:bg-[#FF510E]" />
+                  <Progress value={s.progress} className="h-1.5 [&>div]:bg-[#1A6EF5]" />
                 </div>
                 <Badge variant="outline" className={`text-xs font-bold w-fit ${gradeBadge[s.grade]}`}>{s.grade}</Badge>
-                <button className="text-xs font-semibold text-[#FF510E] hover:underline">Message</button>
+                <button className="text-xs font-semibold text-[#1A6EF5] hover:underline">Message</button>
               </div>
             ))}
           </div>

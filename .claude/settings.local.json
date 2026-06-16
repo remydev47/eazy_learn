@@ -30,7 +30,10 @@
       "Bash(/usr/bin/grep -oE '\"\\\\$\"[^\"]*\"249\"|249\\\\.00|>249<|\"249\"' /tmp/detail.html)",
       "Bash(/usr/bin/grep -oE 'children\":\"249|children\":\\\\[\"\\\\$\",\"249\"|249' /tmp/detail.html)",
       "Bash(/usr/bin/head -3)",
-      "Bash(curl -s -o /dev/null -w \"localhost:8080 → HTTP %{http_code}\\\\n\" http://localhost:8080/login/)"
+      "Bash(curl -s -o /dev/null -w \"localhost:8080 → HTTP %{http_code}\\\\n\" http://localhost:8080/login/)",
+      "Bash(~/bin/cloudflared tunnel *)",
+      "Bash(disown)",
+      "Read(//tmp/**)"
     ]
   }
 }

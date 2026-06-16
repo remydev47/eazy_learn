@@ -43,7 +43,7 @@ export default function InstructorAnalyticsPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
@@ -53,7 +53,7 @@ export default function InstructorAnalyticsPage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -87,7 +87,7 @@ export default function InstructorAnalyticsPage() {
               { label: "Total Students",   value: "12,482", delta: "+8.2% this month", color: "text-slate-900"   },
               { label: "Avg Completion",   value: "68%",    delta: "+4% vs last month", color: "text-emerald-600" },
               { label: "Avg Rating",       value: "4.92",   delta: "Based on 4,500+ reviews", color: "text-amber-500" },
-              { label: "Watch Time (hrs)", value: "48.2k",  delta: "+12% this week",   color: "text-[#FF510E]"   },
+              { label: "Watch Time (hrs)", value: "48.2k",  delta: "+12% this week",   color: "text-[#1A6EF5]"   },
             ].map((c) => (
               <div key={c.label} className="bg-white rounded-2xl border border-slate-200 p-5">
                 <p className="text-xs text-slate-500 mb-1">{c.label}</p>
@@ -126,7 +126,7 @@ export default function InstructorAnalyticsPage() {
                       <span className="text-slate-500 shrink-0">{c.enrolled.toLocaleString()} students</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <Progress value={c.completion} className="flex-1 h-2 [&>div]:bg-[#FF510E]" />
+                      <Progress value={c.completion} className="flex-1 h-2 [&>div]:bg-[#1A6EF5]" />
                       <span className="text-xs font-semibold text-slate-600 w-8 shrink-0">{c.completion}%</span>
                     </div>
                   </div>

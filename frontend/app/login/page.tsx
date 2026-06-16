@@ -49,7 +49,7 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <span className="text-2xl font-bold text-[#FF510E]">EazyTech</span>
+            <span className="text-2xl font-bold text-[#1A6EF5]">EazyTech</span>
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 mt-6">Sign in to your account</h1>
           <p className="text-sm text-slate-500 mt-1">Welcome back. Enter your credentials below.</p>
@@ -75,7 +75,7 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
                 type="text"
                 required
                 autoComplete="username"
-                className="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 focus:border-[#FF510E]"
+                className="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 focus:border-[#1A6EF5]"
                 placeholder="student"
               />
             </div>
@@ -89,13 +89,13 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
                 type="password"
                 required
                 autoComplete="current-password"
-                className="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 focus:border-[#FF510E]"
+                className="block w-full rounded-lg border border-slate-300 px-3.5 py-2.5 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 focus:border-[#1A6EF5]"
                 placeholder="••••••••"
               />
             </div>
             <button
               type="submit"
-              className="w-full inline-flex items-center justify-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors"
+              className="w-full inline-flex items-center justify-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors"
             >
               Sign in
             </button>
@@ -105,7 +105,7 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
             Don&apos;t have an account?{" "}
             <a
               href={`${process.env.NEXT_PUBLIC_MOODLE_URL ?? ""}/login/signup.php`}
-              className="font-semibold text-[#FF510E] hover:underline"
+              className="font-semibold text-[#1A6EF5] hover:underline"
             >
               Sign up
             </a>

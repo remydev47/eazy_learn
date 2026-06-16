@@ -93,7 +93,7 @@ export default function AdminLogsPage() {
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
             <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#FF510E]">Tech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -190,7 +190,7 @@ export default function AdminLogsPage() {
                     onClick={() => setFilter(f)}
                     className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
                       filter === f
-                        ? "bg-[#FF510E] text-white"
+                        ? "bg-[#1A6EF5] text-white"
                         : "text-slate-500 hover:bg-slate-100 hover:text-slate-800"
                     }`}
                   >
@@ -207,7 +207,7 @@ export default function AdminLogsPage() {
                   <RefreshCw className="w-3.5 h-3.5" />
                   Refresh
                 </button>
-                <button className="flex items-center gap-2 bg-[#FF510E] hover:bg-orange-600 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors">
+                <button className="flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors">
                   <Download className="w-3.5 h-3.5" />
                   Export
                 </button>
@@ -260,12 +260,12 @@ export default function AdminLogsPage() {
             {/* Resource Monitoring */}
             <div className="bg-white rounded-2xl border border-slate-200 p-6">
               <div className="flex items-center gap-2 mb-5">
-                <Activity className="w-4 h-4 text-[#FF510E]" />
+                <Activity className="w-4 h-4 text-[#1A6EF5]" />
                 <h3 className="text-base font-bold text-slate-900">Resource Monitoring</h3>
               </div>
               <div className="space-y-5">
                 {[
-                  { label: "CPU Usage",    value: 34, icon: Cpu,       color: "[&>div]:bg-[#FF510E]",    text: "34%"     },
+                  { label: "CPU Usage",    value: 34, icon: Cpu,       color: "[&>div]:bg-[#1A6EF5]",    text: "34%"     },
                   { label: "Memory",       value: 62, icon: Activity,  color: "[&>div]:bg-blue-500",     text: "62%"     },
                   { label: "Disk Usage",   value: 48, icon: HardDrive, color: "[&>div]:bg-emerald-500",  text: "48%"     },
                   { label: "Network I/O",  value: 78, icon: Globe,     color: "[&>div]:bg-violet-500",   text: "78 MB/s" },
@@ -290,7 +290,7 @@ export default function AdminLogsPage() {
             {/* Global Access Map placeholder */}
             <div className="bg-slate-800 rounded-2xl p-6 flex flex-col">
               <div className="flex items-center gap-2 mb-4">
-                <Globe className="w-4 h-4 text-[#FF510E]" />
+                <Globe className="w-4 h-4 text-[#1A6EF5]" />
                 <h3 className="text-base font-bold text-white">Global Access Map</h3>
               </div>
               <p className="text-slate-400 text-sm mb-4">
@@ -305,7 +305,7 @@ export default function AdminLogsPage() {
               </div>
               <div className="grid grid-cols-3 gap-3 mt-4">
                 {[
-                  { region: "Americas", sessions: "41.2k", color: "bg-[#FF510E]" },
+                  { region: "Americas", sessions: "41.2k", color: "bg-[#1A6EF5]" },
                   { region: "Europe",   sessions: "28.8k", color: "bg-blue-500"  },
                   { region: "Asia",     sessions: "14.2k", color: "bg-violet-500" },
                 ].map((r) => (

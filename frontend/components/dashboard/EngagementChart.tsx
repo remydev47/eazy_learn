@@ -26,8 +26,8 @@ export function EngagementChart() {
       <AreaChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }}>
         <defs>
           <linearGradient id="watchGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%"  stopColor="#FF510E" stopOpacity={0.25} />
-            <stop offset="95%" stopColor="#FF510E" stopOpacity={0} />
+            <stop offset="5%"  stopColor="#1A6EF5" stopOpacity={0.25} />
+            <stop offset="95%" stopColor="#1A6EF5" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="quizGrad" x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%"  stopColor="#3b82f6" stopOpacity={0.2} />
@@ -54,7 +54,7 @@ export function EngagementChart() {
           type="monotone"
           dataKey="watch"
           name="Watch time (min)"
-          stroke="#FF510E"
+          stroke="#1A6EF5"
           strokeWidth={2}
           fill="url(#watchGrad)"
           dot={false}

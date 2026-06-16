@@ -49,7 +49,7 @@ export default function ResourcesPage() {
         {/* ── Hero ── */}
         <section className="bg-gradient-to-br from-slate-50 to-white border-b border-slate-100 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-xs font-semibold tracking-widest text-[#FF510E] uppercase mb-3">
+            <p className="text-xs font-semibold tracking-widest text-[#1A6EF5] uppercase mb-3">
               Free Learning Hub
             </p>
             <h1 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
@@ -75,7 +75,7 @@ export default function ResourcesPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search resources..."
-                className="w-full pl-11 pr-4 py-3.5 text-sm bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#FF510E]/30 focus:border-[#FF510E] placeholder-slate-400"
+                className="w-full pl-11 pr-4 py-3.5 text-sm bg-white border border-slate-200 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 focus:border-[#1A6EF5] placeholder-slate-400"
               />
             </div>
           </div>
@@ -122,7 +122,7 @@ export default function ResourcesPage() {
                 onClick={() => setCatFilter(c)}
                 className={`text-xs font-medium px-4 py-2 rounded-full border transition-colors ${
                   catFilter === c
-                    ? "border-[#FF510E] text-[#FF510E] bg-[#FF510E]/5"
+                    ? "border-[#1A6EF5] text-[#1A6EF5] bg-[#1A6EF5]/5"
                     : "border-slate-200 text-slate-500 hover:border-slate-300"
                 }`}
               >
@@ -139,7 +139,7 @@ export default function ResourcesPage() {
               <p className="text-slate-400 font-medium">No resources match your filters.</p>
               <button
                 onClick={() => { setTypeFilter("All"); setCatFilter("All"); setQuery(""); }}
-                className="mt-3 text-sm text-[#FF510E] font-medium hover:underline"
+                className="mt-3 text-sm text-[#1A6EF5] font-medium hover:underline"
               >
                 Clear all filters
               </button>
@@ -183,7 +183,7 @@ export default function ResourcesPage() {
 
                     <a
                       href="#"
-                      className="inline-flex items-center gap-2 text-xs font-semibold text-[#FF510E] hover:gap-3 transition-all"
+                      className="inline-flex items-center gap-2 text-xs font-semibold text-[#1A6EF5] hover:gap-3 transition-all"
                     >
                       {r.downloadLabel}
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,7 +200,7 @@ export default function ResourcesPage() {
         {/* ── Newsletter CTA ── */}
         <div className="bg-slate-900 py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <p className="text-xs font-semibold tracking-widest text-[#FF510E] uppercase mb-3">
+            <p className="text-xs font-semibold tracking-widest text-[#1A6EF5] uppercase mb-3">
               Stay updated
             </p>
             <h2 className="text-3xl font-bold text-white mb-3">
@@ -217,11 +217,11 @@ export default function ResourcesPage() {
               <input
                 type="email"
                 placeholder="Your email address"
-                className="flex-1 bg-white/10 text-white border border-white/20 text-sm px-5 py-3 rounded-lg placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#FF510E]/50"
+                className="flex-1 bg-white/10 text-white border border-white/20 text-sm px-5 py-3 rounded-lg placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/50"
               />
               <button
                 type="submit"
-                className="bg-[#FF510E] text-white font-semibold text-sm px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors shrink-0"
+                className="bg-[#1A6EF5] text-white font-semibold text-sm px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors shrink-0"
               >
                 Subscribe Free
               </button>

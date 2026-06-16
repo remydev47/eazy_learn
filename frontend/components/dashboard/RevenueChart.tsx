@@ -26,7 +26,7 @@ const data = [
 const COLORS = [
   "#FBCFBF", "#F9B49A", "#F79A76", "#F47F52",
   "#F2652E", "#D4541F", "#B84515", "#9F3B0F",
-  "#FF510E", "#E04209",
+  "#1A6EF5", "#E04209",
 ];
 
 export function RevenueChart() {

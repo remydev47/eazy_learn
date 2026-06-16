@@ -48,7 +48,7 @@ export default function StudentAssignmentsPage() {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
-          <Link href="/"><span className="text-xl font-bold text-[#FF510E]">EazyTech</span></Link>
+          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span></Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
         <nav className="flex-1 py-4 px-3 space-y-0.5">
@@ -57,7 +57,7 @@ export default function StudentAssignmentsPage() {
             return (
               <Link key={item.href} href={item.href}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#FF510E] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                 }`}
               >
                 <Icon className="w-4 h-4 shrink-0" />{item.label}
@@ -99,7 +99,7 @@ export default function StudentAssignmentsPage() {
               {FILTERS.map((f) => (
                 <button key={f} onClick={() => setFilter(f)}
                   className={`px-3 py-1.5 text-sm font-medium rounded-lg capitalize transition-colors ${
-                    filter === f ? "bg-[#FF510E] text-white" : "text-slate-500 hover:bg-slate-100"
+                    filter === f ? "bg-[#1A6EF5] text-white" : "text-slate-500 hover:bg-slate-100"
                   }`}
                 >
                   {f === "All" ? "All" : statusConfig[f as Status].label}

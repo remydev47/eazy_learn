@@ -73,11 +73,11 @@ export default function PrivacyPage() {
             ))}
           </div>
 
-          <div className="mt-12 p-6 bg-orange-50 rounded-2xl border border-orange-100">
+          <div className="mt-12 p-6 bg-blue-50 rounded-2xl border border-blue-100">
             <p className="text-sm font-semibold text-slate-900 mb-1">Questions about your data?</p>
             <p className="text-sm text-slate-600">
               Email us at{" "}
-              <a href="mailto:support@eazytech.com" className="text-[#FF510E] hover:underline font-medium">
+              <a href="mailto:support@eazytech.com" className="text-[#1A6EF5] hover:underline font-medium">
                 support@eazytech.com
               </a>{" "}
               and we will respond within 2 business days.
