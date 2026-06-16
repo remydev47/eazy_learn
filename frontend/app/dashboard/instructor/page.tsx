@@ -46,10 +46,6 @@ interface TaughtCourse {
   image: string;
 }
 
-interface EnrolledUser extends MoodleUser {
-  roles?: Array<{ shortname: string }>;
-}
-
 const TEACHER_ROLE_SHORTNAMES = new Set(["editingteacher", "teacher"]);
 
 function initialsOf(name: string | null | undefined): string {
@@ -67,7 +63,7 @@ async function getTaughtCourses(
 
   await Promise.all(
     enrolled.map(async (course, idx) => {
-      const roster = (await moodleAPI.getEnrolledStudents(course.id, { revalidate: 60 })) as EnrolledUser[];
+      const roster = (await moodleAPI.getEnrolledStudents(course.id, { revalidate: 60 })) as MoodleUser[];
 
       // Is the current user a teacher in this course?
       const me = roster.find((u) => u.id === teacherId);

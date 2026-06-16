@@ -50,8 +50,9 @@ export const authConfig: NextAuthConfig = {
       // Admin can see everything.
       if (role === "admin") return true;
 
-      // Instructor can see instructor/, student/ stays student-only.
-      if (path.startsWith("/dashboard/admin") && role !== "admin") {
+      // Admin already returned above, so any non-admin hitting /dashboard/admin
+      // is redirected home. Instructor can see instructor/, student stays student-only.
+      if (path.startsWith("/dashboard/admin")) {
         return Response.redirect(new URL(ROLE_HOME[role], request.nextUrl));
       }
       if (path.startsWith("/dashboard/instructor") && role !== "instructor") {
