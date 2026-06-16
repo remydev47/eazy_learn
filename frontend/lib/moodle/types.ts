@@ -61,6 +61,11 @@ export interface MoodleCourse {
     fileurl: string
     mimetype: string
   }>
+  // Returned by core_course_get_courses_by_field — the course's teacher contacts.
+  contacts?: Array<{
+    id: number
+    fullname: string
+  }>
 }
 
 export interface CompletionStatus {
