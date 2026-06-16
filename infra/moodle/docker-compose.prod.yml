@@ -1,0 +1,102 @@
+# Production stack — Moodle + Postgres + Caddy (Let's Encrypt SSL).
+#
+# This is a SELF-CONTAINED production compose file (not an override of
+# docker-compose.yml). Differences from the local file:
+#   - Moodle is NOT exposed on host ports. Only Caddy is. Moodle is reachable
+#     only on the internal `moodlenet` network as `moodle:8080`.
+#   - Caddy terminates HTTPS on 80/443 and reverse-proxies to Moodle, fetching
+#     and renewing a Let's Encrypt certificate automatically.
+#   - Moodle is told it sits behind an SSL-terminating reverse proxy
+#     (MOODLE_REVERSEPROXY / MOODLE_SSLPROXY) so it generates https:// links.
+#
+# Usage on the server (from /opt/moodle):
+#   cp .env.prod.example .env      # then edit with STRONG values
+#   docker compose -f docker-compose.prod.yml up -d
+#   ./setup-webservices.sh         # after ~3 min first-boot
+#
+# All passwords/hostnames come from .env — never hard-code them here.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ezay-moodle-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-moodle}
+      POSTGRES_USER: ${POSTGRES_USER:-moodle}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes:
+      - moodle_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-moodle} -d ${POSTGRES_DB:-moodle}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks:
+      - moodlenet
+
+  moodle:
+    image: bitnamilegacy/moodle:latest
+    container_name: ezay-moodle-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    # NOTE: no `ports:` block — Moodle is not exposed to the host in production.
+    # Caddy reaches it internally as moodle:8080.
+    environment:
+      MOODLE_DATABASE_TYPE: pgsql
+      MOODLE_DATABASE_HOST: postgres
+      MOODLE_DATABASE_PORT_NUMBER: 5432
+      MOODLE_DATABASE_NAME: ${POSTGRES_DB:-moodle}
+      MOODLE_DATABASE_USER: ${POSTGRES_USER:-moodle}
+      MOODLE_DATABASE_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      MOODLE_USERNAME: ${MOODLE_ADMIN_USER:-admin}
+      MOODLE_PASSWORD: ${MOODLE_ADMIN_PASSWORD:?set MOODLE_ADMIN_PASSWORD in .env}
+      MOODLE_EMAIL: ${MOODLE_ADMIN_EMAIL:?set MOODLE_ADMIN_EMAIL in .env}
+      MOODLE_SITE_NAME: ${MOODLE_SITE_NAME:-Ezay Tech LMS}
+      # The public hostname. Must match the domain in the Caddyfile.
+      MOODLE_HOST: ${MOODLE_HOST:?set MOODLE_HOST in .env}
+      # Critical when behind Caddy: tells Moodle it is served over HTTPS via a
+      # reverse proxy, so it builds https:// URLs instead of http://.
+      MOODLE_REVERSEPROXY: "yes"
+      MOODLE_SSLPROXY: "yes"
+      MOODLE_SKIP_BOOTSTRAP: "no"
+      ALLOW_EMPTY_PASSWORD: "no"
+    volumes:
+      - moodle_data:/bitnami/moodle
+      - moodle_files:/bitnami/moodledata
+    networks:
+      - moodlenet
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: ezay-moodle-caddy
+    restart: unless-stopped
+    depends_on:
+      - moodle
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # Used by the Caddyfile via {$MOODLE_HOST}. Same value as Moodle's MOODLE_HOST.
+      MOODLE_HOST: ${MOODLE_HOST:?set MOODLE_HOST in .env}
+      # Email Let's Encrypt uses for expiry notices.
+      ACME_EMAIL: ${MOODLE_ADMIN_EMAIL:?set MOODLE_ADMIN_EMAIL in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - moodlenet
+
+volumes:
+  moodle_db:
+  moodle_data:
+  moodle_files:
+  caddy_data:
+  caddy_config:
+
+networks:
+  moodlenet:
+    driver: bridge
