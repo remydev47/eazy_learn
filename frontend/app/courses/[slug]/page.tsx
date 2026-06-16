@@ -7,6 +7,10 @@ import Footer from "@/components/Footer";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import CourseCard from "@/components/CourseCard";
 
+// ISR: detail pages refresh hourly. New courses added to Moodle after deploy
+// render on demand (dynamicParams defaults to true).
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
   // Pre-render slugs that exist at build time. New courses added in Moodle
   // after deploy will still render on-demand thanks to dynamic params.
