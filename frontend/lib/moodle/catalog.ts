@@ -64,18 +64,35 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
   }
 }
 
-/** Fetch the full catalog from Moodle (excluding Moodle's built-in Site frontpage course). */
+/**
+ * Fetch the full catalog from Moodle (excluding Moodle's built-in Site frontpage course).
+ *
+ * Returns an empty list (rather than throwing) if Moodle is unreachable. This keeps a
+ * Vercel build — and the pages that prerender at build time — from hard-failing on a
+ * transient backend hiccup. Pages are ISR (see `revalidate` exports), so the catalog
+ * repopulates on the next request once Moodle recovers.
+ */
 export async function getCatalog(): Promise<CourseData[]> {
-  const raw = await moodleAPI.getAllCourses({ revalidate: 60 })
-  return raw
-    .filter((c) => c.id !== FRONTPAGE_COURSE_ID && c.visible !== 0)
-    .map(mapMoodleCourse)
+  try {
+    const raw = await moodleAPI.getAllCourses({ revalidate: 60 })
+    return raw
+      .filter((c) => c.id !== FRONTPAGE_COURSE_ID && c.visible !== 0)
+      .map(mapMoodleCourse)
+  } catch (err) {
+    console.error('[catalog] getCatalog failed; serving empty catalog:', err)
+    return []
+  }
 }
 
-/** Look up a single course by its URL slug (= Moodle shortname). */
+/** Look up a single course by its URL slug (= Moodle shortname). Returns null on outage. */
 export async function getCatalogCourseBySlug(slug: string): Promise<CourseData | null> {
-  const result = await moodleAPI.getCoursesByField('shortname', slug, { revalidate: 60 })
-  const course = result.courses?.[0]
-  if (!course || course.id === FRONTPAGE_COURSE_ID) return null
-  return mapMoodleCourse(course)
+  try {
+    const result = await moodleAPI.getCoursesByField('shortname', slug, { revalidate: 60 })
+    const course = result.courses?.[0]
+    if (!course || course.id === FRONTPAGE_COURSE_ID) return null
+    return mapMoodleCourse(course)
+  } catch (err) {
+    console.error(`[catalog] getCatalogCourseBySlug(${slug}) failed:`, err)
+    return null
+  }
 }

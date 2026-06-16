@@ -11,9 +11,13 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { moodleAPI } from "@/lib/moodle/client";
+import { getCatalog } from "@/lib/moodle/catalog";
 import type { MoodleCourse } from "@/lib/moodle/types";
 import { auth, signOut } from "@/lib/auth";
 import { redirect } from "next/navigation";
+
+// Always render with the signed-in user's live Moodle data.
+export const dynamic = "force-dynamic";
 
 const avatarColors = [
   "bg-blue-400",
@@ -31,13 +35,6 @@ const navItems = [
   { label: "Messages", href: "/dashboard/student/messages", icon: MessageSquare },
 ];
 
-// Static deadlines until mod_assign_get_assignments is wired. The seeded course
-// has no assignments yet, so a real fetch would just return an empty list.
-const deadlines = [
-  { title: "UX Research Case Study", due: "Due tomorrow, 11:59 PM", urgent: true },
-  { title: "Advanced Figma Quiz", due: "Oct 24, 2024", urgent: false },
-];
-
 // Fallback course-card images used when Moodle returns the default generated SVG
 // (which won't render in the browser without the auth token).
 const fallbackImages = ["/assets/less4.webp", "/assets/less3.webp", "/assets/less9.webp"];
@@ -52,25 +49,122 @@ interface DashboardCourse {
   image: string;
 }
 
-function mapCourseForCard(course: MoodleCourse, index: number): DashboardCourse {
+interface Deadline {
+  title: string;
+  due: string;
+  urgent: boolean;
+}
+
+function stripHtml(html: string): string {
+  return html.replace(/<[^>]+>/g, "").trim();
+}
+
+function initialsOf(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  return ((parts[0]?.[0] ?? "") + (parts[1]?.[0] ?? "")).toUpperCase() || "?";
+}
+
+/** Human-friendly relative due label, e.g. "Due today, 5:00 PM" / "Due tomorrow" / "Mar 14". */
+function formatDue(tsSeconds: number): string {
+  const ms = tsSeconds * 1000;
+  const now = new Date();
+  const due = new Date(ms);
+  const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+  const dayMs = 86_400_000;
+  const dayDiff = Math.floor((new Date(due.getFullYear(), due.getMonth(), due.getDate()).getTime() - startOfToday) / dayMs);
+  const time = due.toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit" });
+  if (dayDiff === 0) return `Due today, ${time}`;
+  if (dayDiff === 1) return `Due tomorrow, ${time}`;
+  if (dayDiff > 1 && dayDiff < 7) return `Due ${due.toLocaleDateString("en-US", { weekday: "long" })}`;
+  return `Due ${due.toLocaleDateString("en-US", { month: "short", day: "numeric" })}`;
+}
+
+function mapCourseForCard(
+  course: MoodleCourse,
+  index: number,
+  teachers: Map<number, string[]>,
+): DashboardCourse {
   const progress = typeof course.progress === "number" ? Math.round(course.progress) : 0;
   // Moodle returns courseimage as either a real file URL or a generated SVG that
   // requires auth — fall back to local marketing images so the card always renders.
   const isGeneratedSvg = course.courseimage?.includes("/generated/course.svg") ?? true;
   const image = isGeneratedSvg ? fallbackImages[index % fallbackImages.length] : course.courseimage!;
+  const initials = teachers.get(course.id) ?? [];
   return {
     id: course.id,
     title: course.fullname,
     description: stripHtml(course.summary) || "No description provided.",
     category: course.shortname.split("-")[0] || "General",
     progress,
-    instructors: ["JD"], // TODO: fetch enrolled teachers per course
+    instructors: initials,
     image,
   };
 }
 
-function stripHtml(html: string): string {
-  return html.replace(/<[^>]+>/g, "").trim();
+/** Map of courseId → teacher initials, from each course's Moodle contacts. */
+async function getTeacherInitials(courseIds: number[]): Promise<Map<number, string[]>> {
+  const map = new Map<number, string[]>();
+  if (courseIds.length === 0) return map;
+  try {
+    const { courses } = await moodleAPI.getCoursesByField("ids", courseIds.join(","));
+    for (const course of courses) {
+      const initials = (course.contacts ?? []).map((c) => initialsOf(c.fullname));
+      if (initials.length) map.set(course.id, initials);
+    }
+  } catch (err) {
+    console.error("[student] getTeacherInitials failed:", err);
+  }
+  return map;
+}
+
+/** Upcoming deadlines from assignments + calendar events, deduped, future-only, soonest first. */
+async function getDeadlines(courseIds: number[]): Promise<Deadline[]> {
+  if (courseIds.length === 0) return [];
+  const nowSec = Date.now() / 1000;
+  const soonCutoff = nowSec + 2 * 86_400; // within 48h = urgent
+  const collected: Array<{ title: string; ts: number }> = [];
+  try {
+    const { courses } = await moodleAPI.getUpcomingAssignments(courseIds);
+    for (const c of courses) {
+      for (const a of c.assignments) {
+        if (a.duedate > nowSec) collected.push({ title: a.name, ts: a.duedate });
+      }
+    }
+  } catch (err) {
+    console.error("[student] getUpcomingAssignments failed:", err);
+  }
+  try {
+    const { events } = await moodleAPI.getCalendarEvents(courseIds);
+    for (const e of events) {
+      if (e.timestart > nowSec) collected.push({ title: e.name, ts: e.timestart });
+    }
+  } catch (err) {
+    console.error("[student] getCalendarEvents failed:", err);
+  }
+  // Dedupe by title+day (assignments and calendar often mirror each other).
+  const seen = new Set<string>();
+  return collected
+    .sort((a, b) => a.ts - b.ts)
+    .filter((d) => {
+      const key = `${d.title.toLowerCase()}|${Math.floor(d.ts / 86_400)}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    })
+    .slice(0, 4)
+    .map((d) => ({ title: d.title, due: formatDue(d.ts), urgent: d.ts <= soonCutoff }));
+}
+
+/** A real catalog course the student is NOT yet enrolled in, for "Recommended for You". */
+async function getRecommendation(enrolledIds: number[]) {
+  try {
+    const catalog = await getCatalog();
+    const enrolled = new Set(enrolledIds);
+    return catalog.find((c) => !enrolled.has(c.id)) ?? null;
+  } catch (err) {
+    console.error("[student] getRecommendation failed:", err);
+    return null;
+  }
 }
 
 export default async function StudentDashboardPage() {
@@ -82,12 +176,27 @@ export default async function StudentDashboardPage() {
 
   const { moodleId, name } = session.user;
 
-  // Fetch in parallel: enrolled courses for the grid.
+  // Primary fetch: the student's enrolled courses (each carries live progress).
   const rawCourses = await moodleAPI.getEnrolledCourses(moodleId);
+  const courseIds = rawCourses.map((c) => c.id);
 
-  const enrolledCourses = rawCourses.map(mapCourseForCard);
+  // Enrich with everything else in parallel. Each is resilient: a failure or empty
+  // result degrades to an empty section rather than breaking the dashboard.
+  const [teacherMap, deadlines, recommended] = await Promise.all([
+    getTeacherInitials(courseIds),
+    getDeadlines(courseIds),
+    getRecommendation(courseIds),
+  ]);
+
+  const enrolledCourses = rawCourses.map((c, i) => mapCourseForCard(c, i, teacherMap));
   const inProgress =
     enrolledCourses.find((c) => c.progress > 0 && c.progress < 100) ?? enrolledCourses[0] ?? null;
+
+  // Real, derived stats — no placeholders.
+  const completedCount = enrolledCourses.filter((c) => c.progress >= 100).length;
+  const avgProgress = enrolledCourses.length
+    ? Math.round(enrolledCourses.reduce((sum, c) => sum + c.progress, 0) / enrolledCourses.length)
+    : 0;
 
   return (
     <div className="min-h-screen flex bg-gray-50">
@@ -127,14 +236,18 @@ export default async function StudentDashboardPage() {
             Upcoming Deadlines
           </p>
           <div className="space-y-2">
-            {deadlines.map((d) => (
-              <div key={d.title} className="border-l-2 border-[#1A6EF5] pl-3 py-1">
-                <p className="text-xs font-medium text-slate-800 leading-snug">{d.title}</p>
-                <p className={`text-xs mt-0.5 ${d.urgent ? "text-rose-500" : "text-slate-400"}`}>
-                  {d.due}
-                </p>
-              </div>
-            ))}
+            {deadlines.length === 0 ? (
+              <p className="text-xs text-slate-400 leading-snug">No upcoming deadlines.</p>
+            ) : (
+              deadlines.map((d, i) => (
+                <div key={`${d.title}-${i}`} className="border-l-2 border-[#1A6EF5] pl-3 py-1">
+                  <p className="text-xs font-medium text-slate-800 leading-snug">{d.title}</p>
+                  <p className={`text-xs mt-0.5 ${d.urgent ? "text-rose-500" : "text-slate-400"}`}>
+                    {d.due}
+                  </p>
+                </div>
+              ))
+            )}
           </div>
 
           <form
@@ -164,7 +277,11 @@ export default async function StudentDashboardPage() {
                 Welcome back, {(name ?? "").split(" ")[0] || name}
               </h1>
               <p className="text-slate-500 mt-1">
-                You&apos;re making great progress this week. Keep up the momentum!
+                {enrolledCourses.length === 0
+                  ? "Browse the catalog and enroll in your first course to get started."
+                  : completedCount > 0
+                    ? `You've completed ${completedCount} ${completedCount === 1 ? "course" : "courses"} — keep up the momentum!`
+                    : "You're making progress. Keep going!"}
               </p>
             </div>
             <div className="flex gap-3">
@@ -173,8 +290,12 @@ export default async function StudentDashboardPage() {
                 <p className="text-xs text-slate-500 uppercase tracking-wide mt-0.5">Courses</p>
               </div>
               <div className="bg-white border border-slate-200 rounded-xl px-5 py-3 text-center shadow-sm">
-                <p className="text-2xl font-bold text-slate-900">—</p>
-                <p className="text-xs text-slate-500 uppercase tracking-wide mt-0.5">Hours</p>
+                <p className="text-2xl font-bold text-slate-900">{completedCount}</p>
+                <p className="text-xs text-slate-500 uppercase tracking-wide mt-0.5">Completed</p>
+              </div>
+              <div className="bg-white border border-slate-200 rounded-xl px-5 py-3 text-center shadow-sm">
+                <p className="text-2xl font-bold text-slate-900">{avgProgress}%</p>
+                <p className="text-xs text-slate-500 uppercase tracking-wide mt-0.5">Avg Progress</p>
               </div>
             </div>
           </div>
@@ -183,8 +304,8 @@ export default async function StudentDashboardPage() {
           {inProgress ? (
             <div className="relative rounded-2xl overflow-hidden mb-10 min-h-[200px] flex items-center">
               <Image
-                src="/assets/less9.webp"
-                alt="Continue learning"
+                src={inProgress.image}
+                alt={inProgress.title}
                 fill
                 className="object-cover"
                 priority
@@ -282,39 +403,41 @@ export default async function StudentDashboardPage() {
             )}
           </div>
 
-          {/* Recommended for You — static until a recommendation source exists */}
-          <div className="mb-8">
-            <h2 className="text-xl font-bold text-slate-900 mb-5">Recommended for You</h2>
-            <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-              <div className="flex items-start justify-between gap-6">
-                <div className="flex-1">
-                  <h3 className="text-lg font-bold text-slate-900 mb-1">
-                    Sustainable Leadership Principles
-                  </h3>
-                  <p className="text-slate-500 text-sm mb-4">
-                    Based on your interest in management and ethics. Join 5,000+ professionals this month.
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
-                      4.9 ★ Rating
-                    </Badge>
-                    <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
-                      8 Modules
-                    </Badge>
-                    <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
-                      Intermediate
-                    </Badge>
+          {/* Recommended for You — a real catalog course the student isn't enrolled in */}
+          {recommended ? (
+            <div className="mb-8">
+              <h2 className="text-xl font-bold text-slate-900 mb-5">Recommended for You</h2>
+              <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
+                <div className="flex items-start justify-between gap-6">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-slate-900 mb-1">{recommended.title}</h3>
+                    <p className="text-slate-500 text-sm mb-4 line-clamp-2">
+                      {recommended.shortDescription}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {recommended.rating > 0 ? (
+                        <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
+                          {recommended.rating.toFixed(1)} ★ Rating
+                        </Badge>
+                      ) : null}
+                      <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
+                        {recommended.totalLessons} Sessions
+                      </Badge>
+                      <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
+                        {recommended.level}
+                      </Badge>
+                    </div>
                   </div>
+                  <Link
+                    href={`/courses/${recommended.slug}`}
+                    className="inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors shrink-0"
+                  >
+                    View Course
+                  </Link>
                 </div>
-                <a
-                  href={`${moodleUrl}/course/view.php?id=10`}
-                  className="inline-flex items-center justify-center bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors shrink-0"
-                >
-                  Enroll Now
-                </a>
               </div>
             </div>
-          </div>
+          ) : null}
         </div>
 
         <footer className="bg-slate-900 text-slate-400 mt-auto">

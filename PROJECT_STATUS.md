@@ -253,11 +253,11 @@ The next invoice should cover these. Rough order:
 - [ ] Point `ezaytech.co.ke` at Vercel (DNS CNAME)
 
 ### Payments (blocked on client's business registration)
-- [ ] Client opens IntaSend merchant account
-- [ ] Install IntaSend Moodle plugin OR build a custom Next.js payment route
-- [ ] Sandbox test M-Pesa STK Push end-to-end
+- [ ] Client opens **Paystack** account (test keys work immediately; live needs business verification + Kenyan bank account)
+- [ ] Build a custom Next.js Paystack payment route (initialize transaction → checkout → verify)
+- [ ] Test-mode payment end-to-end (M-Pesa + card via Paystack)
 - [ ] Custom Moodle table for payment tracking (`mdl_custom_payments`)
-- [ ] Webhook handler for IntaSend payment events → trigger Moodle enrollment via API
+- [ ] Webhook handler for **Paystack** payment events → trigger Moodle enrollment via API
 - [ ] Switch to live mode
 
 ### Live classes & content
@@ -362,13 +362,13 @@ Rough sequence — 5–7 days of dev work, plus client-side business setup.
 
 ### Step 6 — Payments (days 5–7, gated on business registration)
 
-- Client opens IntaSend merchant account at <https://intasend.com> (1–3 business days for approval after submitting business cert + KRA PIN)
-- Install IntaSend Moodle plugin via Moodle admin
-- Configure with API keys from IntaSend dashboard
-- Test M-Pesa STK Push in sandbox mode first
+- Client opens **Paystack** account at <https://paystack.com> (test keys available immediately; live mode needs business verification + a Kenyan bank account for settlement)
+- Build a custom Next.js payment flow (no Moodle plugin): initialize transaction server-side with the secret key → Paystack checkout (M-Pesa + cards, KES) → verify
+- Configure with API keys from the Paystack dashboard (public key, secret key, webhook secret)
+- Test the flow in Paystack test mode first
 - Create `mdl_custom_payments` table inside Moodle's PostgreSQL for payment audit trail
-- Add Next.js API route `/api/webhooks/intasend` to receive payment events
-- Switch IntaSend to live mode
+- Add Next.js API route `/api/webhooks/paystack` to receive payment events → enroll the paid user via Moodle's enrol API
+- Switch Paystack to live mode
 
 ### Step 7 — Live classes & recordings (post-launch)
 
@@ -390,7 +390,7 @@ Things only the client can do — start these **today**. None require technical 
 - [ ] **Get KRA PIN** for the business (free, online via iTax once BRS cert is issued)
 - [ ] **Register the domain** `ezaytech.co.ke` (recommend Truehost or Safaricom, ~KES 1,500/year)
 - [ ] **Open business bank account** (Equity, KCB, NCBA, or similar — needed to receive M-Pesa payouts)
-- [ ] **Open IntaSend merchant account** (requires business cert + KRA PIN + bank account, 1–3 days approval)
+- [ ] **Open Paystack account** (test keys work immediately; live mode requires business cert + KRA PIN + Kenyan bank account for settlement)
 
 ### Content & branding (parallel work)
 
@@ -488,7 +488,7 @@ Things only the client can do — start these **today**. None require technical 
 | Vercel free tier (Next.js frontend) | $0 |
 | Domain `ezaytech.co.ke` | ~$1/month amortized |
 | Resend free tier (email) | $0 |
-| IntaSend (transaction fees only, no monthly) | 0% |
+| Paystack (transaction fees only, no monthly) | per-txn % |
 | **Total fixed cost** | **~$6/month** |
 
 Optional add-ons:

@@ -66,19 +66,22 @@ run_cli /opt/bitnami/moodle/admin/cli/cfg.php --name=webserviceprotocols --set=r
 # login/token.php credential validation (it's preconfigured to accept any
 # authenticated user; our custom dashboard_api is admin-only).
 echo "==> Enabling moodle_mobile_app service for NextAuth credential validation..."
-docker exec -u daemon "${CONTAINER}" php -r "
+docker exec -u daemon -i "${CONTAINER}" php -d log_errors=0 <<'PHP'
+<?php
 define('CLI_SCRIPT', true);
 require('/opt/bitnami/moodle/config.php');
-global \\\$DB;
-\\\$svc = \\\$DB->get_record('external_services', ['shortname' => 'moodle_mobile_app']);
-if (\\\$svc && !\\\$svc->enabled) {
-    \\\$svc->enabled = 1;
-    \\\$DB->update_record('external_services', \\\$svc);
-    echo \"    enabled moodle_mobile_app (id={\\\$svc->id})\\n\";
-} else if (\\\$svc) {
-    echo \"    moodle_mobile_app already enabled\\n\";
+global $DB;
+$svc = $DB->get_record('external_services', ['shortname' => 'moodle_mobile_app']);
+if ($svc && !$svc->enabled) {
+    $svc->enabled = 1;
+    $DB->update_record('external_services', $svc);
+    echo "    enabled moodle_mobile_app (id={$svc->id})\n";
+} else if ($svc) {
+    echo "    moodle_mobile_app already enabled\n";
+} else {
+    echo "    WARNING: moodle_mobile_app service not found\n";
 }
-"
+PHP
 
 # ── 2. Create the external service + add functions + generate token ────────────
 # Moodle exposes no CLI for these, so we run a PHP one-liner against its bootstrap.

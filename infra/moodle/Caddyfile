@@ -1,0 +1,27 @@
+# Caddy reverse proxy for the Moodle backend.
+# {$MOODLE_HOST} and {$ACME_EMAIL} are injected from the environment (see the
+# caddy service in docker-compose.prod.yml). Caddy automatically obtains and
+# renews a Let's Encrypt certificate for this hostname — no certbot needed.
+#
+# Requirements for the cert to issue:
+#   - {$MOODLE_HOST} (e.g. lms.ezaytech.co.ke) must resolve via DNS to this server
+#   - ports 80 and 443 must be open to the internet
+
+{
+	email {$ACME_EMAIL}
+}
+
+{$MOODLE_HOST} {
+	encode zstd gzip
+
+	# Moodle can serve large files (videos, course backups). Allow big uploads.
+	request_body {
+		max_size 2GB
+	}
+
+	reverse_proxy moodle:8080 {
+		# Pass the real scheme/host so Moodle builds correct https:// links.
+		header_up X-Forwarded-Proto https
+		header_up X-Forwarded-Host {host}
+	}
+}
