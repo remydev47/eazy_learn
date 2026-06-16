@@ -146,7 +146,7 @@ These are tracked in [`PROJECT_STATUS.md`](PROJECT_STATUS.md); the deploy-blocki
 - [ ] **Remove the demo-credentials block** from `frontend/app/login/page.tsx`.
 - [ ] **Rotate** the local-dev Moodle token (the production one from 1.7 is separate — good).
 - [ ] Confirm the real **logo / brand palette / wordmark** (`EazyTech` vs `Ezay Tech`).
-- [ ] **Payments (M-Pesa via IntaSend)** — separate build, gated on business registration.
+- [ ] **Payments (Paystack)** — M-Pesa + cards via Paystack; separate build. Test mode works now; live mode gated on business registration + Kenyan bank account.
 - [ ] Set up **backups** for `/opt/moodle` volumes (see below).
 
 ---
