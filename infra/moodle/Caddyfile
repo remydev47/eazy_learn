@@ -20,8 +20,12 @@
 	}
 
 	reverse_proxy moodle:8080 {
-		# Pass the real scheme/host so Moodle builds correct https:// links.
+		# Moodle in reverse-proxy mode (MOODLE_REVERSEPROXY=yes) REQUIRES the
+		# upstream Host header to be the server's INTERNAL name (moodle:8080),
+		# NOT the public host. If Moodle receives Host == its wwwroot host it
+		# throws "reverseproxyabused" (see lib/setuplib.php). Moodle builds all
+		# public URLs from $CFG->wwwroot, so this is safe.
+		header_up Host {upstream_hostport}
 		header_up X-Forwarded-Proto https
-		header_up X-Forwarded-Host {host}
 	}
 }
