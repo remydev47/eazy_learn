@@ -11,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "EazyTech — Build Real Skills With Expert-Led Courses",
+  title: "KodeClass — Build Real Skills With Expert-Led Courses",
   description:
     "Industry-focused tech courses designed for career growth. Real-world projects, professional certifications, and a global community.",
 };

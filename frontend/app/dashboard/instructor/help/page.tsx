@@ -26,7 +26,7 @@ const faqs = [
   { q: "Can I offer a free preview of my course?",    a: "Yes. When editing a lesson, toggle 'Free Preview' to on. Students who have not purchased the course can watch that specific lesson for free." },
   { q: "How are course ratings calculated?",          a: "Students can rate your course 1–5 stars after completing at least 25% of the content. Your displayed rating is a rolling average of all submitted reviews." },
   { q: "What happens if a student requests a refund?", a: "Students have 14 days to request a refund. Refunds are processed by the platform. Your payout will be adjusted in the following month's statement." },
-  { q: "How do I respond to student questions?",      a: "Use the Messages page to communicate directly. You can also reply to forum posts inside the course through your Moodle course dashboard at lms.ezaytech.com." },
+  { q: "How do I respond to student questions?",      a: "Use the Messages page to communicate directly. You can also reply to forum posts inside the course through your Moodle course dashboard at lms.kodeclass.com." },
 ];
 
 export default function InstructorHelpPage() {
@@ -37,8 +37,8 @@ export default function InstructorHelpPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>

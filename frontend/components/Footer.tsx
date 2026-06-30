@@ -34,8 +34,8 @@ export default function Footer() {
           {/* Brand column */}
           <div>
             <div className="flex items-center gap-0.5 mb-4">
-              <span className="text-xl font-bold text-white">Eazy</span>
-              <span className="text-xl font-bold text-blue-400">Tech</span>
+              <span className="text-xl font-bold text-white">Kode</span>
+              <span className="text-xl font-bold text-blue-400">Class</span>
             </div>
             <p className="text-sm leading-relaxed mb-6">
               Empowering individuals and growing businesses through accessible, skills-first tech education.
@@ -84,7 +84,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 mt-12 pt-6 flex flex-col sm:flex-row justify-between gap-3 text-xs text-slate-600">
-          <p>© 2026 EazyTech. All rights reserved.</p>
+          <p>© 2026 KodeClass. All rights reserved.</p>
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-slate-400 transition-colors">Privacy Policy</Link>
             <Link href="/terms" className="hover:text-slate-400 transition-colors">Terms</Link>

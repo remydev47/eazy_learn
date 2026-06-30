@@ -14,7 +14,22 @@
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('recharts:', d['version']\\)\")",
       "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('@base-ui/react:', d['version']\\)\")",
       "Bash(python3 -c \"import json; d=json.load\\(open\\('package-lock.json'\\)\\); print\\('lockfileVersion:', d.get\\('lockfileVersion'\\)\\); print\\('npm version hint:', d.get\\('packages',{}\\).get\\('',{}\\).get\\('name',''\\)\\)\")",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(ssh -o BatchMode=yes root@173.212.225.99 'cd /opt/moodle && docker compose -f docker-compose.prod.yml up -d 2>&1 | tail -20')",
+      "Bash(npx vercel *)",
+      "Bash(curl -s -o /dev/null -w \"remydev47-eazylearn-pi.vercel.app/ -> HTTP %{http_code}\\\\n\" --max-time 20 \"https://remydev47-eazylearn-pi.vercel.app/\")",
+      "Bash(curl -s -o /dev/null -w \"aywfqzu4d/ -> HTTP %{http_code}\\\\n\" --max-time 20 \"https://remydev47-eazylearn-aywfqzu4d-remydev47s-projects.vercel.app/\")",
+      "Bash(curl -sI --max-time 15 \"https://remydev47-eazylearn-pi.vercel.app/\")",
+      "Bash(git fetch *)",
+      "Bash(curl -s -o /dev/null -w \"homepage -> HTTP %{http_code}\\\\n\" --max-time 20 \"https://remydev47-eazylearn-aywfqzu4d-remydev47s-projects.vercel.app/\")",
+      "Bash(curl -s --max-time 20 \"https://remydev47-eazylearn-aywfqzu4d-remydev47s-projects.vercel.app/api/moodle/ping\")",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}\\\\n' --max-time 25 https://remydev47-eazylearn-pi.vercel.app/)",
+      "Bash(curl -s --max-time 25 https://remydev47-eazylearn-pi.vercel.app/api/moodle/ping)",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}\\\\n' --max-time 25 https://remydev47-eazylearn-pi.vercel.app/courses)",
+      "Bash(curl -s -o /dev/null -w 'HTTP %{http_code}\\\\n' --max-time 25 https://remydev47-eazylearn-pi.vercel.app/login)",
+      "Bash(curl -s --max-time 25 https://remydev47-eazylearn-pi.vercel.app/)",
+      "Bash(grep -rln -iE \"eazytech|eazy tech|ezay\" app components lib)",
+      "Bash(grep -rln -iE \"Student123|Teacher123|demo|credentials|test account\" app/login)"
     ],
     "additionalDirectories": [
       "/Users/brianrimi/Documents/deploy/EazytechLMS/frontend/.git",

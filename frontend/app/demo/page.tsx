@@ -82,8 +82,8 @@ export default function DemoPage() {
       <div className="bg-white border-b border-slate-200">
         <div className="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
             <span className="ml-2 text-xs font-semibold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full">
               Preview Mode
             </span>

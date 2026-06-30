@@ -86,7 +86,7 @@ const users = [
     initials: "TM",
     color: "bg-emerald-600",
     name: "Tanya Mikhailov",
-    email: "tmikh@eazytech.com",
+    email: "tmikh@kodeclass.com",
     role: "ADMIN",
     joined: "Jan 02, 2024",
     status: "Active",
@@ -118,8 +118,8 @@ export default function AdminConsolePage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -329,7 +329,7 @@ export default function AdminConsolePage() {
                 {/* Quarterly Report card */}
                 <div className="bg-gradient-to-br from-[#1A6EF5] to-blue-600 rounded-2xl p-6 text-white">
                   <h2 className="text-lg font-bold mb-2">
-                    EazyTech Quarterly<br />Report is Ready
+                    KodeClass Quarterly<br />Report is Ready
                   </h2>
                   <p className="text-sm text-white/80 mb-5 leading-relaxed">
                     Deep dive into instructor performance and course retention metrics for Q3.
@@ -440,8 +440,8 @@ export default function AdminConsolePage() {
         <footer className="bg-slate-900 text-slate-400 border-t border-slate-800">
           <div className="px-6 py-5 flex flex-col sm:flex-row justify-between gap-4 text-xs">
             <div>
-              <p className="font-bold text-white mb-0.5">EazyTech Academic</p>
-              <p>© 2026 EazyTech. All rights reserved.</p>
+              <p className="font-bold text-white mb-0.5">KodeClass Academic</p>
+              <p>© 2026 KodeClass. All rights reserved.</p>
             </div>
             <div className="flex gap-5 items-center">
               <Link href="#" className="hover:text-white transition-colors">System Status</Link>

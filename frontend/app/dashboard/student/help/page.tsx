@@ -24,7 +24,7 @@ const faqs = [
   { q: "How do I submit an assignment?",           a: "Open the assignment from your Assignments page or within the course. Upload your file or fill in the text field and click Submit before the deadline." },
   { q: "Can I download course videos?",            a: "Video downloads are not available to prevent piracy. You can access all content online at any time as long as your enrolment is active." },
   { q: "How do I get my certificate?",             a: "Complete all course activities and pass any required assessments. Your certificate will appear automatically on your Certificates page within 24 hours." },
-  { q: "What is the refund policy?",               a: "We offer a 14-day money-back guarantee. Contact support@eazytech.com within 14 days of purchase with your order details." },
+  { q: "What is the refund policy?",               a: "We offer a 14-day money-back guarantee. Contact support@kodeclass.com within 14 days of purchase with your order details." },
   { q: "How do I contact my instructor?",          a: "Use the Messages page to send a direct message to your instructor. Most instructors respond within 2 business days." },
   { q: "My video is not playing — what do I do?", a: "Try refreshing the page or clearing your browser cache. If the problem persists, try a different browser or contact our support team." },
 ];
@@ -36,7 +36,7 @@ export default function StudentHelpPage() {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
-          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span></Link>
+          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">KodeClass</span></Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
         <nav className="flex-1 py-4 px-3 space-y-0.5">

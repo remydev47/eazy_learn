@@ -19,7 +19,7 @@ const values = [
   },
   {
     title: "Practitioner-Led Teaching",
-    body: "Every instructor on EazyTech is a verified practitioner — working professionals, academics, and researchers who bring real-world context into every lesson.",
+    body: "Every instructor on KodeClass is a verified practitioner — working professionals, academics, and researchers who bring real-world context into every lesson.",
     bg: "bg-slate-50",
     accent: "bg-slate-800",
   },
@@ -55,7 +55,7 @@ export default function AboutPage() {
             We are building the future of professional learning
           </h1>
           <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-            EazyTech was founded on a simple belief: that skill development should be as accessible as the internet itself. We partner with world-class instructors to deliver courses that actually change careers.
+            KodeClass was founded on a simple belief: that skill development should be as accessible as the internet itself. We partner with world-class instructors to deliver courses that actually change careers.
           </p>
         </div>
       </section>

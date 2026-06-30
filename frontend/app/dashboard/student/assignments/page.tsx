@@ -48,7 +48,7 @@ export default function StudentAssignmentsPage() {
     <div className="min-h-screen flex bg-gray-50">
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
-          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span></Link>
+          <Link href="/"><span className="text-xl font-bold text-[#1A6EF5]">KodeClass</span></Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
         <nav className="flex-1 py-4 px-3 space-y-0.5">

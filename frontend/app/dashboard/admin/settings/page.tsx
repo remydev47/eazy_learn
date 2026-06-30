@@ -48,9 +48,9 @@ export default function AdminSettingsPage() {
   const [twoFA, setTwoFA]             = useState(true);
   const [emailVerify, setEmailVerify] = useState(true);
   const [saved, setSaved]             = useState(false);
-  const [platformName, setPlatformName] = useState("EazyTech LMS");
-  const [supportEmail, setSupportEmail] = useState("support@eazytech.com");
-  const [siteUrl, setSiteUrl]           = useState("https://eazytech.com");
+  const [platformName, setPlatformName] = useState("KodeClass LMS");
+  const [supportEmail, setSupportEmail] = useState("support@kodeclass.com");
+  const [siteUrl, setSiteUrl]           = useState("https://kodeclass.com");
 
   function handleSave() {
     setSaved(true);
@@ -64,8 +64,8 @@ export default function AdminSettingsPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin
@@ -269,7 +269,7 @@ export default function AdminSettingsPage() {
                       </div>
                       <div>
                         <label className="block text-xs font-medium text-slate-600 mb-1">Business Email</label>
-                        <Input type="email" defaultValue="payments@eazytech.com" className="h-9 text-sm" />
+                        <Input type="email" defaultValue="payments@kodeclass.com" className="h-9 text-sm" />
                       </div>
                     </div>
                   </div>
@@ -302,7 +302,7 @@ export default function AdminSettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">From Address</label>
-                  <Input defaultValue="no-reply@eazytech.com" type="email" className="h-10" />
+                  <Input defaultValue="no-reply@kodeclass.com" type="email" className="h-10" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">API Key</label>
@@ -310,7 +310,7 @@ export default function AdminSettingsPage() {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1.5">Reply-To</label>
-                  <Input defaultValue="support@eazytech.com" type="email" className="h-10" />
+                  <Input defaultValue="support@kodeclass.com" type="email" className="h-10" />
                 </div>
               </div>
             </div>
