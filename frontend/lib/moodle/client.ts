@@ -226,6 +226,15 @@ export const moodleAPI = {
       { revalidate: 0, ...opts },
     )
   },
+
+  /** Manually enrol a user into a course (roleId 5 = student). Used after Paystack payment. */
+  enrolUser(userId: number, courseId: number, roleId = 5, opts?: CallOptions) {
+    return callMoodle<null>(
+      'enrol_manual_enrol_users',
+      { enrolments: [{ roleid: roleId, userid: userId, courseid: courseId }] },
+      { revalidate: 0, ...opts },
+    )
+  },
 }
 
 export { callMoodle }
