@@ -34,7 +34,13 @@ export async function POST(req: NextRequest) {
   }
 
   const origin = req.nextUrl.origin
-  const email = session.user.email ?? `user${session.user.moodleId}@kodeclass.com`
+  // Paystack rejects non-routable TLDs (.local/.test/etc) — fall back to a valid
+  // address for such accounts (e.g. the demo users). Real student emails pass through.
+  const rawEmail = session.user.email ?? ''
+  const email =
+    !rawEmail.includes('@') || /\.(local|test|invalid|localhost|example)$/i.test(rawEmail)
+      ? `user${session.user.moodleId}@kodeclass.com`
+      : rawEmail
 
   try {
     const tx = await initializeTransaction({
@@ -51,9 +57,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ authorization_url: tx.authorization_url })
   } catch (err) {
     console.error('[payments/initialize]', err)
-    return NextResponse.json(
-      { error: 'paystack_init_failed', detail: err instanceof Error ? err.message : String(err), hasKey: !!process.env.PAYSTACK_SECRET_KEY },
-      { status: 502 },
-    )
+    return NextResponse.json({ error: 'paystack_init_failed' }, { status: 502 })
   }
 }
