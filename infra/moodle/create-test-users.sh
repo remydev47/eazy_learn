@@ -68,7 +68,7 @@ function enrol_in_course(stdClass $user, int $courseid, string $roleshortname): 
     echo "    enrolled in course {$course->id} as {$roleshortname}\n";
 }
 
-$course = $DB->get_record('course', ['shortname' => 'intro-web-dev'], '*', MUST_EXIST);
+$course = $DB->get_record('course', ['shortname' => 'intro-web-development'], '*', MUST_EXIST);
 
 // Student
 $student = ensure_user('student', 'Sarah', 'Student', 'student@ezaytech.local', 'Student123!');

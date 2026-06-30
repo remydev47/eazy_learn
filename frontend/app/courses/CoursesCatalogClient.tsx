@@ -7,7 +7,7 @@ import type { CourseData, Level } from "@/lib/courses";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const PRICE_RANGES = ["Any Price", "Under $100", "$100–$150", "$150–$200", "Over $200"];
+const PRICE_RANGES = ["Any Price", "Ksh 1,000", "Ksh 2,000", "Ksh 3,000"];
 const LEVELS: ("All Levels" | Level)[] = ["All Levels", "Beginner", "Intermediate", "Advanced"];
 
 const levelColors: Record<string, string> = {
@@ -49,10 +49,9 @@ export default function CoursesCatalogClient({ courses }: Props) {
 
       const matchPrice =
         priceRange === "Any Price" ||
-        (priceRange === "Under $100" && c.price < 100) ||
-        (priceRange === "$100–$150" && c.price >= 100 && c.price <= 150) ||
-        (priceRange === "$150–$200" && c.price > 150 && c.price <= 200) ||
-        (priceRange === "Over $200" && c.price > 200);
+        (priceRange === "Ksh 1,000" && c.price === 1000) ||
+        (priceRange === "Ksh 2,000" && c.price === 2000) ||
+        (priceRange === "Ksh 3,000" && c.price === 3000);
 
       return matchQuery && matchCategory && matchLevel && matchPrice;
     });
@@ -193,7 +192,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                       <span className="text-xs text-slate-500">By {course.instructor.name}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-base font-bold text-slate-900">${course.price}.00</span>
+                      <span className="text-base font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
                       <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
                         Enroll Now
                       </span>
@@ -239,7 +238,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                         <span className="text-xs text-slate-400">{course.duration}</span>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className="text-sm font-bold text-slate-900">${course.price}.00</span>
+                        <span className="text-sm font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
                         <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
                           Enroll Now
                         </span>

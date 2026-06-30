@@ -194,12 +194,16 @@ export default async function CourseDetailPage({ params }: Props) {
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-lg">
                 <div className="p-6 border-b border-slate-100">
                   <div className="flex items-baseline gap-3 mb-1">
-                    <span className="text-3xl font-bold text-slate-900">${course.price}.00</span>
-                    <span className="text-base text-slate-400 line-through">${course.originalPrice}.00</span>
+                    <span className="text-3xl font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
+                    {course.originalPrice > course.price && (
+                      <span className="text-base text-slate-400 line-through">Ksh {course.originalPrice.toLocaleString()}</span>
+                    )}
                   </div>
-                  <p className="text-xs text-emerald-600 font-semibold mb-5">
-                    {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% off — limited time offer
-                  </p>
+                  {course.originalPrice > course.price && (
+                    <p className="text-xs text-emerald-600 font-semibold mb-5">
+                      {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% off — limited time offer
+                    </p>
+                  )}
 
                   <a
                     href={enrollUrl}

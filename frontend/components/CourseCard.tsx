@@ -58,7 +58,7 @@ export default function CourseCard({ course, moodleUrl = "#", variant = "grid" }
 
         {/* Price + CTA */}
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-base font-bold text-slate-900">${course.price}.00</span>
+          <span className="text-base font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
           <a
             href={courseUrl}
             className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-[#1A6EF5] transition-colors"

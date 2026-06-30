@@ -45,8 +45,8 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
     studentCount: meta.studentCount,
     duration: `${meta.totalSessions} sessions · ~${meta.durationHours} hours`,
     totalLessons: meta.totalSessions,
-    price: meta.priceUsd,
-    originalPrice: meta.originalPriceUsd,
+    price: meta.priceKes,
+    originalPrice: meta.originalPriceKes,
     image: meta.image,
     // Curriculum is placeholder for the demo. Real lesson structure would come
     // from `core_course_get_contents` (per-course sections + modules).
