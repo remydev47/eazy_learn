@@ -5,10 +5,9 @@ import Link from "next/link";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL;
-
-  const loginHref  = moodleUrl ? `${moodleUrl}/login`            : "/demo";
-  const signupHref = moodleUrl ? `${moodleUrl}/login/signup.php` : "/demo";
+  // Headless: auth happens on our site, never Moodle's UI.
+  const loginHref = "/login";
+  const signupHref = "/signup";
 
   const links = [
     { label: "Home",        href: "/" },

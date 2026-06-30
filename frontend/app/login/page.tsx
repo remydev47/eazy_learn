@@ -103,12 +103,9 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
 
           <p className="mt-6 text-center text-xs text-slate-500">
             Don&apos;t have an account?{" "}
-            <a
-              href={`${process.env.NEXT_PUBLIC_MOODLE_URL ?? ""}/login/signup.php`}
-              className="font-semibold text-[#1A6EF5] hover:underline"
-            >
+            <Link href="/signup" className="font-semibold text-[#1A6EF5] hover:underline">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>
