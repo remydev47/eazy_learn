@@ -8,7 +8,7 @@ export default function NotFound() {
     { label: "Meet Instructors",  href: "/instructors" },
     { label: "Free Resources",    href: "/resources"   },
     { label: "Pricing",           href: "/pricing"     },
-    { label: "About EazyTech",    href: "/about"       },
+    { label: "About KodeClass",    href: "/about"       },
     { label: "Contact us",        href: "/contact"     },
   ];
 

@@ -49,7 +49,7 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/" className="inline-block">
-            <span className="text-2xl font-bold text-[#1A6EF5]">EazyTech</span>
+            <span className="text-2xl font-bold text-[#1A6EF5]">KodeClass</span>
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 mt-6">Sign in to your account</h1>
           <p className="text-sm text-slate-500 mt-1">Welcome back. Enter your credentials below.</p>
@@ -111,10 +111,6 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
             </a>
           </p>
         </div>
-
-        <p className="mt-6 text-center text-xs text-slate-400">
-          Demo credentials: <code>student</code>/<code>Student123!</code> · <code>teacher</code>/<code>Teacher123!</code> · <code>admin</code>/<code>EzayAdmin123!</code>
-        </p>
       </div>
     </main>
   );

@@ -5,7 +5,7 @@ const reviews = [
     initials: "AT",
     color: "bg-blue-500",
     rating: 5,
-    text: "I'd tried three other platforms before EazyTech. The projects here are the difference — I shipped a real ML pipeline in week four. Had a job offer two months after finishing.",
+    text: "I'd tried three other platforms before KodeClass. The projects here are the difference — I shipped a real ML pipeline in week four. Had a job offer two months after finishing.",
   },
   {
     name: "Maria Garcia",

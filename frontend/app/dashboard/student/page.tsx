@@ -204,7 +204,7 @@ export default async function StudentDashboardPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/">
-            <span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">KodeClass</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
             Academic Portal
@@ -443,7 +443,7 @@ export default async function StudentDashboardPage() {
         <footer className="bg-slate-900 text-slate-400 mt-auto">
           <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row justify-between gap-4 text-xs">
             <div>
-              <p className="text-white font-bold mb-1">EazyTech</p>
+              <p className="text-white font-bold mb-1">KodeClass</p>
               <p>Empowering the next generation of global learners.</p>
             </div>
             <div className="flex gap-6 items-center">
@@ -454,7 +454,7 @@ export default async function StudentDashboardPage() {
             </div>
           </div>
           <div className="border-t border-slate-800">
-            <p className="text-center text-xs text-slate-600 py-4">© 2026 EazyTech. All rights reserved.</p>
+            <p className="text-center text-xs text-slate-600 py-4">© 2026 KodeClass. All rights reserved.</p>
           </div>
         </footer>
       </main>

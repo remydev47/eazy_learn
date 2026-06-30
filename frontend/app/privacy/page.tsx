@@ -22,7 +22,7 @@ const sections = [
   },
   {
     title: "5. Data Retention",
-    body: `We retain your personal data for as long as your account is active or as needed to provide you with our services. You may request deletion of your account and associated data at any time by contacting support@eazytech.com. We will respond within 30 days.`,
+    body: `We retain your personal data for as long as your account is active or as needed to provide you with our services. You may request deletion of your account and associated data at any time by contacting support@kodeclass.com. We will respond within 30 days.`,
   },
   {
     title: "6. Security",
@@ -30,7 +30,7 @@ const sections = [
   },
   {
     title: "7. Your Rights",
-    body: `Depending on your location, you may have the right to access, correct, or delete the personal data we hold about you; object to or restrict our processing of your data; and receive a machine-readable copy of your data (data portability). To exercise any of these rights, please contact us at support@eazytech.com.`,
+    body: `Depending on your location, you may have the right to access, correct, or delete the personal data we hold about you; object to or restrict our processing of your data; and receive a machine-readable copy of your data (data portability). To exercise any of these rights, please contact us at support@kodeclass.com.`,
   },
   {
     title: "8. Children's Privacy",
@@ -42,7 +42,7 @@ const sections = [
   },
   {
     title: "10. Contact Us",
-    body: `If you have any questions about this Privacy Policy or our data practices, please contact us at: support@eazytech.com or by writing to EazyTech, Legal Department.`,
+    body: `If you have any questions about this Privacy Policy or our data practices, please contact us at: support@kodeclass.com or by writing to KodeClass, Legal Department.`,
   },
 ];
 
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
       <section className="py-16 flex-1">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-slate-600 leading-relaxed mb-10 text-base">
-            EazyTech (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform at ezaytech.com and our associated learning management system.
+            KodeClass (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our platform at kodeclass.com and our associated learning management system.
           </p>
 
           <div className="space-y-10">
@@ -77,8 +77,8 @@ export default function PrivacyPage() {
             <p className="text-sm font-semibold text-slate-900 mb-1">Questions about your data?</p>
             <p className="text-sm text-slate-600">
               Email us at{" "}
-              <a href="mailto:support@eazytech.com" className="text-[#1A6EF5] hover:underline font-medium">
-                support@eazytech.com
+              <a href="mailto:support@kodeclass.com" className="text-[#1A6EF5] hover:underline font-medium">
+                support@kodeclass.com
               </a>{" "}
               and we will respond within 2 business days.
             </p>

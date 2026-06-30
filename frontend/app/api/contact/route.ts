@@ -18,9 +18,9 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "contact@eazytech.com",
-          to: process.env.CONTACT_EMAIL ?? "admin@eazytech.com",
-          subject: `[EazyTech Contact] ${topic || "Enquiry"} from ${name}`,
+          from: "contact@kodeclass.com",
+          to: process.env.CONTACT_EMAIL ?? "admin@kodeclass.com",
+          subject: `[KodeClass Contact] ${topic || "Enquiry"} from ${name}`,
           html: `
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email:</strong> ${email}</p>

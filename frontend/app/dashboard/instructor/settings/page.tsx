@@ -35,8 +35,8 @@ export default function InstructorSettingsPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
         </div>
@@ -93,7 +93,7 @@ export default function InstructorSettingsPage() {
                   </div>
                   <button className="text-sm font-semibold text-[#1A6EF5] hover:underline">Change photo</button>
                 </div>
-                {[["First name", "Elena"], ["Last name", "Rossi"], ["Title / Prefix", "Dr."], ["Email address", "e.rossi@eazytech.com"], ["Professional headline", "UX Researcher & Senior Instructor"]].map(([label, val]) => (
+                {[["First name", "Elena"], ["Last name", "Rossi"], ["Title / Prefix", "Dr."], ["Email address", "e.rossi@kodeclass.com"], ["Professional headline", "UX Researcher & Senior Instructor"]].map(([label, val]) => (
                   <div key={label}>
                     <label className="block text-sm font-medium text-slate-700 mb-1.5">{label}</label>
                     <input type={label.includes("Email") ? "email" : "text"} defaultValue={val}

@@ -33,7 +33,11 @@
       "Bash(curl -s -o /dev/null -w \"localhost:8080 → HTTP %{http_code}\\\\n\" http://localhost:8080/login/)",
       "Bash(~/bin/cloudflared tunnel *)",
       "Bash(disown)",
-      "Read(//tmp/**)"
+      "Read(//tmp/**)",
+      "Bash(curl -s http://localhost:3000/courses)",
+      "Bash(gh pr create --base main --head fix/build-and-isr --title 'Fix production build + decouple it from Moodle availability' --body ' *)",
+      "Bash(git commit -q -m ' *)",
+      "Bash(curl -s -o /dev/null -w \"site localhost:3000 -> HTTP %{http_code}\\\\n\" http://localhost:3000/)"
     ]
   }
 }

@@ -6,15 +6,15 @@ const lastUpdated = "May 2026";
 const sections = [
   {
     title: "1. Acceptance of Terms",
-    body: `By accessing or using the EazyTech platform, you agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree to these terms, please do not use our services. We reserve the right to update these terms at any time, with changes effective upon posting.`,
+    body: `By accessing or using the KodeClass platform, you agree to be bound by these Terms of Use and our Privacy Policy. If you do not agree to these terms, please do not use our services. We reserve the right to update these terms at any time, with changes effective upon posting.`,
   },
   {
     title: "2. Eligibility",
-    body: `You must be at least 13 years of age to use EazyTech. By using the platform, you represent and warrant that you meet this age requirement. If you are using the platform on behalf of an organisation, you represent that you have the authority to bind that organisation to these terms.`,
+    body: `You must be at least 13 years of age to use KodeClass. By using the platform, you represent and warrant that you meet this age requirement. If you are using the platform on behalf of an organisation, you represent that you have the authority to bind that organisation to these terms.`,
   },
   {
     title: "3. User Accounts",
-    body: `You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorised use of your account. EazyTech will not be liable for any loss or damage arising from your failure to protect your account credentials.`,
+    body: `You are responsible for maintaining the confidentiality of your account credentials and for all activities that occur under your account. You agree to notify us immediately of any unauthorised use of your account. KodeClass will not be liable for any loss or damage arising from your failure to protect your account credentials.`,
   },
   {
     title: "4. Course Enrolment and Access",
@@ -22,15 +22,15 @@ const sections = [
   },
   {
     title: "5. Refund Policy",
-    body: `We offer a 14-day money-back guarantee on all course purchases. If you are not satisfied with your course, contact support@eazytech.com within 14 days of purchase for a full refund. Refunds will not be issued if more than 50% of the course content has been consumed. Refunds are processed within 5–10 business days.`,
+    body: `We offer a 14-day money-back guarantee on all course purchases. If you are not satisfied with your course, contact support@kodeclass.com within 14 days of purchase for a full refund. Refunds will not be issued if more than 50% of the course content has been consumed. Refunds are processed within 5–10 business days.`,
   },
   {
     title: "6. Intellectual Property",
-    body: `All content on the EazyTech platform, including but not limited to video lectures, course materials, assessments, and platform design, is owned by EazyTech or its content providers and is protected by copyright and intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.`,
+    body: `All content on the KodeClass platform, including but not limited to video lectures, course materials, assessments, and platform design, is owned by KodeClass or its content providers and is protected by copyright and intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written permission.`,
   },
   {
     title: "7. Instructor Terms",
-    body: `Instructors who publish courses on EazyTech agree to provide accurate course information, own or have rights to all submitted content, and comply with our content quality standards. EazyTech retains a platform fee of 30% on all course sales. Earnings are disbursed monthly to verified instructor accounts.`,
+    body: `Instructors who publish courses on KodeClass agree to provide accurate course information, own or have rights to all submitted content, and comply with our content quality standards. KodeClass retains a platform fee of 30% on all course sales. Earnings are disbursed monthly to verified instructor accounts.`,
   },
   {
     title: "8. Prohibited Conduct",
@@ -38,11 +38,11 @@ const sections = [
   },
   {
     title: "9. Disclaimer of Warranties",
-    body: `The platform is provided on an "as is" and "as available" basis. EazyTech makes no warranties, expressed or implied, including warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the platform will be uninterrupted, error-free, or secure.`,
+    body: `The platform is provided on an "as is" and "as available" basis. KodeClass makes no warranties, expressed or implied, including warranties of merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the platform will be uninterrupted, error-free, or secure.`,
   },
   {
     title: "10. Limitation of Liability",
-    body: `To the fullest extent permitted by law, EazyTech shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenue, whether incurred directly or indirectly, or any loss of data or goodwill, arising from your use of the platform.`,
+    body: `To the fullest extent permitted by law, KodeClass shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenue, whether incurred directly or indirectly, or any loss of data or goodwill, arising from your use of the platform.`,
   },
   {
     title: "11. Governing Law",
@@ -50,7 +50,7 @@ const sections = [
   },
   {
     title: "12. Contact",
-    body: `For questions about these Terms, please contact us at: support@eazytech.com`,
+    body: `For questions about these Terms, please contact us at: support@kodeclass.com`,
   },
 ];
 
@@ -69,7 +69,7 @@ export default function TermsPage() {
       <section className="py-16 flex-1">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-slate-600 leading-relaxed mb-10 text-base">
-            Please read these Terms of Use carefully before using EazyTech. These terms constitute a legally binding agreement between you and EazyTech governing your use of our website and learning management platform.
+            Please read these Terms of Use carefully before using KodeClass. These terms constitute a legally binding agreement between you and KodeClass governing your use of our website and learning management platform.
           </p>
 
           <div className="space-y-10">
@@ -85,8 +85,8 @@ export default function TermsPage() {
             <p className="text-sm font-semibold text-slate-900 mb-1">Legal enquiries</p>
             <p className="text-sm text-slate-600">
               For legal questions, contact us at{" "}
-              <a href="mailto:support@eazytech.com" className="text-[#1A6EF5] hover:underline font-medium">
-                support@eazytech.com
+              <a href="mailto:support@kodeclass.com" className="text-[#1A6EF5] hover:underline font-medium">
+                support@kodeclass.com
               </a>
               . We respond to all legal enquiries within 5 business days.
             </p>

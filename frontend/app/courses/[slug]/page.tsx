@@ -236,7 +236,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   <div>
                     <p className="text-xs font-bold text-slate-800">Corporate Training?</p>
                     <Link href="/enterprise" className="text-xs text-[#1A6EF5] font-medium hover:underline">
-                      Get EazyTech for your team
+                      Get KodeClass for your team
                     </Link>
                   </div>
                 </div>
@@ -269,7 +269,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   <CourseCard key={c.id} course={c} moodleUrl={moodleUrl} />
                 ))}
 
-                {/* EazyTech Pro promo card */}
+                {/* KodeClass Pro promo card */}
                 <div className="bg-[#1A6EF5] rounded-xl p-7 flex flex-col justify-between text-white">
                   <div>
                     <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center mb-5">
@@ -279,7 +279,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     </div>
                     <h3 className="text-xl font-bold mb-2">Unlimited Access</h3>
                     <p className="text-white/80 text-sm leading-relaxed">
-                      Unlock all 100+ courses and certifications with a yearly EazyTech Pro subscription.
+                      Unlock all 100+ courses and certifications with a yearly KodeClass Pro subscription.
                     </p>
                   </div>
                   <Link

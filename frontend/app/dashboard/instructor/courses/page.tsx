@@ -134,7 +134,7 @@ export default function InstructorCoursesPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/">
-            <span className="text-xl font-bold text-[#1A6EF5]">EazyTech</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">KodeClass</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">
             Academic Portal
@@ -175,7 +175,7 @@ export default function InstructorCoursesPage() {
         {/* Top bar */}
         <div className="bg-white border-b border-slate-100 px-6 flex items-center justify-between h-14 shrink-0">
           <Link href="/dashboard/instructor" className="text-base font-bold text-[#1A6EF5]">
-            EazyTech
+            KodeClass
           </Link>
           <div className="flex items-center gap-3">
             <div className="relative">

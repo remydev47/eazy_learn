@@ -31,7 +31,7 @@ const allUsers = [
   { id: 2, initials: "RK", color: "bg-violet-500",  name: "Robert Kincaid",    email: "rkinc@protonmail.com",  role: "STUDENT"    as Role, joined: "Oct 15, 2024", status: "Active"  as Status, courses: 3,  lastSeen: "4h ago" },
   { id: 3, initials: "EL", color: "bg-rose-500",    name: "Elena Lopez",       email: "e.lopez@stanford.edu",  role: "STUDENT"    as Role, joined: "Oct 18, 2024", status: "Pending" as Status, courses: 0,  lastSeen: "1d ago" },
   { id: 4, initials: "MS", color: "bg-amber-500",   name: "Markus Söderberg",  email: "markus.s@web.de",       role: "INSTRUCTOR" as Role, joined: "Oct 20, 2024", status: "Banned"  as Status, courses: 2,  lastSeen: "5d ago" },
-  { id: 5, initials: "TM", color: "bg-emerald-600", name: "Tanya Mikhailov",   email: "tmikh@eazytech.com",    role: "ADMIN"      as Role, joined: "Jan 02, 2024", status: "Active"  as Status, courses: 0,  lastSeen: "Just now" },
+  { id: 5, initials: "TM", color: "bg-emerald-600", name: "Tanya Mikhailov",   email: "tmikh@kodeclass.com",    role: "ADMIN"      as Role, joined: "Jan 02, 2024", status: "Active"  as Status, courses: 0,  lastSeen: "Just now" },
   { id: 6, initials: "DW", color: "bg-teal-500",    name: "David Wei",         email: "dwei@gmail.com",        role: "STUDENT"    as Role, joined: "Sep 08, 2024", status: "Active"  as Status, courses: 7,  lastSeen: "3h ago" },
   { id: 7, initials: "FN", color: "bg-indigo-500",  name: "Fatima Ndiaye",     email: "f.ndiaye@univ.fr",      role: "INSTRUCTOR" as Role, joined: "Aug 14, 2024", status: "Active"  as Status, courses: 4,  lastSeen: "1h ago" },
   { id: 8, initials: "PO", color: "bg-blue-500",  name: "Pavel Ostrovsky",   email: "p.ostrov@ru.edu",       role: "STUDENT"    as Role, joined: "Oct 22, 2024", status: "Pending" as Status, courses: 0,  lastSeen: "2d ago" },
@@ -121,8 +121,8 @@ export default function AdminUsersPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 pt-5 pb-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5 mb-1">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
           </Link>
           <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest">
             Academic Admin

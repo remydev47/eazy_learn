@@ -176,8 +176,8 @@ export default async function InstructorDashboardPage() {
       <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
         <div className="px-5 py-5 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-0.5">
-            <span className="text-xl font-bold text-slate-900">Eazy</span>
-            <span className="text-xl font-bold text-[#1A6EF5]">Tech</span>
+            <span className="text-xl font-bold text-slate-900">Kode</span>
+            <span className="text-xl font-bold text-[#1A6EF5]">Class</span>
           </Link>
         </div>
 
@@ -416,14 +416,14 @@ export default async function InstructorDashboardPage() {
         <footer className="bg-slate-900 text-slate-400 border-t border-slate-800">
           <div className="max-w-5xl mx-auto px-6 py-6 flex flex-col sm:flex-row justify-between gap-4 text-xs">
             <div>
-              <p className="font-bold text-white mb-0.5">EazyTech</p>
+              <p className="font-bold text-white mb-0.5">KodeClass</p>
               <p>Empowering instructors to deliver world-class education.</p>
             </div>
             <div className="flex gap-5 items-center">
               <Link href="#" className="hover:text-white transition-colors">Help Center</Link>
               <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
               <Link href="#" className="hover:text-white transition-colors">Instructor Terms</Link>
-              <span>© 2026 EazyTech. All rights reserved.</span>
+              <span>© 2026 KodeClass. All rights reserved.</span>
             </div>
           </div>
         </footer>

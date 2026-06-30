@@ -6,7 +6,7 @@ import Footer from "@/components/Footer";
 import { Mail, Phone, MapPin, Clock, Send, Check } from "lucide-react";
 
 const contactInfo = [
-  { icon: Mail,    label: "Email",    value: "support@eazytech.com",   href: "mailto:support@eazytech.com" },
+  { icon: Mail,    label: "Email",    value: "support@kodeclass.com",   href: "mailto:support@kodeclass.com" },
   { icon: Phone,   label: "Phone",    value: "+1 (555) 010-4820",      href: "tel:+15550104820" },
   { icon: MapPin,  label: "Address",  value: "Lagos · London · Remote", href: null },
   { icon: Clock,   label: "Support",  value: "Mon–Fri, 9 am–6 pm UTC", href: null },
@@ -59,7 +59,7 @@ export default function ContactPage() {
           </span>
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-4">How can we help?</h1>
           <p className="text-slate-400 text-lg max-w-xl mx-auto">
-            Whether you have a question, want to teach on EazyTech, or need enterprise pricing — we respond within one business day.
+            Whether you have a question, want to teach on KodeClass, or need enterprise pricing — we respond within one business day.
           </p>
         </div>
       </section>
