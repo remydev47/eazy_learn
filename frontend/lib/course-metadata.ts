@@ -9,9 +9,9 @@ export interface CourseMetadata {
   level: Level;
   /** Tier code matches the Moodle category idnumber (tier-beginner/intermediate/advanced). */
   tier: "beginner" | "intermediate" | "advanced";
-  priceUsd: number;
+  /** KES price — matches the Paystack enrolment cost set per course in Moodle. */
   priceKes: number;
-  originalPriceUsd: number;
+  originalPriceKes: number;
   /** Display category in the existing CourseData shape (used by filters). */
   category: string;
   instructor: {
@@ -32,10 +32,12 @@ export interface CourseMetadata {
   image: string;
 }
 
-const TIER_PRICING_USD: Record<CourseMetadata["tier"], { price: number; original: number; priceKes: number }> = {
-  beginner:     { price:  79, original: 129, priceKes:  9999 },
-  intermediate: { price: 149, original: 249, priceKes: 19999 },
-  advanced:     { price: 249, original: 399, priceKes: 32999 },
+// KES prices — must match the Paystack enrolment cost per course in Moodle.
+// No fake "original" discount: original === price (UI hides the strikethrough).
+const TIER_PRICING_KES: Record<CourseMetadata["tier"], { price: number; original: number }> = {
+  beginner:     { price: 1000, original: 1000 },
+  intermediate: { price: 2000, original: 2000 },
+  advanced:     { price: 3000, original: 3000 },
 };
 
 const PLACEHOLDER_INSTRUCTORS = [
@@ -92,16 +94,15 @@ export function getCourseMetadata(shortname: string): CourseMetadata {
   const meta = COURSE_METADATA[shortname];
   const tier: CourseMetadata["tier"] = meta?.tier ?? "intermediate";
   const sessions = meta?.totalSessions ?? 20;
-  const pricing = TIER_PRICING_USD[tier];
+  const pricing = TIER_PRICING_KES[tier];
   const instructor = PLACEHOLDER_INSTRUCTORS[(meta?.instructorIdx ?? 0) % PLACEHOLDER_INSTRUCTORS.length];
   const image = FALLBACK_IMAGES[(meta?.imageIdx ?? 0) % FALLBACK_IMAGES.length];
 
   return {
     level: TIER_LEVEL[tier],
     tier,
-    priceUsd: pricing.price,
-    priceKes: pricing.priceKes,
-    originalPriceUsd: pricing.original,
+    priceKes: pricing.price,
+    originalPriceKes: pricing.original,
     category: meta?.category ?? "General",
     instructor,
     durationHours: Math.round(sessions * 1.25),
