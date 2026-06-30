@@ -227,6 +227,18 @@ export const moodleAPI = {
     )
   },
 
+  /** Create a new (confirmed, manual-auth) Moodle user. Returns [{ id, username }]. */
+  createUser(
+    user: { username: string; password: string; firstname: string; lastname: string; email: string },
+    opts?: CallOptions,
+  ) {
+    return callMoodle<Array<{ id: number; username: string }>>(
+      'core_user_create_users',
+      { users: [{ ...user, auth: 'manual' }] },
+      { revalidate: 0, ...opts },
+    )
+  },
+
   /** Manually enrol a user into a course (roleId 5 = student). Used after Paystack payment. */
   enrolUser(userId: number, courseId: number, roleId = 5, opts?: CallOptions) {
     return callMoodle<null>(
