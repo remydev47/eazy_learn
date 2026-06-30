@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import CourseCard from "@/components/CourseCard";
+import EnrollButton from "@/components/EnrollButton";
 
 // ISR: detail pages refresh hourly. New courses added to Moodle after deploy
 // render on demand (dynamicParams defaults to true).
@@ -33,9 +34,6 @@ export default async function CourseDetailPage({ params }: Props) {
   if (!course) notFound();
 
   const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
-  const enrollUrl = course.moodleId
-    ? `${moodleUrl}/course/view.php?id=${course.moodleId}`
-    : `${moodleUrl}/login/signup.php`;
 
   // "Continue your learning journey" — pick two other courses from the same
   // category. Cheap because getCatalog is cached.
@@ -205,15 +203,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     </p>
                   )}
 
-                  <a
-                    href={enrollUrl}
-                    className="block w-full bg-[#1A6EF5] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-blue-600 transition-colors mb-3"
-                  >
-                    Enroll Now
-                  </a>
-                  <button className="block w-full border border-slate-300 text-slate-700 text-sm font-semibold text-center py-3 rounded-lg hover:bg-slate-50 transition-colors">
-                    Add to Cart
-                  </button>
+                  <EnrollButton slug={course.slug} price={course.price} />
                 </div>
 
                 <div className="p-6">
