@@ -51,6 +51,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ authorization_url: tx.authorization_url })
   } catch (err) {
     console.error('[payments/initialize]', err)
-    return NextResponse.json({ error: 'paystack_init_failed' }, { status: 502 })
+    return NextResponse.json(
+      { error: 'paystack_init_failed', detail: err instanceof Error ? err.message : String(err), hasKey: !!process.env.PAYSTACK_SECRET_KEY },
+      { status: 502 },
+    )
   }
 }
