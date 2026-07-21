@@ -7,7 +7,6 @@ import type { CourseData, Level } from "@/lib/courses";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-const PRICE_RANGES = ["Any Price", "Ksh 1,000", "Ksh 2,000", "Ksh 3,000"];
 const LEVELS: ("All Levels" | Level)[] = ["All Levels", "Beginner", "Intermediate", "Advanced"];
 
 const levelColors: Record<string, string> = {
@@ -25,7 +24,6 @@ interface Props {
 export default function CoursesCatalogClient({ courses }: Props) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All Categories");
-  const [priceRange, setPriceRange] = useState("Any Price");
   const [level, setLevel] = useState<"All Levels" | Level>("All Levels");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [page, setPage] = useState(1);
@@ -47,15 +45,9 @@ export default function CoursesCatalogClient({ courses }: Props) {
       const matchCategory = category === "All Categories" || c.category === category;
       const matchLevel = level === "All Levels" || c.level === level;
 
-      const matchPrice =
-        priceRange === "Any Price" ||
-        (priceRange === "Ksh 1,000" && c.price === 1000) ||
-        (priceRange === "Ksh 2,000" && c.price === 2000) ||
-        (priceRange === "Ksh 3,000" && c.price === 3000);
-
-      return matchQuery && matchCategory && matchLevel && matchPrice;
+      return matchQuery && matchCategory && matchLevel;
     });
-  }, [courses, query, category, priceRange, level]);
+  }, [courses, query, category, level]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
@@ -89,7 +81,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                 type="text"
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setPage(1); }}
-                placeholder="Search courses, instructors, or topics..."
+                placeholder="Search courses or topics..."
                 className="w-full bg-white border border-slate-200 rounded-lg pl-11 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 focus:border-[#1A6EF5]"
               />
             </div>
@@ -126,14 +118,6 @@ export default function CoursesCatalogClient({ courses }: Props) {
             </select>
 
             <select
-              value={priceRange}
-              onChange={(e) => { setPriceRange(e.target.value); setPage(1); }}
-              className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 cursor-pointer"
-            >
-              {PRICE_RANGES.map((p) => <option key={p}>{p}</option>)}
-            </select>
-
-            <select
               value={level}
               onChange={(e) => { setLevel(e.target.value as typeof level); setPage(1); }}
               className="bg-white border border-slate-200 text-sm text-slate-700 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#1A6EF5]/30 cursor-pointer"
@@ -156,7 +140,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
               </svg>
               <p className="font-medium text-slate-500">No courses match your filters.</p>
               <button
-                onClick={() => { setQuery(""); setCategory("All Categories"); setPriceRange("Any Price"); setLevel("All Levels"); setPage(1); }}
+                onClick={() => { setQuery(""); setCategory("All Categories"); setLevel("All Levels"); setPage(1); }}
                 className="mt-3 text-sm text-[#1A6EF5] font-medium hover:underline"
               >
                 Clear all filters
@@ -184,17 +168,11 @@ export default function CoursesCatalogClient({ courses }: Props) {
                       <span className="text-sm font-semibold text-slate-800">{course.rating}</span>
                       <span className="text-xs text-slate-400">({course.reviewCount.toLocaleString()} Reviews)</span>
                     </div>
-                    <h3 className="font-bold text-slate-900 text-sm leading-snug mb-3 line-clamp-2">{course.title}</h3>
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className={`w-6 h-6 ${course.instructor.color} rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                        {course.instructor.initials}
-                      </div>
-                      <span className="text-xs text-slate-500">By {course.instructor.name}</span>
-                    </div>
+                    <h3 className="font-bold text-slate-900 text-sm leading-snug mb-4 line-clamp-2">{course.title}</h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-base font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
+                      <span className="text-xs font-medium text-slate-500">{course.totalLessons} sessions</span>
                       <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
-                        Enroll Now
+                        Learn More
                       </span>
                     </div>
                   </div>
@@ -229,20 +207,10 @@ export default function CoursesCatalogClient({ courses }: Props) {
                       <p className="text-xs text-slate-500 line-clamp-2">{course.shortDescription}</p>
                     </div>
                     <div className="flex items-center justify-between mt-3">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-6 h-6 ${course.instructor.color} rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0`}>
-                          {course.instructor.initials}
-                        </div>
-                        <span className="text-xs text-slate-500">{course.instructor.name}</span>
-                        <span className="text-xs text-slate-300">·</span>
-                        <span className="text-xs text-slate-400">{course.duration}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-sm font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
-                        <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
-                          Enroll Now
-                        </span>
-                      </div>
+                      <span className="text-xs text-slate-400">{course.duration}</span>
+                      <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
+                        Learn More
+                      </span>
                     </div>
                   </div>
                 </Link>

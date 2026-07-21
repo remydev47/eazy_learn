@@ -1,10 +1,15 @@
 import Link from "next/link";
-import { courses } from "@/lib/courses";
+import { getCatalog } from "@/lib/moodle/catalog";
 import CourseCard from "./CourseCard";
 
-export default function FeaturedCourses() {
-  const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
-  const featured = courses.slice(0, 3);
+export default async function FeaturedCourses() {
+  const catalog = await getCatalog();
+  // One from each tier where possible, else the first few.
+  const byTier = (level: string) => catalog.find((c) => c.level === level);
+  const picks = [byTier("Beginner"), byTier("Intermediate"), byTier("Advanced")].filter(Boolean);
+  const featured = (picks.length === 3 ? picks : catalog.slice(0, 3)) as typeof catalog;
+
+  if (featured.length === 0) return null;
 
   return (
     <section className="py-20 bg-white">
@@ -32,7 +37,7 @@ export default function FeaturedCourses() {
 
         <div className="grid md:grid-cols-3 gap-6">
           {featured.map((course) => (
-            <CourseCard key={course.id} course={course} moodleUrl={moodleUrl} />
+            <CourseCard key={course.id} course={course} />
           ))}
         </div>
       </div>

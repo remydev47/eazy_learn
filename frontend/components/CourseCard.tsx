@@ -13,10 +13,10 @@ interface Props {
   variant?: "grid" | "listing";
 }
 
-export default function CourseCard({ course, moodleUrl = "#", variant = "grid" }: Props) {
-  const courseUrl = course.moodleId
-    ? `${moodleUrl}/course/view.php?id=${course.moodleId}`
-    : `/courses/${course.slug}`;
+export default function CourseCard({ course, variant = "grid" }: Props) {
+  // Headless: cards always link to our own detail page, never Moodle.
+  const courseUrl = `/courses/${course.slug}`;
+  void variant;
 
   return (
     <div className="bg-white border border-slate-100 rounded-xl overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col">
@@ -44,26 +44,18 @@ export default function CourseCard({ course, moodleUrl = "#", variant = "grid" }
           <span className="text-xs text-slate-400">({course.reviewCount.toLocaleString()} Reviews)</span>
         </div>
 
-        <h3 className="font-bold text-slate-900 text-sm leading-snug mb-3 line-clamp-2">{course.title}</h3>
+        <h3 className="font-bold text-slate-900 text-sm leading-snug mb-4 line-clamp-2">{course.title}</h3>
 
-        {/* Instructor */}
-        <div className="flex items-center gap-2 mb-4">
-          <div
-            className={`w-6 h-6 ${course.instructor.color} rounded-full flex items-center justify-center text-white text-[10px] font-bold shrink-0`}
-          >
-            {course.instructor.initials}
-          </div>
-          <span className="text-xs text-slate-500">By {course.instructor.name}</span>
-        </div>
-
-        {/* Price + CTA */}
+        {/* CTA */}
         <div className="mt-auto flex items-center justify-between">
-          <span className="text-base font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
+          <span className="text-xs font-medium text-slate-500">
+            {course.totalLessons} sessions
+          </span>
           <a
             href={courseUrl}
             className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg hover:bg-[#1A6EF5] transition-colors"
           >
-            {variant === "listing" ? "Enroll Now" : "View Course"}
+            Learn More
           </a>
         </div>
       </div>

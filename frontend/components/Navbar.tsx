@@ -10,12 +10,11 @@ export default function Navbar() {
   const signupHref = "/signup";
 
   const links = [
-    { label: "Home",        href: "/" },
-    { label: "Courses",     href: "/courses" },
-    { label: "Instructors", href: "/instructors" },
-    { label: "Resources",   href: "/resources" },
-    { label: "Pricing",     href: "/pricing" },
-    { label: "Dashboards",  href: "/demo" },
+    { label: "Home",     href: "/" },
+    { label: "Courses",  href: "/courses" },
+    { label: "Pricing",  href: "/pricing" },
+    { label: "About",    href: "/about" },
+    { label: "Contact",  href: "/contact" },
   ];
 
   return (
