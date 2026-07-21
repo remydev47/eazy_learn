@@ -2,15 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { CheckCircle2 } from "lucide-react";
 
 export default function SignupPage() {
-  const router = useRouter();
-
   const [form, setForm] = useState({ firstname: "", lastname: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [done, setDone] = useState(false);
 
   function update(field: keyof typeof form) {
     return (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -33,24 +31,33 @@ export default function SignupPage() {
         setLoading(false);
         return;
       }
-      // Account created — sign them in with the same credentials.
-      const result = await signIn("credentials", {
-        username: data.username,
-        password: form.password,
-        redirect: false,
-      });
-      if (result?.error) {
-        // Created but auto-login failed — send them to login.
-        router.push("/login");
-        return;
-      }
-      const callbackUrl =
-        new URLSearchParams(window.location.search).get("callbackUrl") || "/dashboard/student";
-      router.push(callbackUrl);
+      // Account created — they must verify their email before logging in.
+      setDone(true);
     } catch {
       setError("Something went wrong. Please try again.");
       setLoading(false);
     }
+  }
+
+  if (done) {
+    return (
+      <main className="min-h-screen flex items-center justify-center bg-slate-50 px-4">
+        <div className="bg-white border border-slate-200 rounded-2xl shadow-sm max-w-md w-full p-8 text-center">
+          <CheckCircle2 className="w-14 h-14 text-emerald-500 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">Check your email 📬</h1>
+          <p className="text-slate-500 mb-6">
+            We&apos;ve sent a verification link to <strong>{form.email}</strong>. Click it to
+            activate your account, then sign in.
+          </p>
+          <Link
+            href="/login"
+            className="inline-block w-full bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition-colors"
+          >
+            Go to sign in
+          </Link>
+        </div>
+      </main>
+    );
   }
 
   return (

@@ -38,7 +38,9 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
       });
     } catch (err) {
       if (err instanceof AuthError) {
-        redirect(`/login?error=${err.type}`);
+        // Prefer the specific `code` (e.g. email_not_verified) over the generic type.
+        const code = (err as AuthError & { code?: string }).code || err.type;
+        redirect(`/login?error=${code}`);
       }
       throw err;
     }
@@ -58,9 +60,11 @@ export default async function LoginPage({ searchParams }: LoginSearchParams) {
         <div className="bg-white border border-slate-200 rounded-2xl shadow-sm p-8">
           {errorParam ? (
             <div className="mb-6 rounded-lg bg-rose-50 border border-rose-200 px-4 py-3 text-sm text-rose-700">
-              {errorParam === "CredentialsSignin"
-                ? "Invalid username or password."
-                : "Something went wrong. Please try again."}
+              {errorParam.includes("email_not_verified")
+                ? "Please verify your email first — check your inbox for the verification link."
+                : errorParam.includes("Credentials")
+                  ? "Invalid username or password."
+                  : "Something went wrong. Please try again."}
             </div>
           ) : null}
 

@@ -2,10 +2,14 @@
 // Edge-only callbacks live in lib/auth.config.ts so middleware can import them
 // without pulling in the Moodle client (which is `server-only`).
 
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
 import { authenticateWithMoodle } from "./moodle/auth";
+
+class EmailNotVerifiedError extends CredentialsSignin {
+  code = "email_not_verified";
+}
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -23,6 +27,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         if (!username || !password) return null;
 
         const result = await authenticateWithMoodle(username, password);
+        if (result === "unverified") throw new EmailNotVerifiedError();
         if (!result) return null;
 
         // Returned shape becomes the `user` arg in the jwt callback (defined in auth.config.ts).

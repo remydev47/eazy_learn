@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { moodleAPI, MoodleAPIError } from '@/lib/moodle/client'
+import { signVerifyToken } from '@/lib/verify-token'
+import { sendVerificationEmail } from '@/lib/email'
 
 export const dynamic = 'force-dynamic'
 
@@ -48,8 +50,22 @@ export async function POST(req: NextRequest) {
       lastname,
       email,
     })
-    // Return the username so the client can sign in with the exact value.
-    return NextResponse.json({ ok: true, username: created.username })
+
+    // Mark unverified, then email a verification link. Login is blocked until verified.
+    await moodleAPI.setUserCustomField(created.id, 'emailverified', '0')
+    const token = await signVerifyToken({ userId: created.id, email })
+    const origin = req.nextUrl.origin
+    try {
+      await sendVerificationEmail(email, firstname, `${origin}/verify?token=${token}`)
+    } catch (mailErr) {
+      console.error('[auth/register] verification email failed:', mailErr)
+      // Account exists but email failed — surface so they can retry / contact support.
+      return NextResponse.json(
+        { ok: true, needsVerification: true, emailWarning: true, username: created.username },
+      )
+    }
+
+    return NextResponse.json({ ok: true, needsVerification: true, username: created.username })
   } catch (err) {
     if (err instanceof MoodleAPIError) {
       // Surface Moodle's password-policy / duplicate messages to the user.

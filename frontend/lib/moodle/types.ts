@@ -29,6 +29,12 @@ export interface MoodleUser {
     shortname: string
     sortorder: number
   }>
+  customfields?: Array<{
+    type: string // the field shortname (e.g. "emailverified")
+    value: string
+    name?: string
+    shortname?: string
+  }>
 }
 
 export interface MoodleCourse {

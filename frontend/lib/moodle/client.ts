@@ -239,6 +239,15 @@ export const moodleAPI = {
     )
   },
 
+  /** Set a custom profile field (by shortname) on a user, e.g. emailverified. */
+  setUserCustomField(userId: number, shortname: string, value: string, opts?: CallOptions) {
+    return callMoodle<null>(
+      'core_user_update_users',
+      { users: [{ id: userId, customfields: [{ type: shortname, value }] }] },
+      { revalidate: 0, ...opts },
+    )
+  },
+
   /** Manually enrol a user into a course (roleId 5 = student). Used after Paystack payment. */
   enrolUser(userId: number, courseId: number, roleId = 5, opts?: CallOptions) {
     return callMoodle<null>(
