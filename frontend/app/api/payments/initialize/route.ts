@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { getCatalogCourseBySlug } from '@/lib/moodle/catalog'
+import { getTierById } from '@/lib/tiers'
 import { initializeTransaction } from '@/lib/paystack'
 
 export const dynamic = 'force-dynamic'
 
 /**
- * Start a Paystack payment for a course. The price and Moodle course id are looked
- * up server-side from the slug (never trusted from the client). Requires a logged-in
- * user (their Moodle id + email come from the session).
+ * Start a Paystack payment for a TIER (Beginner/Intermediate/Advanced). Paying a tier
+ * enrols the student in every course of that level. The price comes from the server-side
+ * tier config (never trusted from the client). Requires a logged-in user.
  */
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -16,26 +16,18 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'not_authenticated' }, { status: 401 })
   }
 
-  let slug: string | undefined
+  let tierId: string | undefined
   try {
     const body = await req.json()
-    slug = typeof body?.slug === 'string' ? body.slug : undefined
+    tierId = typeof body?.tier === 'string' ? body.tier : undefined
   } catch {
     /* ignore */
   }
-  if (!slug) return NextResponse.json({ error: 'missing_slug' }, { status: 400 })
 
-  const course = await getCatalogCourseBySlug(slug)
-  if (!course || !course.moodleId) {
-    return NextResponse.json({ error: 'course_not_found' }, { status: 404 })
-  }
-  if (!course.price || course.price <= 0) {
-    return NextResponse.json({ error: 'course_not_purchasable' }, { status: 400 })
-  }
+  const tier = tierId ? getTierById(tierId) : undefined
+  if (!tier) return NextResponse.json({ error: 'invalid_tier' }, { status: 400 })
 
   const origin = req.nextUrl.origin
-  // Paystack rejects non-routable TLDs (.local/.test/etc) — fall back to a valid
-  // address for such accounts (e.g. the demo users). Real student emails pass through.
   const rawEmail = session.user.email ?? ''
   const email =
     !rawEmail.includes('@') || /\.(local|test|invalid|localhost|example)$/i.test(rawEmail)
@@ -45,13 +37,13 @@ export async function POST(req: NextRequest) {
   try {
     const tx = await initializeTransaction({
       email,
-      amountKes: course.price,
+      amountKes: tier.priceKes,
       callbackUrl: `${origin}/payment/callback`,
       metadata: {
-        courseId: course.moodleId,
+        type: 'tier',
+        tier: tier.id,
         userId: session.user.moodleId,
-        slug: course.slug,
-        courseTitle: course.title,
+        tierName: tier.name,
       },
     })
     return NextResponse.json({ authorization_url: tx.authorization_url })

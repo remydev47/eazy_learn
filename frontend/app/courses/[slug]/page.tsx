@@ -6,7 +6,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import CourseCard from "@/components/CourseCard";
-import EnrollButton from "@/components/EnrollButton";
+import TierCheckoutButton from "@/components/TierCheckoutButton";
+import { getTierByLevel } from "@/lib/tiers";
 
 // ISR: detail pages refresh hourly. New courses added to Moodle after deploy
 // render on demand (dynamicParams defaults to true).
@@ -34,6 +35,7 @@ export default async function CourseDetailPage({ params }: Props) {
   if (!course) notFound();
 
   const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
+  const tier = getTierByLevel(course.level);
 
   // "Continue your learning journey" — pick two other courses from the same
   // category. Cheap because getCatalog is cached.
@@ -191,19 +193,28 @@ export default async function CourseDetailPage({ params }: Props) {
             <div className="lg:sticky lg:top-20">
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-lg">
                 <div className="p-6 border-b border-slate-100">
-                  <div className="flex items-baseline gap-3 mb-1">
-                    <span className="text-3xl font-bold text-slate-900">Ksh {course.price.toLocaleString()}</span>
-                    {course.originalPrice > course.price && (
-                      <span className="text-base text-slate-400 line-through">Ksh {course.originalPrice.toLocaleString()}</span>
-                    )}
-                  </div>
-                  {course.originalPrice > course.price && (
-                    <p className="text-xs text-emerald-600 font-semibold mb-5">
-                      {Math.round(((course.originalPrice - course.price) / course.originalPrice) * 100)}% off — limited time offer
-                    </p>
+                  {tier ? (
+                    <>
+                      <p className="text-xs font-semibold text-[#1A6EF5] uppercase tracking-widest mb-1">
+                        {tier.name} Tier
+                      </p>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-3xl font-bold text-slate-900">Ksh {tier.priceKes.toLocaleString()}</span>
+                      </div>
+                      <p className="text-xs text-slate-500 mb-5">
+                        One payment unlocks <strong>all {tier.name} courses</strong>, this one included.
+                      </p>
+                      <TierCheckoutButton
+                        tier={tier.id}
+                        label={`Get ${tier.name} Access`}
+                        className="block w-full bg-[#1A6EF5] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-60"
+                      />
+                    </>
+                  ) : (
+                    <a href="/pricing" className="block w-full bg-[#1A6EF5] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-blue-600 transition-colors">
+                      View Pricing
+                    </a>
                   )}
-
-                  <EnrollButton slug={course.slug} price={course.price} />
                 </div>
 
                 <div className="p-6">
