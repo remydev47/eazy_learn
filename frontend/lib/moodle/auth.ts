@@ -23,7 +23,7 @@ interface TokenResponse {
 export async function authenticateWithMoodle(
   username: string,
   password: string,
-): Promise<{ user: MoodleUser; role: UserRole } | null> {
+): Promise<{ user: MoodleUser; role: UserRole } | 'unverified' | null> {
   const params = new URLSearchParams({
     username,
     password,
@@ -45,6 +45,14 @@ export async function authenticateWithMoodle(
   const users = await moodleAPI.getUsersByField('username', [username])
   if (!users.length) return null
   const user = users[0]
+
+  // Block login until email is verified. Only users explicitly marked "0" (new
+  // self-signups awaiting verification) are blocked; pre-existing users with no
+  // emailverified field fall through as allowed.
+  const verifiedField = user.customfields?.find(
+    (f) => f.type === 'emailverified' || f.shortname === 'emailverified',
+  )
+  if (verifiedField && verifiedField.value === '0') return 'unverified'
 
   // 2. Resolve role. The user record returned by core_user_get_users_by_field has
   //    no `roles` field, so we have to do it via two side-channels: the user's own
