@@ -42,7 +42,8 @@ export async function authenticateWithMoodle(
   if (!data.token) return null
 
   // 1. Look up the user record via our admin service token (needed for fullname/email).
-  const users = await moodleAPI.getUsersByField('username', [username])
+  //    Uncached — login must see the current role + emailverified state.
+  const users = await moodleAPI.getUsersByField('username', [username], { revalidate: 0 })
   if (!users.length) return null
   const user = users[0]
 
