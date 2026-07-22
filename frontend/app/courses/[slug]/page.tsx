@@ -7,7 +7,9 @@ import Footer from "@/components/Footer";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import CourseCard from "@/components/CourseCard";
 import TierCheckoutButton from "@/components/TierCheckoutButton";
+import FreeEnrollButton from "@/components/FreeEnrollButton";
 import { getTierByLevel } from "@/lib/tiers";
+import { isFreeCourse } from "@/lib/free-courses";
 
 // ISR: detail pages refresh hourly. New courses added to Moodle after deploy
 // render on demand (dynamicParams defaults to true).
@@ -36,6 +38,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
   const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
   const tier = getTierByLevel(course.level);
+  const free = isFreeCourse(course.slug);
 
   // "Continue your learning journey" — pick two other courses from the same
   // category. Cheap because getCatalog is cached.
@@ -157,43 +160,25 @@ export default async function CourseDetailPage({ params }: Props) {
                 <CurriculumAccordion curriculum={course.curriculum} />
               </section>
 
-              {/* Meet the Instructor */}
-              <section className="bg-white border border-slate-200 rounded-xl p-6">
-                <h2 className="text-xl font-bold text-slate-900 mb-5">Meet your Instructor</h2>
-                <div className="flex gap-5">
-                  <div
-                    className={`w-16 h-16 ${course.instructor.color} rounded-xl flex items-center justify-center text-white text-xl font-bold shrink-0`}
-                  >
-                    {course.instructor.initials}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900">{course.instructor.name}</h3>
-                    <p className="text-xs font-semibold text-[#1A6EF5] uppercase tracking-wide mb-3">
-                      {course.instructor.title}
-                    </p>
-                    <p className="text-sm text-slate-600 leading-relaxed">{course.instructor.bio}</p>
-                    <div className="flex gap-3 mt-4">
-                      <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 hover:border-[#1A6EF5] hover:text-[#1A6EF5] transition-colors">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                        </svg>
-                      </button>
-                      <button className="w-8 h-8 border border-slate-200 rounded-lg flex items-center justify-center text-slate-500 hover:border-[#1A6EF5] hover:text-[#1A6EF5] transition-colors">
-                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </section>
+              {/* Instructor section hidden for now (client request); instructor data
+                  still lives in lib/course-metadata.ts for when it's re-enabled. */}
             </div>
 
             {/* ── RIGHT column: Sticky pricing card ── */}
             <div className="lg:sticky lg:top-20">
               <div className="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-lg">
                 <div className="p-6 border-b border-slate-100">
-                  {tier ? (
+                  {free ? (
+                    <>
+                      <div className="flex items-baseline gap-2 mb-1">
+                        <span className="text-3xl font-bold text-emerald-600">Free</span>
+                      </div>
+                      <p className="text-xs text-slate-500 mb-5">
+                        This course is free — enrol and start learning right away.
+                      </p>
+                      <FreeEnrollButton slug={course.slug} />
+                    </>
+                  ) : tier ? (
                     <>
                       <p className="text-xs font-semibold text-[#1A6EF5] uppercase tracking-widest mb-1">
                         {tier.name} Tier

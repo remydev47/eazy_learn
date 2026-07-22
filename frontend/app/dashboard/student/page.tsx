@@ -19,14 +19,6 @@ import { redirect } from "next/navigation";
 // Always render with the signed-in user's live Moodle data.
 export const dynamic = "force-dynamic";
 
-const avatarColors = [
-  "bg-blue-400",
-  "bg-violet-400",
-  "bg-amber-400",
-  "bg-emerald-400",
-  "bg-rose-400",
-];
-
 const navItems = [
   { label: "Dashboard", href: "/dashboard/student", icon: LayoutDashboard, active: true },
   { label: "My Courses", href: "/dashboard/student/courses", icon: BookOpen },
@@ -41,6 +33,7 @@ const fallbackImages = ["/assets/less4.webp", "/assets/less3.webp", "/assets/les
 
 interface DashboardCourse {
   id: number;
+  slug: string;
   title: string;
   description: string;
   category: string;
@@ -92,6 +85,7 @@ function mapCourseForCard(
   const initials = teachers.get(course.id) ?? [];
   return {
     id: course.id,
+    slug: course.shortname,
     title: course.fullname,
     description: stripHtml(course.summary) || "No description provided.",
     category: course.shortname.split("-")[0] || "General",
@@ -377,17 +371,7 @@ export default async function StudentDashboardPage() {
                     <div className="p-5">
                       <h3 className="font-bold text-slate-900 mb-1 leading-snug">{course.title}</h3>
                       <p className="text-sm text-slate-500 mb-4 line-clamp-2">{course.description}</p>
-                      <div className="flex items-center justify-between">
-                        <div className="flex -space-x-2">
-                          {course.instructors.map((initials, i) => (
-                            <div
-                              key={i}
-                              className={`w-7 h-7 ${avatarColors[i % avatarColors.length]} rounded-full border-2 border-white flex items-center justify-center`}
-                            >
-                              <span className="text-white text-xs font-semibold">{initials}</span>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="flex items-center justify-end">
                         <span className="text-sm font-semibold text-[#1A6EF5]">
                           {course.progress}% Complete
                         </span>
@@ -396,6 +380,20 @@ export default async function StudentDashboardPage() {
                         value={course.progress}
                         className="mt-3 h-1.5 [&>div]:bg-[#1A6EF5]"
                       />
+                      <div className="mt-4 flex gap-2">
+                        <a
+                          href={`${moodleUrl}/course/view.php?id=${course.id}`}
+                          className="flex-1 text-center text-xs font-semibold bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800 transition-colors"
+                        >
+                          Course content
+                        </a>
+                        <Link
+                          href={`/live/${course.slug}`}
+                          className="flex-1 text-center text-xs font-semibold border border-[#1A6EF5] text-[#1A6EF5] py-2 rounded-lg hover:bg-blue-50 transition-colors"
+                        >
+                          Join Live Class
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 ))}

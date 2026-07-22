@@ -37,3 +37,21 @@ export async function sendVerificationEmail(to: string, firstName: string, verif
     html,
   })
 }
+
+/** Deliver a contact-form submission to the KodeClass inbox. */
+export async function sendContactEmail(params: {
+  name: string
+  email: string
+  topic?: string
+  message: string
+}) {
+  const to = process.env.CONTACT_EMAIL || GMAIL_USER
+  await transporter().sendMail({
+    from: FROM,
+    to,
+    replyTo: params.email,
+    subject: `[KodeClass Contact] ${params.topic || 'Enquiry'} — ${params.name}`,
+    text: `From: ${params.name} <${params.email}>\nTopic: ${params.topic || '-'}\n\n${params.message}`,
+    html: `<p><strong>Name:</strong> ${params.name}</p><p><strong>Email:</strong> ${params.email}</p><p><strong>Topic:</strong> ${params.topic || '-'}</p><hr/><p>${params.message.replace(/\n/g, '<br>')}</p>`,
+  })
+}
