@@ -63,6 +63,11 @@ services:
       MOODLE_SSLPROXY: "yes"
       MOODLE_SKIP_BOOTSTRAP: "no"
       ALLOW_EMPTY_PASSWORD: "no"
+      # Allow larger course-content uploads (PDFs, slide decks, moderate videos).
+      # Large videos are better embedded from YouTube/Vimeo than uploaded here.
+      PHP_UPLOAD_MAX_FILESIZE: "1024M"
+      PHP_POST_MAX_SIZE: "1024M"
+      PHP_MEMORY_LIMIT: "512M"
     volumes:
       - moodle_data:/bitnami/moodle
       - moodle_files:/bitnami/moodledata

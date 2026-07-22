@@ -3,19 +3,17 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Mail, Phone, MapPin, Clock, Send, Check } from "lucide-react";
+import { Mail, MapPin, Clock, Send, Check } from "lucide-react";
 
 const contactInfo = [
-  { icon: Mail,    label: "Email",    value: "support@kodeclass.com",   href: "mailto:support@kodeclass.com" },
-  { icon: Phone,   label: "Phone",    value: "+1 (555) 010-4820",      href: "tel:+15550104820" },
-  { icon: MapPin,  label: "Address",  value: "Lagos · London · Remote", href: null },
-  { icon: Clock,   label: "Support",  value: "Mon–Fri, 9 am–6 pm UTC", href: null },
+  { icon: Mail,    label: "Email",    value: "kodetutors@gmail.com", href: "mailto:kodetutors@gmail.com" },
+  { icon: MapPin,  label: "Location", value: "Nairobi, Kenya",       href: null },
+  { icon: Clock,   label: "Support",  value: "Mon–Fri, 9 am–5 pm EAT", href: null },
 ];
 
 const topics = [
   "Course enquiry",
-  "Instructor application",
-  "Enterprise / team plans",
+  "Payments & enrolment",
   "Technical support",
   "Partnership",
   "Other",
@@ -94,19 +92,6 @@ export default function ContactPage() {
                 );
               })}
 
-              {/* FAQ nudge */}
-              <div className="mt-8 p-5 bg-slate-50 rounded-2xl border border-slate-200">
-                <p className="text-sm font-semibold text-slate-900 mb-1">Looking for quick answers?</p>
-                <p className="text-xs text-slate-500 mb-3">
-                  Browse our Help Centre for instant answers to the most common questions.
-                </p>
-                <a
-                  href="#"
-                  className="text-sm font-semibold text-[#1A6EF5] hover:underline"
-                >
-                  Visit Help Centre →
-                </a>
-              </div>
             </div>
 
             {/* Form */}
