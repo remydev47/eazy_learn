@@ -82,6 +82,37 @@ export async function getRevenueTotals(): Promise<{ totalKes: number; count: num
   }
 }
 
+export interface PaystackTxn {
+  reference: string
+  amountKes: number
+  status: string
+  email: string
+  paidAt: string | null
+  channel: string
+}
+
+/** Recent transactions (most recent first). Empty on failure. */
+export async function listTransactions(limit = 25): Promise<PaystackTxn[]> {
+  try {
+    const res = await fetch(`${API}/transaction?perPage=${limit}`, {
+      headers: { Authorization: `Bearer ${SECRET}` },
+      cache: 'no-store',
+    })
+    const json = await res.json()
+    if (!json.status || !Array.isArray(json.data)) return []
+    return json.data.map((t: Record<string, unknown>) => ({
+      reference: String(t.reference ?? ''),
+      amountKes: Math.round(Number(t.amount ?? 0) / 100),
+      status: String(t.status ?? ''),
+      email: String((t.customer as { email?: string })?.email ?? ''),
+      paidAt: (t.paid_at as string) ?? null,
+      channel: String(t.channel ?? ''),
+    }))
+  } catch {
+    return []
+  }
+}
+
 /** Validate a Paystack webhook signature (HMAC SHA512 of the raw body with the secret key). */
 export function isValidWebhookSignature(rawBody: string, signature: string | null): boolean {
   if (!signature || !SECRET) return false
