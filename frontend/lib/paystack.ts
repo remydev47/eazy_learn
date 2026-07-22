@@ -63,6 +63,25 @@ export async function verifyTransaction(reference: string): Promise<PaystackVeri
   return json.data
 }
 
+/** Total successful revenue (KES) + transaction count from Paystack. Test-mode figures
+ *  until live keys are set. Returns zeros if the call fails so the dashboard still renders. */
+export async function getRevenueTotals(): Promise<{ totalKes: number; count: number }> {
+  try {
+    const res = await fetch(`${API}/transaction/totals`, {
+      headers: { Authorization: `Bearer ${SECRET}` },
+      cache: 'no-store',
+    })
+    const json = await res.json()
+    if (!json.status) return { totalKes: 0, count: 0 }
+    const d = json.data ?? {}
+    const byCur: Array<{ currency: string; amount: number }> = d.total_volume_by_currency ?? []
+    const kes = byCur.find((c) => c.currency === 'KES')?.amount ?? d.total_volume ?? 0
+    return { totalKes: Math.round(kes / 100), count: d.total_transactions ?? 0 }
+  } catch {
+    return { totalKes: 0, count: 0 }
+  }
+}
+
 /** Validate a Paystack webhook signature (HMAC SHA512 of the raw body with the secret key). */
 export function isValidWebhookSignature(rawBody: string, signature: string | null): boolean {
   if (!signature || !SECRET) return false
