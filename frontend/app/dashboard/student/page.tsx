@@ -5,7 +5,7 @@ import {
   BookOpen,
   ClipboardList,
   Award,
-  MessageSquare,
+  Calendar,
   PlayCircle,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -23,8 +23,8 @@ const navItems = [
   { label: "Dashboard", href: "/dashboard/student", icon: LayoutDashboard, active: true },
   { label: "My Courses", href: "/dashboard/student/courses", icon: BookOpen },
   { label: "Assignments", href: "/dashboard/student/assignments", icon: ClipboardList },
+  { label: "Schedule", href: "/dashboard/student/schedule", icon: Calendar },
   { label: "Certificates", href: "/dashboard/student/certificates", icon: Award },
-  { label: "Messages", href: "/dashboard/student/messages", icon: MessageSquare },
 ];
 
 // Fallback course-card images used when Moodle returns the default generated SVG
