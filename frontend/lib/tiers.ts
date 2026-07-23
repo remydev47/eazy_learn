@@ -6,7 +6,8 @@ export interface TierPlan {
   id: TierId;
   name: string;
   level: Level; // matches CourseData.level
-  priceKes: number;
+  priceKes: number; // TIER price — buys every course in this level
+  coursePriceKes: number; // price of a SINGLE course in this level
   tagline: string;
   highlight?: boolean;
 }
@@ -23,6 +24,7 @@ export const TIERS: TierPlan[] = [
     name: "Beginner",
     level: "Beginner",
     priceKes: 3000,
+    coursePriceKes: 1000,
     tagline: "Access to all Beginner courses.",
   },
   {
@@ -30,6 +32,7 @@ export const TIERS: TierPlan[] = [
     name: "Intermediate",
     level: "Intermediate",
     priceKes: 7000,
+    coursePriceKes: 2000,
     tagline: "Access to all Intermediate courses.",
     highlight: true,
   },
@@ -38,6 +41,7 @@ export const TIERS: TierPlan[] = [
     name: "Advanced",
     level: "Advanced",
     priceKes: 10000,
+    coursePriceKes: 3000,
     tagline: "Access to all Advanced courses.",
   },
 ];
@@ -49,4 +53,9 @@ export function getTierById(id: string): TierPlan | undefined {
 /** Map a course's Level to its tier plan (for the "buy this tier" CTA on a course page). */
 export function getTierByLevel(level: Level): TierPlan | undefined {
   return TIERS.find((t) => t.level === level);
+}
+
+/** Single-course price for a given level (0 if unknown). */
+export function getCoursePriceByLevel(level: Level): number {
+  return getTierByLevel(level)?.coursePriceKes ?? 0;
 }

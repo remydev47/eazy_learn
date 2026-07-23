@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { getTierById } from '@/lib/tiers'
+import { getTierById, getCoursePriceByLevel } from '@/lib/tiers'
+import { getCatalogCourseBySlug } from '@/lib/moodle/catalog'
 import { initializeTransaction } from '@/lib/paystack'
 
 export const dynamic = 'force-dynamic'
 
 /**
- * Start a Paystack payment for a TIER (Beginner/Intermediate/Advanced). Paying a tier
- * enrols the student in every course of that level. The price comes from the server-side
- * tier config (never trusted from the client). Requires a logged-in user.
+ * Start a Paystack payment for either:
+ *   - a TIER (body.tier) → unlocks every course in that level, or
+ *   - a single COURSE (body.slug) → unlocks just that course.
+ * Prices come from server-side config (never trusted from the client). Requires login.
  */
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -16,16 +18,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'not_authenticated' }, { status: 401 })
   }
 
-  let tierId: string | undefined
+  let body: { tier?: string; slug?: string } = {}
   try {
-    const body = await req.json()
-    tierId = typeof body?.tier === 'string' ? body.tier : undefined
+    body = await req.json()
   } catch {
     /* ignore */
   }
-
-  const tier = tierId ? getTierById(tierId) : undefined
-  if (!tier) return NextResponse.json({ error: 'invalid_tier' }, { status: 400 })
 
   const origin = req.nextUrl.origin
   const rawEmail = session.user.email ?? ''
@@ -34,17 +32,30 @@ export async function POST(req: NextRequest) {
       ? `user${session.user.moodleId}@kodeclass.com`
       : rawEmail
 
+  let amountKes = 0
+  let metadata: Record<string, unknown> = { userId: session.user.moodleId }
+
+  if (body.tier) {
+    const tier = getTierById(body.tier)
+    if (!tier) return NextResponse.json({ error: 'invalid_tier' }, { status: 400 })
+    amountKes = tier.priceKes
+    metadata = { ...metadata, type: 'tier', tier: tier.id, tierName: tier.name }
+  } else if (body.slug) {
+    const course = await getCatalogCourseBySlug(body.slug)
+    if (!course?.moodleId) return NextResponse.json({ error: 'course_not_found' }, { status: 404 })
+    amountKes = getCoursePriceByLevel(course.level)
+    if (amountKes <= 0) return NextResponse.json({ error: 'course_not_purchasable' }, { status: 400 })
+    metadata = { ...metadata, type: 'course', courseId: course.moodleId, slug: course.slug, courseTitle: course.title }
+  } else {
+    return NextResponse.json({ error: 'missing_tier_or_slug' }, { status: 400 })
+  }
+
   try {
     const tx = await initializeTransaction({
       email,
-      amountKes: tier.priceKes,
+      amountKes,
       callbackUrl: `${origin}/payment/callback`,
-      metadata: {
-        type: 'tier',
-        tier: tier.id,
-        userId: session.user.moodleId,
-        tierName: tier.name,
-      },
+      metadata,
     })
     return NextResponse.json({ authorization_url: tx.authorization_url })
   } catch (err) {

@@ -6,6 +6,12 @@ import Link from "next/link";
 import type { CourseData, Level } from "@/lib/courses";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { getCoursePriceByLevel } from "@/lib/tiers";
+import { isFreeCourse } from "@/lib/free-courses";
+
+function priceLabel(c: CourseData) {
+  return isFreeCourse(c.slug) ? "Free" : `Ksh ${getCoursePriceByLevel(c.level).toLocaleString()}`;
+}
 
 const LEVELS: ("All Levels" | Level)[] = ["All Levels", "Beginner", "Intermediate", "Advanced"];
 
@@ -170,7 +176,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                     </div>
                     <h3 className="font-bold text-slate-900 text-sm leading-snug mb-4 line-clamp-2">{course.title}</h3>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-medium text-slate-500">{course.totalLessons} sessions</span>
+                      <span className="text-sm font-bold text-slate-900">{priceLabel(course)}</span>
                       <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
                         Learn More
                       </span>
@@ -207,7 +213,7 @@ export default function CoursesCatalogClient({ courses }: Props) {
                       <p className="text-xs text-slate-500 line-clamp-2">{course.shortDescription}</p>
                     </div>
                     <div className="flex items-center justify-between mt-3">
-                      <span className="text-xs text-slate-400">{course.duration}</span>
+                      <span className="text-sm font-bold text-slate-900">{priceLabel(course)}</span>
                       <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
                         Learn More
                       </span>
