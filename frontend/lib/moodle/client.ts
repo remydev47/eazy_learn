@@ -3,6 +3,7 @@ import type {
   ActivityCompletionResponse,
   AssignmentsResponse,
   CalendarEventsResponse,
+  CourseSection,
   LogEntriesResponse,
   MoodleCourse,
   MoodleException,
@@ -181,6 +182,15 @@ export const moodleAPI = {
       'core_course_get_courses',
       {},
       { revalidate: 60, tags: ['catalog'], ...opts },
+    )
+  },
+
+  /** Full contents of a course: sections → modules (activities/resources). */
+  getCourseContents(courseId: number, opts?: CallOptions) {
+    return callMoodle<CourseSection[]>(
+      'core_course_get_contents',
+      { courseid: courseId },
+      { revalidate: 60, ...opts },
     )
   },
 

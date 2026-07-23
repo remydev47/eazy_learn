@@ -13,7 +13,6 @@ const fallbackImages = ["/assets/less4.webp", "/assets/less3.webp", "/assets/les
 export default async function MyCoursesPage() {
   const session = await auth();
   if (!session?.user) redirect("/login");
-  const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
 
   const raw = await moodleAPI.getEnrolledCourses(session.user.moodleId).catch(() => []);
   const courses = raw.map((c, i) => {
@@ -56,7 +55,7 @@ export default async function MyCoursesPage() {
                     </div>
                     <Progress value={course.progress} className="mt-2 h-1.5 [&>div]:bg-[#1A6EF5]" />
                     <div className="mt-4 flex gap-2">
-                      <a href={`${moodleUrl}/course/view.php?id=${course.id}`} className="flex-1 text-center text-xs font-semibold bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800">Course content</a>
+                      <Link href={`/learn/${course.slug}`} className="flex-1 text-center text-xs font-semibold bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800">Course content</Link>
                       <Link href={`/live/${course.slug}`} className="flex-1 text-center text-xs font-semibold border border-[#1A6EF5] text-[#1A6EF5] py-2 rounded-lg hover:bg-blue-50">Join Live Class</Link>
                     </div>
                   </div>

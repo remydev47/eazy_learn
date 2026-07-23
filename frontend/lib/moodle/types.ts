@@ -37,6 +37,32 @@ export interface MoodleUser {
   }>
 }
 
+export interface CourseModuleContent {
+  type: string // 'file' | 'url' | ...
+  filename: string
+  fileurl?: string
+  mimetype?: string
+  filesize?: number
+}
+
+export interface CourseModule {
+  id: number
+  name: string
+  modname: string // 'resource' | 'url' | 'page' | 'label' | 'quiz' | 'assign' | 'forum' | ...
+  modplural?: string
+  url?: string // Moodle activity URL (for interactive modules)
+  description?: string
+  contents?: CourseModuleContent[]
+}
+
+export interface CourseSection {
+  id: number
+  name: string
+  section: number
+  summary?: string
+  modules: CourseModule[]
+}
+
 export interface MoodleCourse {
   id: number
   shortname: string

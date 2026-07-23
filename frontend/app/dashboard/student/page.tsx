@@ -162,7 +162,6 @@ async function getRecommendation(enrolledIds: number[]) {
 }
 
 export default async function StudentDashboardPage() {
-  const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
 
   // Middleware should redirect unauthenticated users; this is defense in depth.
   const session = await auth();
@@ -319,13 +318,13 @@ export default async function StudentDashboardPage() {
                   </div>
                   <span className="text-sm text-white/80">{inProgress.progress}% Complete</span>
                 </div>
-                <a
-                  href={`${moodleUrl}/course/view.php?id=${inProgress.id}`}
+                <Link
+                  href={`/learn/${inProgress.slug}`}
                   className="inline-flex items-center gap-2 bg-[#1A6EF5] hover:bg-blue-600 text-white font-semibold text-sm px-4 py-2.5 rounded-lg transition-colors"
                 >
                   <PlayCircle className="w-4 h-4" />
                   {inProgress.progress === 0 ? "Start course" : "Resume"}
-                </a>
+                </Link>
               </div>
             </div>
           ) : null}
@@ -381,12 +380,12 @@ export default async function StudentDashboardPage() {
                         className="mt-3 h-1.5 [&>div]:bg-[#1A6EF5]"
                       />
                       <div className="mt-4 flex gap-2">
-                        <a
-                          href={`${moodleUrl}/course/view.php?id=${course.id}`}
+                        <Link
+                          href={`/learn/${course.slug}`}
                           className="flex-1 text-center text-xs font-semibold bg-slate-900 text-white py-2 rounded-lg hover:bg-slate-800 transition-colors"
                         >
                           Course content
-                        </a>
+                        </Link>
                         <Link
                           href={`/live/${course.slug}`}
                           className="flex-1 text-center text-xs font-semibold border border-[#1A6EF5] text-[#1A6EF5] py-2 rounded-lg hover:bg-blue-50 transition-colors"
