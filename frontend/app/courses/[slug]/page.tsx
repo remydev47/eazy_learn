@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import CurriculumAccordion from "@/components/CurriculumAccordion";
 import CourseCard from "@/components/CourseCard";
 import TierCheckoutButton from "@/components/TierCheckoutButton";
+import CourseCheckoutButton from "@/components/CourseCheckoutButton";
 import FreeEnrollButton from "@/components/FreeEnrollButton";
 import { getTierByLevel } from "@/lib/tiers";
 import { isFreeCourse } from "@/lib/free-courses";
@@ -180,20 +181,27 @@ export default async function CourseDetailPage({ params }: Props) {
                     </>
                   ) : tier ? (
                     <>
-                      <p className="text-xs font-semibold text-[#1A6EF5] uppercase tracking-widest mb-1">
-                        {tier.name} Tier
-                      </p>
+                      <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">This course</p>
                       <div className="flex items-baseline gap-2 mb-1">
-                        <span className="text-3xl font-bold text-slate-900">Ksh {tier.priceKes.toLocaleString()}</span>
+                        <span className="text-3xl font-bold text-slate-900">Ksh {tier.coursePriceKes.toLocaleString()}</span>
                       </div>
-                      <p className="text-xs text-slate-500 mb-5">
-                        One payment unlocks <strong>all {tier.name} courses</strong>, this one included.
-                      </p>
-                      <TierCheckoutButton
-                        tier={tier.id}
-                        label={`Get ${tier.name} Access`}
+                      <p className="text-xs text-slate-500 mb-4">One-time payment for this single course.</p>
+                      <CourseCheckoutButton
+                        slug={course.slug}
+                        label="Buy this course"
                         className="block w-full bg-[#1A6EF5] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-60"
                       />
+
+                      <div className="mt-4 pt-4 border-t border-slate-100">
+                        <p className="text-xs text-slate-500 mb-2">
+                          Or get <strong>all {tier.name} courses</strong> for <strong>Ksh {tier.priceKes.toLocaleString()}</strong>:
+                        </p>
+                        <TierCheckoutButton
+                          tier={tier.id}
+                          label={`Get all ${tier.name} courses`}
+                          className="block w-full border border-[#1A6EF5] text-[#1A6EF5] text-sm font-bold text-center py-2.5 rounded-lg hover:bg-blue-50 transition-colors disabled:opacity-60"
+                        />
+                      </div>
                     </>
                   ) : (
                     <a href="/pricing" className="block w-full bg-[#1A6EF5] text-white text-sm font-bold text-center py-3.5 rounded-lg hover:bg-blue-600 transition-colors">

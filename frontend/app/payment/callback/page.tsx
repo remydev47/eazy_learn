@@ -25,8 +25,9 @@ export default async function PaymentCallbackPage({
             <CheckCircle2 className="w-14 h-14 text-emerald-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-slate-900 mb-2">You&apos;re enrolled! 🎉</h1>
             <p className="text-slate-500 mb-6">
-              Payment received. You now have access to{" "}
-              <strong>all {result.enrolled} {result.tier} courses</strong>. Start learning right away.
+              Payment received. {result.tier
+                ? <>You now have access to <strong>all {result.enrolled} {result.tier} courses</strong>.</>
+                : <>You&apos;re enrolled in your course.</>} Start learning right away.
             </p>
             <div className="flex flex-col gap-3">
               <Link
