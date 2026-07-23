@@ -1,132 +1,75 @@
-"use client";
-
 import Link from "next/link";
-import {
-  LayoutDashboard, BookOpen, Calendar, ClipboardList,
-  Award, MessageSquare, Settings, HelpCircle,
-} from "lucide-react";
-import { Progress } from "@/components/ui/progress";
+import { redirect } from "next/navigation";
+import { Calendar, Video } from "lucide-react";
+import { auth } from "@/lib/auth";
+import { moodleAPI } from "@/lib/moodle/client";
+import StudentSidebar from "@/components/dashboard/StudentSidebar";
 
-const nav = [
-  { label: "Dashboard",    href: "/dashboard/student",              icon: LayoutDashboard },
-  { label: "My Courses",   href: "/dashboard/student/courses",      icon: BookOpen },
-  { label: "Schedule",     href: "/dashboard/student/schedule",     icon: Calendar,       active: true },
-  { label: "Assignments",  href: "/dashboard/student/assignments",  icon: ClipboardList },
-  { label: "Certificates", href: "/dashboard/student/certificates", icon: Award },
-  { label: "Messages",     href: "/dashboard/student/messages",     icon: MessageSquare },
-  { label: "Settings",     href: "/dashboard/student/settings",     icon: Settings },
-  { label: "Help",         href: "/dashboard/student/help",         icon: HelpCircle },
-];
+export const dynamic = "force-dynamic";
 
-const upcoming = [
-  { day: "Mon", date: "Oct 28", time: "10:00 AM", title: "Live Q&A — UI/UX Fundamentals", type: "Live Session", color: "bg-[#1A6EF5]" },
-  { day: "Tue", date: "Oct 29", time: "11:59 PM", title: "Assignment: User Research Report", type: "Deadline", color: "bg-rose-500" },
-  { day: "Wed", date: "Oct 30", time: "2:00 PM",  title: "Peer Review — Data Visualisation", type: "Peer Review", color: "bg-blue-500" },
-  { day: "Thu", date: "Oct 31", time: "11:59 PM", title: "Quiz: Machine Learning Basics", type: "Quiz", color: "bg-amber-500" },
-  { day: "Fri", date: "Nov 1",  time: "3:00 PM",  title: "Office Hours — Prof. James Li", type: "Live Session", color: "bg-emerald-500" },
-];
+export default async function SchedulePage() {
+  const session = await auth();
+  if (!session?.user) redirect("/login");
 
-const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const hours = ["9 AM", "10 AM", "11 AM", "12 PM", "1 PM", "2 PM", "3 PM", "4 PM", "5 PM"];
+  const enrolled = await moodleAPI.getEnrolledCourses(session.user.moodleId).catch(() => []);
+  const courseIds = enrolled.map((c) => c.id);
+  const nowSec = Date.now() / 1000;
 
-export default function StudentSchedulePage() {
+  // Upcoming deadlines from assignments + calendar.
+  const deadlines: { title: string; ts: number }[] = [];
+  if (courseIds.length) {
+    try {
+      const a = await moodleAPI.getUpcomingAssignments(courseIds);
+      a.courses.forEach((c) => c.assignments.forEach((x) => { if (x.duedate > nowSec) deadlines.push({ title: x.name, ts: x.duedate }); }));
+    } catch { /* */ }
+    try {
+      const e = await moodleAPI.getCalendarEvents(courseIds);
+      e.events.forEach((ev) => { if (ev.timestart > nowSec) deadlines.push({ title: ev.name, ts: ev.timestart }); });
+    } catch { /* */ }
+  }
+  deadlines.sort((x, y) => x.ts - y.ts);
+
   return (
     <div className="min-h-screen flex bg-gray-50">
-      <aside className="w-52 shrink-0 bg-white border-r border-slate-100 flex flex-col">
-        <div className="px-5 pt-5 pb-4 border-b border-slate-100">
-          <Link href="/">
-            <span className="text-xl font-bold text-[#1A6EF5]">KodeClass</span>
-          </Link>
-          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">Academic Portal</p>
-        </div>
-        <nav className="flex-1 py-4 px-3 space-y-0.5">
-          {nav.map((item) => {
-            const Icon = item.icon;
-            return (
-              <Link key={item.href} href={item.href}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
-                  item.active ? "bg-[#1A6EF5] text-white" : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
-                }`}
-              >
-                <Icon className="w-4 h-4 shrink-0" />{item.label}
-              </Link>
-            );
-          })}
-        </nav>
-        <div className="mx-4 mb-4 p-3 bg-slate-50 rounded-xl border border-slate-100">
-          <p className="text-xs font-semibold text-slate-700 mb-2">System Health</p>
-          <Progress value={100} className="h-1.5 [&>div]:bg-emerald-500" />
-        </div>
-      </aside>
+      <StudentSidebar active="schedule" />
+      <main className="flex-1 overflow-y-auto">
+        <div className="max-w-4xl mx-auto px-6 py-8">
+          <h1 className="text-3xl font-bold text-slate-900">Schedule</h1>
+          <p className="text-slate-500 mt-1 mb-8">Your upcoming deadlines and live classes.</p>
 
-      <div className="flex-1 flex flex-col overflow-hidden">
-        <div className="bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-          <div>
-            <h1 className="text-xl font-bold text-slate-900">My Schedule</h1>
-            <p className="text-xs text-slate-500 mt-0.5">Week of Oct 28 – Nov 3, 2024</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <button className="px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">← Prev</button>
-            <button className="px-4 py-2 text-sm bg-[#1A6EF5] text-white rounded-lg hover:bg-blue-600 transition-colors">This week</button>
-            <button className="px-4 py-2 text-sm border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">Next →</button>
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto px-8 py-7">
-          <div className="grid grid-cols-3 gap-6">
-            {/* Week grid */}
-            <div className="col-span-2 bg-white rounded-2xl border border-slate-200 overflow-hidden">
-              <div className="grid grid-cols-8 border-b border-slate-100">
-                <div className="p-3 border-r border-slate-100" />
-                {weeks.map((d) => (
-                  <div key={d} className="p-3 text-center border-r border-slate-100 last:border-0">
-                    <p className="text-xs font-semibold text-slate-500">{d}</p>
-                  </div>
-                ))}
-              </div>
-              {hours.map((h) => (
-                <div key={h} className="grid grid-cols-8 border-b border-slate-50 last:border-0">
-                  <div className="p-2 pr-3 text-right text-xs text-slate-400 border-r border-slate-100 pt-3">{h}</div>
-                  {weeks.map((d) => {
-                    const hasEvent =
-                      (h === "10 AM" && d === "Mon") ||
-                      (h === "2 PM"  && d === "Wed") ||
-                      (h === "3 PM"  && d === "Fri");
-                    return (
-                      <div key={d} className="border-r border-slate-50 last:border-0 h-12 relative">
-                        {hasEvent && (
-                          <div className="absolute inset-1 rounded-md bg-[#1A6EF5]/10 border border-[#1A6EF5]/30 flex items-center px-1.5">
-                            <span className="text-[10px] font-semibold text-[#1A6EF5] truncate">Session</span>
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+          <h2 className="text-lg font-bold text-slate-900 mb-3">Live classes</h2>
+          {enrolled.length === 0 ? (
+            <p className="text-sm text-slate-400 mb-8">Enrol in a course to access live classes.</p>
+          ) : (
+            <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100 mb-10">
+              {enrolled.map((c) => (
+                <div key={c.id} className="flex items-center justify-between px-5 py-4">
+                  <span className="text-sm font-medium text-slate-800">{c.fullname}</span>
+                  <Link href={`/live/${c.shortname}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A6EF5] hover:underline">
+                    <Video className="w-3.5 h-3.5" /> Join room
+                  </Link>
                 </div>
               ))}
             </div>
+          )}
 
-            {/* Upcoming events */}
-            <div className="bg-white rounded-2xl border border-slate-200 p-6">
-              <h3 className="text-base font-bold text-slate-900 mb-4">Upcoming this week</h3>
-              <div className="space-y-3">
-                {upcoming.map((ev) => (
-                  <div key={ev.title} className="flex items-start gap-3">
-                    <div className={`mt-0.5 w-1.5 h-1.5 rounded-full ${ev.color} shrink-0`} />
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold text-slate-900 leading-snug line-clamp-2">{ev.title}</p>
-                      <p className="text-xs text-slate-500 mt-0.5">{ev.day} {ev.date} · {ev.time}</p>
-                      <span className="inline-block mt-1 text-[10px] font-semibold bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full">
-                        {ev.type}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+          <h2 className="text-lg font-bold text-slate-900 mb-3">Upcoming deadlines</h2>
+          {deadlines.length === 0 ? (
+            <div className="bg-white border border-dashed border-slate-200 rounded-2xl p-8 text-center text-slate-500">
+              <Calendar className="w-10 h-10 text-slate-300 mx-auto mb-3" /> No upcoming deadlines.
             </div>
-          </div>
+          ) : (
+            <div className="bg-white border border-slate-200 rounded-xl divide-y divide-slate-100">
+              {deadlines.map((d, i) => (
+                <div key={i} className="flex items-center justify-between px-5 py-4">
+                  <span className="text-sm font-medium text-slate-800">{d.title}</span>
+                  <span className="text-xs text-slate-500">{new Date(d.ts * 1000).toLocaleDateString("en-KE", { weekday: "short", day: "numeric", month: "short" })}</span>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
