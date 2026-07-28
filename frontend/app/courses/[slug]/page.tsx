@@ -10,7 +10,7 @@ import TierCheckoutButton from "@/components/TierCheckoutButton";
 import CourseCheckoutButton from "@/components/CourseCheckoutButton";
 import FreeEnrollButton from "@/components/FreeEnrollButton";
 import { getTierByLevel } from "@/lib/tiers";
-import { isFreeCourse } from "@/lib/free-courses";
+import { getPricing, tierPrice } from "@/lib/pricing";
 
 // ISR: detail pages refresh hourly. New courses added to Moodle after deploy
 // render on demand (dynamicParams defaults to true).
@@ -39,7 +39,10 @@ export default async function CourseDetailPage({ params }: Props) {
 
   const moodleUrl = process.env.NEXT_PUBLIC_MOODLE_URL ?? "#";
   const tier = getTierByLevel(course.level);
-  const free = isFreeCourse(course.slug);
+  const pricing = await getPricing();
+  const free = course.isFree ?? false;
+  const singlePrice = course.priceKes ?? course.price;
+  const tierAmount = tierPrice(pricing, course.level);
 
   // "Continue your learning journey" — pick two other courses from the same
   // category. Cheap because getCatalog is cached.
@@ -183,7 +186,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     <>
                       <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-1">This course</p>
                       <div className="flex items-baseline gap-2 mb-1">
-                        <span className="text-3xl font-bold text-slate-900">Ksh {tier.coursePriceKes.toLocaleString()}</span>
+                        <span className="text-3xl font-bold text-slate-900">Ksh {singlePrice.toLocaleString()}</span>
                       </div>
                       <p className="text-xs text-slate-500 mb-4">One-time payment for this single course.</p>
                       <CourseCheckoutButton
@@ -194,7 +197,7 @@ export default async function CourseDetailPage({ params }: Props) {
 
                       <div className="mt-4 pt-4 border-t border-slate-100">
                         <p className="text-xs text-slate-500 mb-2">
-                          Or get <strong>all {tier.name} courses</strong> for <strong>Ksh {tier.priceKes.toLocaleString()}</strong>:
+                          Or get <strong>all {tier.name} courses</strong> for <strong>Ksh {tierAmount.toLocaleString()}</strong>:
                         </p>
                         <TierCheckoutButton
                           tier={tier.id}

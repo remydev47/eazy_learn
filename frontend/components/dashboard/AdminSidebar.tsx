@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { LayoutDashboard, Users, BookOpen, DollarSign } from "lucide-react";
+import { LayoutDashboard, Users, BookOpen, DollarSign, Tag } from "lucide-react";
 import { signOut } from "@/lib/auth";
 
 const items = [
   { key: "dashboard", label: "Dashboard", href: "/dashboard/admin", icon: LayoutDashboard },
   { key: "users", label: "Users", href: "/dashboard/admin/users", icon: Users },
   { key: "courses", label: "Courses", href: "/dashboard/admin/courses", icon: BookOpen },
+  { key: "pricing", label: "Pricing", href: "/dashboard/admin/pricing", icon: Tag },
   { key: "revenue", label: "Revenue", href: "/dashboard/admin/revenue", icon: DollarSign },
 ];
 

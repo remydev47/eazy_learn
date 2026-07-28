@@ -1,7 +1,5 @@
 import Image from "next/image";
 import type { CourseData } from "@/lib/courses";
-import { getCoursePriceByLevel } from "@/lib/tiers";
-import { isFreeCourse } from "@/lib/free-courses";
 
 const levelColors: Record<string, string> = {
   Beginner: "bg-emerald-500",
@@ -45,9 +43,9 @@ export default function CourseCard({ course, variant = "grid" }: Props) {
         {/* Price + CTA */}
         <div className="mt-auto flex items-center justify-between">
           <span className="text-sm font-bold text-slate-900">
-            {isFreeCourse(course.slug)
+            {course.isFree
               ? <span className="text-emerald-600">Free</span>
-              : `Ksh ${getCoursePriceByLevel(course.level).toLocaleString()}`}
+              : `Ksh ${(course.priceKes ?? course.price).toLocaleString()}`}
           </span>
           <a
             href={courseUrl}

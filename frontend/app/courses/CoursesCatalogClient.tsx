@@ -6,11 +6,8 @@ import Link from "next/link";
 import type { CourseData, Level } from "@/lib/courses";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { getCoursePriceByLevel } from "@/lib/tiers";
-import { isFreeCourse } from "@/lib/free-courses";
-
 function priceLabel(c: CourseData) {
-  return isFreeCourse(c.slug) ? "Free" : `Ksh ${getCoursePriceByLevel(c.level).toLocaleString()}`;
+  return c.isFree ? "Free" : `Ksh ${(c.priceKes ?? c.price).toLocaleString()}`;
 }
 
 const LEVELS: ("All Levels" | Level)[] = ["All Levels", "Beginner", "Intermediate", "Advanced"];

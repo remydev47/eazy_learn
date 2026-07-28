@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { getTierById, getCoursePriceByLevel } from '@/lib/tiers'
+import { getTierById } from '@/lib/tiers'
+import { getPricing, tierPrice, coursePrice } from '@/lib/pricing'
 import { getCatalogCourseBySlug } from '@/lib/moodle/catalog'
 import { initializeTransaction } from '@/lib/paystack'
 
@@ -32,18 +33,19 @@ export async function POST(req: NextRequest) {
       ? `user${session.user.moodleId}@kodeclass.com`
       : rawEmail
 
+  const pricing = await getPricing()
   let amountKes = 0
   let metadata: Record<string, unknown> = { userId: session.user.moodleId }
 
   if (body.tier) {
     const tier = getTierById(body.tier)
     if (!tier) return NextResponse.json({ error: 'invalid_tier' }, { status: 400 })
-    amountKes = tier.priceKes
+    amountKes = tierPrice(pricing, tier.level)
     metadata = { ...metadata, type: 'tier', tier: tier.id, tierName: tier.name }
   } else if (body.slug) {
     const course = await getCatalogCourseBySlug(body.slug)
     if (!course?.moodleId) return NextResponse.json({ error: 'course_not_found' }, { status: 404 })
-    amountKes = getCoursePriceByLevel(course.level)
+    amountKes = coursePrice(pricing, course.level)
     if (amountKes <= 0) return NextResponse.json({ error: 'course_not_purchasable' }, { status: 400 })
     metadata = { ...metadata, type: 'course', courseId: course.moodleId, slug: course.slug, courseTitle: course.title }
   } else {

@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import TierCheckoutButton from "@/components/TierCheckoutButton";
 import { getCatalog } from "@/lib/moodle/catalog";
 import { TIERS } from "@/lib/tiers";
+import { getPricing, tierPrice } from "@/lib/pricing";
 
 export const revalidate = 60;
 
@@ -26,7 +27,7 @@ const faqs = [
 ];
 
 export default async function PricingPage() {
-  const catalog = await getCatalog();
+  const [catalog, pricing] = await Promise.all([getCatalog(), getPricing()]);
 
   return (
     <>
@@ -69,7 +70,7 @@ export default async function PricingPage() {
                     <div className="mb-6">
                       <div className="flex items-baseline gap-1">
                         <span className="text-4xl font-bold text-slate-900">
-                          Ksh {tier.priceKes.toLocaleString()}
+                          Ksh {tierPrice(pricing, tier.level).toLocaleString()}
                         </span>
                       </div>
                       <p className="text-xs text-slate-400 mt-1">

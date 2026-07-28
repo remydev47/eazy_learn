@@ -38,6 +38,10 @@ export interface CourseData {
   image: string;
   curriculum: Module[];
   moodleId?: number;
+  /** Live single-course price (KES) from the pricing store; set by getCatalog. */
+  priceKes?: number;
+  /** Whether this course is free (from the pricing store); set by getCatalog. */
+  isFree?: boolean;
 }
 
 export const courses: CourseData[] = [
