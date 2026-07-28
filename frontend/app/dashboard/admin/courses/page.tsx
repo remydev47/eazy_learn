@@ -2,8 +2,7 @@ import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { moodleAPI } from "@/lib/moodle/client";
 import { getCatalog } from "@/lib/moodle/catalog";
-import { getTierByLevel } from "@/lib/tiers";
-import { isFreeCourse } from "@/lib/free-courses";
+import { getPricing, coursePrice, isFree } from "@/lib/pricing";
 import AdminSidebar from "@/components/dashboard/AdminSidebar";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +12,7 @@ export default async function AdminCoursesPage() {
   if (!session?.user) redirect("/login");
   if (session.user.role !== "admin") redirect(`/dashboard/${session.user.role}`);
 
-  const catalog = await getCatalog();
+  const [catalog, pricing] = await Promise.all([getCatalog(), getPricing()]);
   const rows = await Promise.all(
     catalog.map(async (c) => {
       let enrolled = 0;
@@ -23,8 +22,7 @@ export default async function AdminCoursesPage() {
           enrolled = roster.filter((u) => u.roles?.some((r) => r.shortname.toLowerCase() === "student")).length;
         } catch { /* keep 0 */ }
       }
-      const tier = getTierByLevel(c.level);
-      const price = isFreeCourse(c.slug) ? "Free" : tier ? `Ksh ${tier.priceKes.toLocaleString()}` : "—";
+      const price = isFree(pricing, c.slug) ? "Free" : `Ksh ${coursePrice(pricing, c.level).toLocaleString()}`;
       return { c, enrolled, price };
     }),
   );
@@ -44,7 +42,7 @@ export default async function AdminCoursesPage() {
                   <tr className="border-b border-slate-100 text-left text-xs uppercase tracking-wide text-slate-400">
                     <th className="px-5 py-3 font-semibold">Course</th>
                     <th className="px-5 py-3 font-semibold">Level</th>
-                    <th className="px-5 py-3 font-semibold">Price (tier)</th>
+                    <th className="px-5 py-3 font-semibold">Course price</th>
                     <th className="px-5 py-3 font-semibold text-right">Enrolled</th>
                   </tr>
                 </thead>

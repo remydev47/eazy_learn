@@ -6,6 +6,7 @@ import { moodleAPI } from './client'
 import type { MoodleCourse } from './types'
 import { getCourseMetadata } from '../course-metadata'
 import type { CourseData } from '../courses'
+import { getPricing, coursePrice, isFree } from '../pricing'
 
 const FRONTPAGE_COURSE_ID = 1 // Moodle's built-in "Site" course — never in the catalog.
 
@@ -74,10 +75,19 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
  */
 export async function getCatalog(): Promise<CourseData[]> {
   try {
-    const raw = await moodleAPI.getAllCourses({ revalidate: 60 })
+    const [raw, pricing] = await Promise.all([
+      moodleAPI.getAllCourses({ revalidate: 60 }),
+      getPricing(),
+    ])
     return raw
       .filter((c) => c.id !== FRONTPAGE_COURSE_ID && c.visible !== 0)
       .map(mapMoodleCourse)
+      .map((c) => ({
+        ...c,
+        priceKes: coursePrice(pricing, c.level),
+        isFree: isFree(pricing, c.slug),
+        price: coursePrice(pricing, c.level),
+      }))
   } catch (err) {
     console.error('[catalog] getCatalog failed; serving empty catalog:', err)
     return []
@@ -87,10 +97,19 @@ export async function getCatalog(): Promise<CourseData[]> {
 /** Look up a single course by its URL slug (= Moodle shortname). Returns null on outage. */
 export async function getCatalogCourseBySlug(slug: string): Promise<CourseData | null> {
   try {
-    const result = await moodleAPI.getCoursesByField('shortname', slug, { revalidate: 60 })
+    const [result, pricing] = await Promise.all([
+      moodleAPI.getCoursesByField('shortname', slug, { revalidate: 60 }),
+      getPricing(),
+    ])
     const course = result.courses?.[0]
     if (!course || course.id === FRONTPAGE_COURSE_ID) return null
-    return mapMoodleCourse(course)
+    const mapped = mapMoodleCourse(course)
+    return {
+      ...mapped,
+      priceKes: coursePrice(pricing, mapped.level),
+      price: coursePrice(pricing, mapped.level),
+      isFree: isFree(pricing, mapped.slug),
+    }
   } catch (err) {
     console.error(`[catalog] getCatalogCourseBySlug(${slug}) failed:`, err)
     return null

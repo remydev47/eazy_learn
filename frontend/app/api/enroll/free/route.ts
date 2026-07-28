@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { getCatalogCourseBySlug } from '@/lib/moodle/catalog'
-import { isFreeCourse } from '@/lib/free-courses'
+import { getPricing, isFree } from '@/lib/pricing'
 import { moodleAPI } from '@/lib/moodle/client'
 
 export const dynamic = 'force-dynamic'
@@ -20,7 +20,8 @@ export async function POST(req: NextRequest) {
   } catch {
     /* ignore */
   }
-  if (!slug || !isFreeCourse(slug)) {
+  const pricing = await getPricing()
+  if (!slug || !isFree(pricing, slug)) {
     return NextResponse.json({ error: 'not_a_free_course' }, { status: 400 })
   }
 
