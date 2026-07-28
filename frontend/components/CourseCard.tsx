@@ -39,13 +39,7 @@ export default function CourseCard({ course, variant = "grid" }: Props) {
       </div>
 
       <div className="p-5 flex flex-col flex-1">
-        {/* Rating */}
-        <div className="flex items-center gap-1.5 mb-2">
-          <span className="text-amber-400 text-sm">★</span>
-          <span className="text-sm font-semibold text-slate-800">{course.rating}</span>
-          <span className="text-xs text-slate-400">({course.reviewCount.toLocaleString()} Reviews)</span>
-        </div>
-
+        <span className="text-[11px] font-semibold text-[#1A6EF5] uppercase tracking-wide mb-2">{course.category}</span>
         <h3 className="font-bold text-slate-900 text-sm leading-snug mb-4 line-clamp-2">{course.title}</h3>
 
         {/* Price + CTA */}
