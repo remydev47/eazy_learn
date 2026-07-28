@@ -169,12 +169,8 @@ export default function CoursesCatalogClient({ courses }: Props) {
                     </span>
                   </div>
                   <div className="p-5">
-                    <div className="flex items-center gap-1.5 mb-2">
-                      <span className="text-amber-400 text-sm">★</span>
-                      <span className="text-sm font-semibold text-slate-800">{course.rating}</span>
-                      <span className="text-xs text-slate-400">({course.reviewCount.toLocaleString()} Reviews)</span>
-                    </div>
-                    <h3 className="font-bold text-slate-900 text-sm leading-snug mb-4 line-clamp-2">{course.title}</h3>
+                    <span className="text-[11px] font-semibold text-[#1A6EF5] uppercase tracking-wide">{course.category}</span>
+                    <h3 className="font-bold text-slate-900 text-sm leading-snug mb-4 mt-1 line-clamp-2">{course.title}</h3>
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-bold text-slate-900">{priceLabel(course)}</span>
                       <span className="text-xs font-semibold bg-slate-900 text-white px-4 py-2 rounded-lg group-hover:bg-[#1A6EF5] transition-colors">
@@ -204,10 +200,8 @@ export default function CoursesCatalogClient({ courses }: Props) {
                   <div className="p-5 flex flex-col justify-between flex-1">
                     <div>
                       <div className="flex items-center gap-1.5 mb-1.5">
-                        <span className="text-amber-400 text-xs">★</span>
-                        <span className="text-xs font-semibold text-slate-800">{course.rating}</span>
-                        <span className="text-xs text-slate-400">({course.reviewCount.toLocaleString()} Reviews)</span>
-                        <span className="ml-2 text-xs text-slate-400 border border-slate-200 px-2 py-0.5 rounded-full">{course.category}</span>
+                        <span className="text-xs font-semibold text-[#1A6EF5] uppercase tracking-wide">{course.category}</span>
+                        <span className="ml-1 text-xs text-slate-400 border border-slate-200 px-2 py-0.5 rounded-full">{course.level}</span>
                       </div>
                       <h3 className="font-bold text-slate-900 text-sm leading-snug mb-1">{course.title}</h3>
                       <p className="text-xs text-slate-500 line-clamp-2">{course.shortDescription}</p>

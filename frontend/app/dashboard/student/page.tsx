@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { moodleAPI } from "@/lib/moodle/client";
 import { getCatalog } from "@/lib/moodle/catalog";
+import { getCourseMetadata } from "@/lib/course-metadata";
 import type { MoodleCourse } from "@/lib/moodle/types";
 import { auth, signOut } from "@/lib/auth";
 import { redirect } from "next/navigation";
@@ -88,7 +89,7 @@ function mapCourseForCard(
     slug: course.shortname,
     title: course.fullname,
     description: stripHtml(course.summary) || "No description provided.",
-    category: course.shortname.split("-")[0] || "General",
+    category: getCourseMetadata(course.shortname).category,
     progress,
     instructors: initials,
     image,
@@ -412,11 +413,6 @@ export default async function StudentDashboardPage() {
                       {recommended.shortDescription}
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {recommended.rating > 0 ? (
-                        <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
-                          {recommended.rating.toFixed(1)} ★ Rating
-                        </Badge>
-                      ) : null}
                       <Badge variant="outline" className="text-xs font-medium border-slate-300 text-slate-600">
                         {recommended.totalLessons} Sessions
                       </Badge>
