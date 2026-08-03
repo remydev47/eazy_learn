@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Step-by-step guide for creating and pricing a course in KodeClass (Moodle + admin dashboard).">
+<title>KodeClass — How to Set Up a Course</title>
+<style>
+  :root {
+    --accent: #1A6EF5;
+    --accent-soft: #E7EFFE;
+    --moodle: #C2620E;
+    --moodle-soft: #FBEEDD;
+    --ground: #F5F6F8;
+    --surface: #FFFFFF;
+    --surface-2: #FBFCFD;
+    --text: #0F172A;
+    --muted: #5B6472;
+    --border: #E4E7EC;
+    --success: #15803D;
+    --success-soft: #E3F3E8;
+    --warn: #B45309;
+    --warn-soft: #FBEFDC;
+    --rail: #D7DBE2;
+    --shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.05);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --accent: #5B94FF;
+      --accent-soft: #16233B;
+      --moodle: #E8A15A;
+      --moodle-soft: #2C2214;
+      --ground: #0D1015;
+      --surface: #161A21;
+      --surface-2: #1B2029;
+      --text: #E7EBF0;
+      --muted: #97A1AF;
+      --border: #262C36;
+      --success: #5BD08A;
+      --success-soft: #13251A;
+      --warn: #E7B15E;
+      --warn-soft: #2A2113;
+      --rail: #303743;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="light"] {
+    --accent: #1A6EF5; --accent-soft: #E7EFFE; --moodle: #C2620E; --moodle-soft: #FBEEDD;
+    --ground: #F5F6F8; --surface: #FFFFFF; --surface-2: #FBFCFD; --text: #0F172A; --muted: #5B6472;
+    --border: #E4E7EC; --success: #15803D; --success-soft: #E3F3E8; --warn: #B45309; --warn-soft: #FBEFDC;
+    --rail: #D7DBE2; --shadow: 0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.05);
+  }
+  :root[data-theme="dark"] {
+    --accent: #5B94FF; --accent-soft: #16233B; --moodle: #E8A15A; --moodle-soft: #2C2214;
+    --ground: #0D1015; --surface: #161A21; --surface-2: #1B2029; --text: #E7EBF0; --muted: #97A1AF;
+    --border: #262C36; --success: #5BD08A; --success-soft: #13251A; --warn: #E7B15E; --warn-soft: #2A2113;
+    --rail: #303743; --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--ground); color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px 80px; }
+
+  /* Header */
+  header.hero {
+    background: linear-gradient(135deg, var(--accent) 0%, #0F4FCB 100%);
+    color: #fff; padding: 48px 0 40px; margin-bottom: 40px;
+  }
+  header.hero .wrap { padding-bottom: 0; }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700;
+    opacity: .85; margin: 0 0 12px;
+  }
+  header.hero h1 {
+    font-size: clamp(28px, 5vw, 42px); line-height: 1.1; margin: 0 0 14px;
+    font-weight: 800; letter-spacing: -.02em; text-wrap: balance;
+  }
+  header.hero p { font-size: 17px; margin: 0; max-width: 60ch; opacity: .95; }
+  .hero-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .hero-meta span {
+    background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.25);
+    padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 600;
+  }
+
+  h2 {
+    font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .12em;
+    color: var(--muted); margin: 44px 0 18px;
+  }
+
+  /* Overview cards */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .mini {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px; box-shadow: var(--shadow);
+  }
+  .mini h3 { margin: 0 0 4px; font-size: 15px; font-weight: 700; }
+  .mini p { margin: 0; font-size: 14px; color: var(--muted); }
+  .mini .where { font-size: 12px; font-weight: 700; letter-spacing: .04em; }
+
+  /* System tags */
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .03em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px;
+    white-space: nowrap;
+  }
+  .tag.moodle { background: var(--moodle-soft); color: var(--moodle); }
+  .tag.site { background: var(--accent-soft); color: var(--accent); }
+  .tag .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  /* Steps timeline */
+  .steps { position: relative; margin: 0; padding: 0; list-style: none; }
+  .steps::before {
+    content: ""; position: absolute; left: 19px; top: 12px; bottom: 12px; width: 2px;
+    background: var(--rail);
+  }
+  .step { position: relative; padding: 0 0 22px 58px; }
+  .step:last-child { padding-bottom: 0; }
+  .step .num {
+    position: absolute; left: 0; top: 0; width: 40px; height: 40px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 800; font-size: 17px;
+    display: flex; align-items: center; justify-content: center; box-shadow: var(--shadow);
+    z-index: 1;
+  }
+  .card {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+    padding: 20px 22px; box-shadow: var(--shadow);
+  }
+  .card .head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+  .card h3 { margin: 0; font-size: 19px; font-weight: 750; letter-spacing: -.01em; }
+  .card .lead { margin: 4px 0 14px; color: var(--muted); font-size: 14.5px; }
+  ol.fields, ul.plain { margin: 0; padding-left: 0; list-style: none; }
+  ol.fields li, ul.plain li {
+    padding: 9px 0 9px 26px; position: relative; font-size: 15px; border-top: 1px solid var(--border);
+  }
+  ol.fields li:first-child, ul.plain li:first-child { border-top: 0; }
+  ol.fields li::before {
+    content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700;
+  }
+  ul.plain li::before {
+    content: ""; position: absolute; left: 4px; top: 17px; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+  }
+  .k { font-weight: 700; }
+  code {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: .88em;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 1px 6px; color: var(--text);
+  }
+
+  /* Callouts */
+  .callout {
+    display: flex; gap: 12px; border-radius: 12px; padding: 13px 15px; margin: 14px 0 0;
+    font-size: 14px; border: 1px solid; align-items: flex-start;
+  }
+  .callout .ic { font-size: 16px; line-height: 1.4; flex-shrink: 0; }
+  .callout.warn { background: var(--warn-soft); border-color: color-mix(in srgb, var(--warn) 35%, transparent); }
+  .callout.warn strong { color: var(--warn); }
+  .callout.tip { background: var(--success-soft); border-color: color-mix(in srgb, var(--success) 30%, transparent); }
+  .callout.tip strong { color: var(--success); }
+  .callout p { margin: 0; }
+
+  /* Pricing explainer */
+  .flow { display: flex; align-items: stretch; gap: 0; flex-wrap: wrap; margin-top: 4px; }
+  .flow .node {
+    flex: 1; min-width: 150px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow);
+  }
+  .flow .node .lbl { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; }
+  .flow .node .val { font-weight: 700; font-size: 15px; margin-top: 3px; }
+  .flow .arrow { display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 22px; font-weight: 700; padding: 0 4px; }
+
+  /* Table */
+  .tablewrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow); }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; background: var(--surface); min-width: 480px; }
+  th, td { text-align: left; padding: 12px 16px; border-top: 1px solid var(--border); vertical-align: top; }
+  th { background: var(--surface-2); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); border-top: 0; }
+  td.q { font-weight: 650; width: 42%; }
+
+  footer { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13px; }
+  footer a { color: var(--accent); text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .grid2 { grid-template-columns: 1fr; }
+    .step { padding-left: 50px; }
+    .flow .arrow { transform: rotate(90deg); padding: 2px 0; width: 100%; }
+    .flow .node { min-width: 100%; }
+  }
+</style>
+<style>@media print{body{background:#fff}header.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact}.step,.card,.mini,.tablewrap{break-inside:avoid}}</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">KodeClass LMS · Admin Guide</p>
+    <h1>How to set up a course, start to finish</h1>
+    <p>A course lives in two places: you build the <strong>content</strong> in Moodle, and you control the <strong>price</strong> on your KodeClass admin dashboard. This guide walks through both — no code, no developer needed.</p>
+    <div class="hero-meta">
+      <span>⏱ ~15 min per course</span>
+      <span>🔧 No technical skills</span>
+      <span>💡 Changes appear instantly</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>The two places you'll work</h2>
+  <div class="grid2">
+    <div class="mini">
+      <span class="tag moodle"><span class="dot"></span>In Moodle</span>
+      <h3 style="margin-top:10px">lms.kodeclass.com</h3>
+      <p>Create the course, add lessons, videos, PDFs, and the course image. This is your content workshop.</p>
+    </div>
+    <div class="mini">
+      <span class="tag site"><span class="dot"></span>On kodeclass.com</span>
+      <h3 style="margin-top:10px">Admin → Pricing</h3>
+      <p>Set what each course and bundle costs, and mark courses free. This is your storefront control.</p>
+    </div>
+  </div>
+  <div class="callout tip">
+    <span class="ic">✅</span>
+    <p><strong>Log in to both first.</strong> Use your admin account on <em>lms.kodeclass.com</em> (Moodle) and your admin account on <em>kodeclass.com</em> (the dashboard). They are separate logins.</p>
+  </div>
+
+  <h2>The steps</h2>
+  <ol class="steps">
+
+    <li class="step">
+      <div class="num">1</div>
+      <div class="card">
+        <div class="head">
+          <span class="tag moodle"><span class="dot"></span>In Moodle</span>
+          <h3>Create the course</h3>
+        </div>
+        <p class="lead">Site administration → Courses → <span class="k">Add a new course</span>. Fill in these fields:</p>
+        <ol class="fields">
+          <li><span class="k">Course full name</span> — the title shown everywhere (e.g. <em>Introduction to Graphics</em>).</li>
+          <li><span class="k">Course short name</span> — becomes the web address (e.g. <code>intro-graphics</code> → kodeclass.com/courses/<strong>intro-graphics</strong>). Use lowercase with hyphens.</li>
+          <li><span class="k">Course category</span> — choose <strong>Beginner</strong>, <strong>Intermediate</strong>, or <strong>Advanced</strong>. <em>This is what sets the price band.</em></li>
+          <li><span class="k">Course visibility</span> — set to <strong>Show</strong> (hidden courses never appear on the website).</li>
+          <li><span class="k">Course image</span> — upload a picture. It becomes the card thumbnail on the website.</li>
+        </ol>
+        <div class="callout warn">
+          <span class="ic">⚠️</span>
+          <p><strong>The short name is the web link — don't change it later.</strong> Editing it after launch breaks the course's URL and any links you've shared. Pick it carefully the first time.</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="num">2</div>
+      <div class="card">
+        <div class="head">
+          <span class="tag moodle"><span class="dot"></span>In Moodle</span>
+          <h3>Add the lessons</h3>
+        </div>
+        <p class="lead">Open the course, switch on <span class="k">Edit mode</span> (top-right). Add sections (e.g. <em>Module 1</em>), and inside each use <span class="k">Add an activity or resource</span>:</p>
+        <ul class="plain">
+          <li><span class="k">File</span> — PDFs, videos and images play <strong>inline</strong> on the site. PowerPoint/Excel files show as a <strong>Download</strong> button.</li>
+          <li><span class="k">URL</span> — paste a YouTube or Vimeo link and it embeds as a video player.</li>
+          <li><span class="k">Text and media area</span> or <span class="k">Page</span> — for written lessons, with images that display right in the lesson.</li>
+        </ul>
+        <div class="callout tip">
+          <span class="ic">⚡</span>
+          <p><strong>It shows up immediately.</strong> Save in Moodle and refresh the website — the new lesson is there. No waiting, no publishing step. For lessons meant to be watched or read on the page, prefer <strong>video or PDF</strong> over PowerPoint.</p>
+        </div>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="num">3</div>
+      <div class="card">
+        <div class="head">
+          <span class="tag site"><span class="dot"></span>On kodeclass.com</span>
+          <h3>Set the price</h3>
+        </div>
+        <p class="lead">Log in to <strong>kodeclass.com</strong> as admin → <span class="k">Dashboard → Pricing</span>. Set three things:</p>
+        <ol class="fields">
+          <li><span class="k">Per-course price</span> — the cost of one single course, by level (Beginner / Intermediate / Advanced).</li>
+          <li><span class="k">Tier bundle price</span> — the cost to unlock <em>all</em> courses in one level.</li>
+          <li><span class="k">Free courses</span> — tick any course you want to offer at no cost.</li>
+        </ol>
+        <p class="lead" style="margin-top:14px;margin-bottom:0">Click <span class="k">Save</span> — prices update across the catalogue, course pages, and checkout instantly.</p>
+      </div>
+    </li>
+
+    <li class="step">
+      <div class="num">4</div>
+      <div class="card">
+        <div class="head">
+          <span class="tag site"><span class="dot"></span>On kodeclass.com</span>
+          <h3>Check it live</h3>
+        </div>
+        <ul class="plain">
+          <li>Open <span class="k">kodeclass.com/courses</span> — your course card appears with its image, level, and price.</li>
+          <li>Click the course to see its full page, then <span class="k">Learn</span> to preview the lessons.</li>
+        </ul>
+        <div class="callout tip">
+          <span class="ic">🎉</span>
+          <p><strong>That's it — the course is live.</strong> Free courses let learners start right away; paid courses send them through Paystack (M-Pesa or card) and enrol them automatically after payment.</p>
+        </div>
+      </div>
+    </li>
+  </ol>
+
+  <h2>How pricing is decided</h2>
+  <p style="margin-top:-6px;color:var(--muted);font-size:14.5px">The category you pick in Moodle (Step&nbsp;1) chooses which price applies. To move a course to a different price band, just change its Moodle category.</p>
+  <div class="flow">
+    <div class="node"><div class="lbl">Moodle category</div><div class="val">Beginner</div></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="lbl">Sets the level</div><div class="val">Beginner tier</div></div>
+    <div class="arrow">→</div>
+    <div class="node"><div class="lbl">Price from dashboard</div><div class="val">Beginner price</div></div>
+  </div>
+
+  <h2>If something looks wrong</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>What you see</th><th>The fix</th></tr></thead>
+      <tbody>
+        <tr><td class="q">Course isn't on the website</td><td>In Moodle, check visibility is <strong>Show</strong> and the course is inside a Beginner / Intermediate / Advanced category.</td></tr>
+        <tr><td class="q">Wrong price on the card</td><td>The course is in the wrong category. Move it to the category whose price you want.</td></tr>
+        <tr><td class="q">No thumbnail (placeholder image)</td><td>No course image was uploaded. Edit the course in Moodle and add a Course image.</td></tr>
+        <tr><td class="q">A file won't play on the page</td><td>It's a PowerPoint/Excel file — those only download. Re-upload it as a <strong>PDF or video</strong> to play inline.</td></tr>
+        <tr><td class="q">Learner sees "Enrol to access"</td><td>Expected for paid courses before payment. If it should be free, tick it under Dashboard → Pricing → Free.</td></tr>
+        <tr><td class="q">New lesson not showing</td><td>Refresh the page. If still missing, confirm you saved it in Moodle and the section isn't hidden.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p><strong>Quick recap:</strong> Build content &amp; upload the image in <strong>Moodle</strong> → pick the category to set the price band → set the actual prices on <strong>kodeclass.com → Pricing</strong> → check it live. Everything about a course is now managed by you, no developer required.</p>
+    <p>KodeClass LMS · Admin course-setup guide</p>
+  </footer>
+</div>
+</body>
+</html>

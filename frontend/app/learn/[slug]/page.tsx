@@ -1,15 +1,14 @@
 import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
-import { FileText, Video, Link2 } from "lucide-react";
+import { FileText, Video, Link2, Lock } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { getCatalogCourseBySlug } from "@/lib/moodle/catalog";
 import { moodleAPI } from "@/lib/moodle/client";
 import { rewriteAndSanitize } from "@/lib/moodle/html";
 import type { CourseModule } from "@/lib/moodle/types";
+import NoContextMenu from "@/components/learn/NoContextMenu";
 
 export const dynamic = "force-dynamic";
-
-const MOODLE_URL = process.env.MOODLE_URL ?? "";
 
 const proxy = (fileurl: string) => `/api/course-file?url=${encodeURIComponent(fileurl)}`;
 
@@ -36,19 +35,38 @@ function ModuleView({ m }: { m: CourseModule }) {
         {m.contents.filter((c) => c.type === "file" && c.fileurl).map((c, i) => {
           const url = proxy(c.fileurl!);
           if (c.mimetype?.startsWith("video/")) {
-            return <video key={i} controls className="w-full rounded-lg border border-slate-200"><source src={url} type={c.mimetype} /></video>;
+            // controlsList/disablePictureInPicture strip the browser's download button.
+            return (
+              <NoContextMenu key={i}>
+                <video
+                  controls
+                  controlsList="nodownload noplaybackrate noremoteplayback"
+                  disablePictureInPicture
+                  className="w-full rounded-lg border border-slate-200"
+                >
+                  <source src={url} type={c.mimetype} />
+                </video>
+              </NoContextMenu>
+            );
           }
           if (c.mimetype?.startsWith("image/")) {
-            // eslint-disable-next-line @next/next/no-img-element
-            return <img key={i} src={url} alt={c.filename} className="max-w-full rounded-lg border border-slate-200" />;
+            return (
+              <NoContextMenu key={i}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={url} alt={c.filename} draggable={false} className="max-w-full rounded-lg border border-slate-200 select-none" />
+              </NoContextMenu>
+            );
           }
           if (c.mimetype === "application/pdf") {
-            return <iframe key={i} src={url} title={c.filename} className="w-full h-[70vh] rounded-lg border border-slate-200" />;
+            // #toolbar=0 hides the built-in viewer's download/print controls.
+            return <iframe key={i} src={`${url}#toolbar=0&navpanes=0`} title={c.filename} className="w-full h-[70vh] rounded-lg border border-slate-200" />;
           }
+          // Office/other formats can't be shown inline without handing the file over —
+          // so they're not offered as a download. Upload as PDF/video to display in-app.
           return (
-            <a key={i} href={url} download className="inline-flex items-center gap-2 text-sm font-medium text-[#1A6EF5] border border-[#1A6EF5]/40 rounded-lg px-3.5 py-2 hover:bg-blue-50 transition-colors">
-              <FileText className="w-4 h-4" /> Download {c.filename}
-            </a>
+            <div key={i} className="inline-flex items-center gap-2 text-sm text-slate-500 border border-slate-200 rounded-lg px-3.5 py-2 bg-slate-50">
+              <Lock className="w-4 h-4 text-slate-400" /> {c.filename} — shared during the live session
+            </div>
           );
         })}
       </div>
