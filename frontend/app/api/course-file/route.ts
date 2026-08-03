@@ -20,8 +20,12 @@ export async function GET(req: NextRequest) {
     return new NextResponse('Bad request', { status: 400 })
   }
 
-  // Use the token-authenticated pluginfile endpoint.
-  let target = fileUrl.replace('/pluginfile.php/', '/webservice/pluginfile.php/')
+  // Use the token-authenticated pluginfile endpoint. Moodle may already hand back a
+  // /webservice/pluginfile.php/ URL — only rewrite when it hasn't, so we never produce
+  // a broken /webservice/webservice/ path (which 404s).
+  let target = fileUrl.includes('/webservice/pluginfile.php/')
+    ? fileUrl
+    : fileUrl.replace('/pluginfile.php/', '/webservice/pluginfile.php/')
   target += (target.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(MOODLE_TOKEN)
 
   const res = await fetch(target, { cache: 'no-store' })
