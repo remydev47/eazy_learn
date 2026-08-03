@@ -4,11 +4,28 @@
 import 'server-only'
 import { moodleAPI } from './client'
 import type { MoodleCourse } from './types'
-import { getCourseMetadata } from '../course-metadata'
-import type { CourseData } from '../courses'
+import { getCourseMetadata, KNOWN_SHORTNAMES } from '../course-metadata'
+import type { CourseData, Level } from '../courses'
 import { getPricing, coursePrice, isFree } from '../pricing'
 
 const FRONTPAGE_COURSE_ID = 1 // Moodle's built-in "Site" course — never in the catalog.
+const KNOWN = new Set(KNOWN_SHORTNAMES)
+
+/** Level (which drives price) is read from the course's Moodle category name, so the
+ *  client sets it entirely in Moodle — put a course under Beginner/Intermediate/Advanced. */
+function levelFromCategory(categoryname?: string): Level | null {
+  const n = (categoryname ?? '').toLowerCase()
+  if (n.includes('beginner')) return 'Beginner'
+  if (n.includes('intermediate')) return 'Intermediate'
+  if (n.includes('advanced')) return 'Advanced'
+  return null
+}
+
+/** Moodle course "overview" image → our public thumbnail proxy (token added server-side). */
+function overviewImage(course: MoodleCourse): string | null {
+  const file = course.overviewfiles?.find((f) => f.mimetype?.startsWith('image/') && f.fileurl)
+  return file ? `/api/course-image?url=${encodeURIComponent(file.fileurl)}` : null
+}
 
 function stripHtml(html: string): string {
   return html.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
@@ -23,7 +40,16 @@ function shortDescriptionFrom(summary: string, maxLen = 180): string {
 /** Convert a Moodle course + demo metadata into the existing CourseData shape. */
 export function mapMoodleCourse(course: MoodleCourse): CourseData {
   const meta = getCourseMetadata(course.shortname)
-  const overview = stripHtml(course.summary) || meta.category
+  // Self-service overrides read straight from Moodle:
+  //  • level  → the course's Moodle category (drives price)
+  //  • image  → the uploaded course image (falls back to a placeholder)
+  //  • category badge → topical label for known courses, else the Moodle category
+  const level = levelFromCategory(course.categoryname) ?? meta.level
+  const image = overviewImage(course) ?? meta.image
+  const category = KNOWN.has(course.shortname)
+    ? meta.category
+    : (course.categoryname?.trim() || meta.category)
+  const overview = stripHtml(course.summary) || category
   return {
     id: course.id,
     slug: course.shortname,
@@ -31,7 +57,7 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
     shortDescription: shortDescriptionFrom(course.summary),
     overview,
     whatYouLearn: [
-      `Master the fundamentals of ${meta.category.toLowerCase()}`,
+      `Master the fundamentals of ${category.toLowerCase()}`,
       `Apply what you learn in ${meta.totalSessions} live sessions`,
       'Build a portfolio project you can show employers',
       'Get feedback from a working instructor every week',
@@ -39,8 +65,8 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
       'Certificate of completion when you finish',
     ],
     instructor: meta.instructor,
-    category: meta.category,
-    level: meta.level,
+    category,
+    level,
     rating: meta.rating,
     reviewCount: meta.reviewCount,
     studentCount: meta.studentCount,
@@ -48,7 +74,7 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
     totalLessons: meta.totalSessions,
     price: meta.priceKes,
     originalPrice: meta.originalPriceKes,
-    image: meta.image,
+    image,
     // Curriculum is placeholder for the demo. Real lesson structure would come
     // from `core_course_get_contents` (per-course sections + modules).
     curriculum: [
@@ -75,11 +101,11 @@ export function mapMoodleCourse(course: MoodleCourse): CourseData {
  */
 export async function getCatalog(): Promise<CourseData[]> {
   try {
-    const [raw, pricing] = await Promise.all([
-      moodleAPI.getAllCourses({ revalidate: 60 }),
+    const [result, pricing] = await Promise.all([
+      moodleAPI.getAllCoursesDetailed({ revalidate: 60 }),
       getPricing(),
     ])
-    return raw
+    return (result.courses ?? [])
       .filter((c) => c.id !== FRONTPAGE_COURSE_ID && c.visible !== 0)
       .map(mapMoodleCourse)
       .map((c) => ({

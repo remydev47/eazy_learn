@@ -185,6 +185,20 @@ export const moodleAPI = {
     )
   },
 
+  /**
+   * All courses WITH rich fields (categoryname, overviewfiles/course image, teacher
+   * contacts) — the plain core_course_get_courses call omits these. Passing no field
+   * returns every visible course. This is what the catalog uses so level/price/
+   * thumbnail all derive from Moodle with no per-course code.
+   */
+  getAllCoursesDetailed(opts?: CallOptions) {
+    return callMoodle<{ courses: MoodleCourse[]; warnings?: unknown[] }>(
+      'core_course_get_courses_by_field',
+      {},
+      { revalidate: 10, tags: ['catalog'], ...opts },
+    )
+  },
+
   /** Full contents of a course: sections → modules (activities/resources). */
   getCourseContents(courseId: number, opts?: CallOptions) {
     return callMoodle<CourseSection[]>(
