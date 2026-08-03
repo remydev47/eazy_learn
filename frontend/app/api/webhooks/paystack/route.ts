@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     const result = await fulfillPayment(event.data.reference)
     // Always 200 so Paystack doesn't retry endlessly; log failures for follow-up.
     if (!result.ok) console.error('[webhook] fulfill failed:', result.reason, event.data.reference)
+    else if (result.alreadyProcessed) console.log('[webhook] replay ignored (already fulfilled):', event.data.reference)
   }
 
   return NextResponse.json({ received: true })

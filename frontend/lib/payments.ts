@@ -9,6 +9,8 @@ export interface FulfillResult {
   reason?: string
   tier?: string
   enrolled?: number
+  /** True when there was nothing new to do (webhook replay / callback + webhook race). */
+  alreadyProcessed?: boolean
 }
 
 /**
@@ -32,7 +34,15 @@ export async function fulfillPayment(reference: string): Promise<FulfillResult> 
     const courseId = Number(tx.metadata?.courseId)
     if (!courseId) return { ok: false, reason: 'missing courseId' }
     try {
+      // Idempotency: enrolment state is the processed-marker. If already enrolled,
+      // this is a replay (Paystack retry, or callback + webhook both firing) — no-op.
+      const enrolledCourses = await moodleAPI.getEnrolledCourses(userId, { revalidate: 0 }).catch(() => [])
+      if (enrolledCourses.some((c) => c.id === courseId)) {
+        return { ok: true, enrolled: 0, alreadyProcessed: true }
+      }
       await moodleAPI.enrolUser(userId, courseId)
+      // (Any one-time side effect — e.g. a confirmation email — belongs HERE, after a
+      //  fresh enrol, so replays short-circuit above and it fires exactly once.)
       return { ok: true, enrolled: 1 }
     } catch (err) {
       console.error('[payments] course enrol failed:', err)
@@ -49,8 +59,16 @@ export async function fulfillPayment(reference: string): Promise<FulfillResult> 
   const courses = catalog.filter((c) => c.level === tier.level && c.moodleId)
   if (courses.length === 0) return { ok: false, reason: `no courses for tier ${tier.id}`, tier: tier.id }
 
+  // Idempotency + self-healing: only enrol the courses they don't already have.
+  // A replay finds everything enrolled → alreadyProcessed; a partial prior run
+  // completes the rest.
+  const enrolledCourses = await moodleAPI.getEnrolledCourses(userId, { revalidate: 0 }).catch(() => [])
+  const enrolledIds = new Set(enrolledCourses.map((c) => c.id))
+  const toEnrol = courses.filter((c) => !enrolledIds.has(c.moodleId!))
+  if (toEnrol.length === 0) return { ok: true, tier: tier.id, enrolled: 0, alreadyProcessed: true }
+
   let enrolled = 0
-  for (const course of courses) {
+  for (const course of toEnrol) {
     try {
       await moodleAPI.enrolUser(userId, course.moodleId!)
       enrolled++
