@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
-import { FileText, Video, Link2, FileQuestion, PenSquare, MessageCircle, ExternalLink } from "lucide-react";
+import { FileText, Video, Link2 } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { getCatalogCourseBySlug } from "@/lib/moodle/catalog";
 import { moodleAPI } from "@/lib/moodle/client";
+import { rewriteAndSanitize } from "@/lib/moodle/html";
 import type { CourseModule } from "@/lib/moodle/types";
 
 export const dynamic = "force-dynamic";
@@ -20,15 +21,11 @@ function ytEmbed(url: string): string | null {
   return null;
 }
 
-// Rewrite Moodle pluginfile links in HTML (labels) to go through our token proxy.
-function rewriteHtml(html: string): string {
-  return html.replace(/(src|href)="([^"]*\/pluginfile\.php\/[^"]*)"/g, (_m, attr, url) => `${attr}="${proxy(url)}"`);
-}
-
 function ModuleView({ m }: { m: CourseModule }) {
-  if (m.modname === "label") {
-    return m.description ? (
-      <div className="prose prose-sm max-w-none text-slate-700" dangerouslySetInnerHTML={{ __html: rewriteHtml(m.description) }} />
+  if (m.modname === "label" || m.modname === "page") {
+    const html = rewriteAndSanitize(m.description);
+    return html ? (
+      <div className="prose prose-sm prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: html }} />
     ) : null;
   }
 
@@ -73,17 +70,12 @@ function ModuleView({ m }: { m: CourseModule }) {
     );
   }
 
-  // Interactive / other activities run in Moodle.
-  const icon = m.modname === "quiz" ? FileQuestion : m.modname === "assign" ? PenSquare : m.modname === "forum" ? MessageCircle : FileText;
-  const Icon = icon;
+  // Any other content-bearing module: show its name only (no external Moodle link —
+  // learners stay inside kodeclass.com and never hit Moodle's login wall).
   return (
-    <div className="flex items-center justify-between">
-      <span className="font-medium text-slate-800 flex items-center gap-2"><Icon className="w-4 h-4 text-slate-400" />{m.name}</span>
-      {m.url && (
-        <a href={m.url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A6EF5] hover:underline">
-          Open <ExternalLink className="w-3.5 h-3.5" />
-        </a>
-      )}
+    <div className="flex items-center gap-2">
+      <FileText className="w-4 h-4 text-slate-400" />
+      <span className="font-medium text-slate-800">{m.name}</span>
     </div>
   );
 }
@@ -116,16 +108,21 @@ export default async function LearnPage({ params }: { params: Promise<{ slug: st
     );
   }
 
+  // Modules that require a Moodle login (quizzes, assignments, forums, etc.) are
+  // hidden: this platform doesn't use Moodle for assessment and learners have no
+  // Moodle session, so those links would only lead to a dead login wall.
+  const MOODLE_ONLY = new Set([
+    "forum", "quiz", "assign", "workshop", "choice", "feedback",
+    "survey", "chat", "lesson", "scorm", "wiki", "glossary", "data",
+  ]);
+
   // Always fresh — content uploaded in Moodle appears immediately (no cache).
   const sections = (await moodleAPI.getCourseContents(course.moodleId, { revalidate: 0 }).catch(() => []))
     .map((s) => ({
-      // Hide Moodle's default "Announcements" forum — it's not course content.
       ...s,
-      modules: (s.modules ?? []).filter(
-        (m) => !(m.modname === "forum" && /announcement/i.test(m.name)),
-      ),
+      modules: (s.modules ?? []).filter((m) => !MOODLE_ONLY.has(m.modname)),
     }))
-    .filter((s) => s.modules.length > 0);
+    .filter((s) => s.modules.length > 0 || (s.summary?.trim() ?? "") !== "");
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -153,6 +150,9 @@ export default async function LearnPage({ params }: { params: Promise<{ slug: st
                   <h2 className="font-bold text-slate-900">{s.name || `Section ${s.section}`}</h2>
                 </div>
                 <div className="p-6 space-y-6">
+                  {(s.summary?.trim() ?? "") !== "" && (
+                    <div className="prose prose-sm prose-slate max-w-none" dangerouslySetInnerHTML={{ __html: rewriteAndSanitize(s.summary) }} />
+                  )}
                   {s.modules.map((m) => (
                     <div key={m.id}><ModuleView m={m} /></div>
                   ))}

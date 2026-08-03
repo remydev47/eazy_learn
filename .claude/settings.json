@@ -34,7 +34,10 @@
       "Bash(ssh -o BatchMode=yes root@173.212.225.99 'set -e *)",
       "Bash(curl -s --max-time 25 https://kodeclass.com/courses)",
       "Bash(grep -oE 'Ksh [0-9,]+|\\\\$[0-9]+\\\\.00')",
-      "Bash(curl -s --max-time 25 https://kodeclass.com/courses/intro-aws)"
+      "Bash(curl -s --max-time 25 https://kodeclass.com/courses/intro-aws)",
+      "Bash(npm install *)",
+      "Bash(echo \"deps EXIT=$?\")",
+      "Bash(echo \"types EXIT=$?\")"
     ],
     "additionalDirectories": [
       "/Users/brianrimi/Documents/deploy/EazytechLMS/frontend/.git",
