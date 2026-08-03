@@ -120,7 +120,7 @@ export const moodleAPI = {
     return callMoodle<MoodleCourse[]>(
       'core_enrol_get_users_courses',
       { userid: userId },
-      { revalidate: 60, tags: [`user:${userId}:courses`], ...opts },
+      { revalidate: 10, tags: [`user:${userId}:courses`], ...opts },
     )
   },
 
@@ -181,7 +181,7 @@ export const moodleAPI = {
     return callMoodle<MoodleCourse[]>(
       'core_course_get_courses',
       {},
-      { revalidate: 60, tags: ['catalog'], ...opts },
+      { revalidate: 10, tags: ['catalog'], ...opts },
     )
   },
 
@@ -190,7 +190,7 @@ export const moodleAPI = {
     return callMoodle<CourseSection[]>(
       'core_course_get_contents',
       { courseid: courseId },
-      { revalidate: 60, ...opts },
+      { revalidate: 0, ...opts },
     )
   },
 
@@ -199,7 +199,7 @@ export const moodleAPI = {
     return callMoodle<{ courses: MoodleCourse[]; warnings?: unknown[] }>(
       'core_course_get_courses_by_field',
       { field, value },
-      { revalidate: 60, ...opts },
+      { revalidate: 10, ...opts },
     )
   },
 
