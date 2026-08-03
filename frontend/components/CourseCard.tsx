@@ -28,6 +28,7 @@ export default function CourseCard({ course, variant = "grid" }: Props) {
           fill
           className="object-cover"
           sizes="(max-width: 768px) 100vw, 33vw"
+          unoptimized={course.image.startsWith('/api/')}
         />
         <span
           className={`absolute top-3 left-3 ${levelColors[course.level]} text-white text-xs font-semibold px-2.5 py-1 rounded-md`}

@@ -118,6 +118,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   className="object-cover"
                   sizes="360px"
                   priority
+                  unoptimized={course.image.startsWith('/api/')}
                 />
               </div>
             </div>
