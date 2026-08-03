@@ -24,7 +24,11 @@ export async function GET(req: NextRequest) {
     return new NextResponse('Bad request', { status: 400 })
   }
 
-  let target = fileUrl.replace('/pluginfile.php/', '/webservice/pluginfile.php/')
+  // Only rewrite to the token endpoint when Moodle hasn't already — avoids a broken
+  // /webservice/webservice/ path.
+  let target = fileUrl.includes('/webservice/pluginfile.php/')
+    ? fileUrl
+    : fileUrl.replace('/pluginfile.php/', '/webservice/pluginfile.php/')
   target += (target.includes('?') ? '&' : '?') + 'token=' + encodeURIComponent(MOODLE_TOKEN)
 
   const res = await fetch(target, { cache: 'no-store' })
