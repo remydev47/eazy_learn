@@ -49,8 +49,8 @@ function ModuleView({ m }: { m: CourseModule }) {
             return <iframe key={i} src={url} title={c.filename} className="w-full h-[70vh] rounded-lg border border-slate-200" />;
           }
           return (
-            <a key={i} href={url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm text-[#1A6EF5] hover:underline">
-              <FileText className="w-4 h-4" /> {c.filename}
+            <a key={i} href={url} download className="inline-flex items-center gap-2 text-sm font-medium text-[#1A6EF5] border border-[#1A6EF5]/40 rounded-lg px-3.5 py-2 hover:bg-blue-50 transition-colors">
+              <FileText className="w-4 h-4" /> Download {c.filename}
             </a>
           );
         })}
@@ -116,8 +116,16 @@ export default async function LearnPage({ params }: { params: Promise<{ slug: st
     );
   }
 
-  const sections = (await moodleAPI.getCourseContents(course.moodleId, { revalidate: 30 }).catch(() => []))
-    .filter((s) => s.modules && s.modules.length > 0);
+  // Always fresh — content uploaded in Moodle appears immediately (no cache).
+  const sections = (await moodleAPI.getCourseContents(course.moodleId, { revalidate: 0 }).catch(() => []))
+    .map((s) => ({
+      // Hide Moodle's default "Announcements" forum — it's not course content.
+      ...s,
+      modules: (s.modules ?? []).filter(
+        (m) => !(m.modname === "forum" && /announcement/i.test(m.name)),
+      ),
+    }))
+    .filter((s) => s.modules.length > 0);
 
   return (
     <div className="min-h-screen bg-slate-50">
