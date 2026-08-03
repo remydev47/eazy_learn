@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect, notFound } from "next/navigation";
-import { FileText, Video, Link2, Lock } from "lucide-react";
+import { FileText, Video, Link2 } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { getCatalogCourseBySlug } from "@/lib/moodle/catalog";
 import { moodleAPI } from "@/lib/moodle/client";
@@ -61,12 +61,13 @@ function ModuleView({ m }: { m: CourseModule }) {
             // #toolbar=0 hides the built-in viewer's download/print controls.
             return <iframe key={i} src={`${url}#toolbar=0&navpanes=0`} title={c.filename} className="w-full h-[70vh] rounded-lg border border-slate-200" />;
           }
-          // Office/other formats can't be shown inline without handing the file over —
-          // so they're not offered as a download. Upload as PDF/video to display in-app.
+          // Office/other formats can't render inline in a browser, so they must be
+          // opened as a file (there's no view-without-download for these — convert to
+          // PDF to get inline display with downloads disabled).
           return (
-            <div key={i} className="inline-flex items-center gap-2 text-sm text-slate-500 border border-slate-200 rounded-lg px-3.5 py-2 bg-slate-50">
-              <Lock className="w-4 h-4 text-slate-400" /> {c.filename} — shared during the live session
-            </div>
+            <a key={i} href={url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-sm font-medium text-[#1A6EF5] border border-[#1A6EF5]/40 rounded-lg px-3.5 py-2 hover:bg-blue-50 transition-colors">
+              <FileText className="w-4 h-4" /> Open {c.filename}
+            </a>
           );
         })}
       </div>
